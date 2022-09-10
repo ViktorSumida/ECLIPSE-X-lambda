@@ -115,7 +115,7 @@ elif profile == 'quadratic' or 'square-root' or 'logarithmic' or 'exponential':
 raio = 373.  # default (pixel)
 intensidadeMaxima = 240  # default
 tamanhoMatriz = 856  # default
-raioStar = 0.21  # parâmetro_mudar raio da estrela em relacao ao raio do sol
+raioStar = 0.89  # parâmetro_mudar raio da estrela em relacao ao raio do sol
 raioStar = raioStar * 696340  # multiplicando pelo raio solar em Km
 #coeficienteHum = 0.65
 #coeficienteDois = 0.28
@@ -205,7 +205,7 @@ while (count1 < num_elements):
 
     dec = ValidarEscolha("Deseja calular o semieixo Orbital do planeta através da 3a LEI DE KEPLER? 1. Sim 2.Não |")
     if dec == 1:
-        mass = 0.18  # parâmetro_mudar colocar massa da estrela em relação a massa do sol
+        mass = 0.86  # parâmetro_mudar colocar massa da estrela em relação a massa do sol
         semieixoorbital = calSemiEixo(periodo, mass)
         semiEixoRaioStar = ((semieixoorbital / 1000) / raioStar)
         # transforma em km para fazer em relação ao raio da estrela
@@ -215,7 +215,7 @@ while (count1 < num_elements):
         semiEixoRaioStar = ((1.469 * (10 ** 8)) * semiEixoRaioStar) / raioStar
         # multiplicando pelas UA (transformando em Km) e convertendo em relacao ao raio da estrela
 
-    raioPlanetaRstar = 0.101  # parâmetro_mudar em relação ao raio de jupiter
+    raioPlanetaRstar = 0.283  # parâmetro_mudar em relação ao raio de jupiter
     raioPlanetaRstar = (raioPlanetaRstar * 69911) / raioStar  # multiplicando pelo raio de jupiter em km
 
     latsugerida = calculaLat(semiEixoRaioStar, anguloInclinacao)
@@ -232,13 +232,9 @@ while (count1 < num_elements):
 ####################################################################################
 
 quantidade = 1 # parâmetro_mudar quantidade de manchas desejadas, se quiser acrescentar, mude essa variavel
-#lat = [-1.8039614718231283, -1.8039614718231283] # informação dada quando rodar o programa
-lat = [10] # parâmetro_mudar informação dada quando rodar o programa
+lat = [12] # parâmetro_mudar informação dada quando rodar o programa
 longt = [0] # parâmetro_mudar
-#longt = [0, 60]
-r = [0.1] # parâmetro_mudar Digite o raio da mancha em função do raio da estrela em pixels
-#r = [0.05, 0.08] #Digite o raio da mancha em função do raio da estrela em pixels
-f_spot = np.sum(r) # f_spot definido em Rackham et al (2018, 2019)
+r = [0.20] # parâmetro_mudar Digite o raio da mancha em função do raio da estrela em pixels
 
 #####################################################################################
 
@@ -295,8 +291,12 @@ while (count3 < num_elements):
         count += 1
 
 
+    area_spot = np.sum(fa)
+    area_star = np.pi * (raioStar ** 2)
+    f_spot = area_spot / area_star
+    print('área da mancha: ', area_spot)
+    print('razao r_pot/r_star: ', f_spot)
     fatorEpsilon = 1 / (1 - (f_spot * (1 - intensidadeManchaRazao[count3])))
-
     print('epsilon = ', fatorEpsilon)
 
 
@@ -330,7 +330,7 @@ while (count3 < num_elements):
     rmoon = rmoon * 6371  # parâmetro_mudar multiplicando pelo R da terra em Km
     mass = 0.001  # parâmetro_mudar em relacao a massa da Terra
     mass = mass * (5.972 * (10 ** 24))
-    massPlaneta = 0.0052  # parâmetro_mudar em relacao ao R de jupiter
+    massPlaneta = 0.0321  # parâmetro_mudar em relacao ao R de jupiter
     massPlaneta = massPlaneta * (1.898 * (10 ** 27))  # passar para gramas por conta da constante G
     G = (6.674184 * (10 ** (-11)))
     perLua = 0.1  # parâmetro_mudar em dias
@@ -381,7 +381,7 @@ while(count4 < num_elements):
     print("Máxima profundidade de trânsito: ", min(stack_curvaLuz[count4]))
     count4 += 1
 
-pyplot.axis([-tempoTransito / 2, tempoTransito / 2, min(curvaLuz) - 0.005, 1.001])
+pyplot.axis([-tempoTransito / 2, tempoTransito / 2, min(curvaLuz) - 0.0005, 1.001])
 legend = pyplot.legend()
 legend.set_title("Wavelength [nm]")
 
