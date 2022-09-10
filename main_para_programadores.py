@@ -232,9 +232,9 @@ while (count1 < num_elements):
 ####################################################################################
 
 quantidade = 1 # parâmetro_mudar quantidade de manchas desejadas, se quiser acrescentar, mude essa variavel
-lat = [12] # parâmetro_mudar informação dada quando rodar o programa
+lat = [7] # parâmetro_mudar informação dada quando rodar o programa
 longt = [0] # parâmetro_mudar
-r = [0.20] # parâmetro_mudar Digite o raio da mancha em função do raio da estrela em pixels
+r = [0.10] # parâmetro_mudar Digite o raio da mancha em função do raio da estrela em pixels
 
 #####################################################################################
 
