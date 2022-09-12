@@ -83,7 +83,7 @@ class Eclipse:
         self.yl = moon.getyl()
         return moon
 
-    def criarEclipse(self, semiEixoRaioStar, raioPlanetaRstar, periodo, anguloInclinacao, lua, ecc, anom, fatorEpsilon):
+    def criarEclipse(self, semiEixoRaioStar, raioPlanetaRstar, periodo, anguloInclinacao, lua, ecc, anom):
 
         '''
         Criação da classe eclipse, que retornará a curva de luz do trânsito do planeta ao redor da estrela
@@ -103,7 +103,6 @@ class Eclipse:
         self.raioPlanetaRstar = raioPlanetaRstar
         self.periodo = periodo
         self.anguloInclinacao = anguloInclinacao
-        self.fatorEpsilon = fatorEpsilon
 
         dtor = np.pi / 180.
         semiEixoPixel = self.semiEixoRaioStar * self.raioEstrelaPixel

@@ -232,9 +232,9 @@ while (count1 < num_elements):
 ####################################################################################
 
 quantidade = 1 # parâmetro_mudar quantidade de manchas desejadas, se quiser acrescentar, mude essa variavel
-lat = [7] # parâmetro_mudar informação dada quando rodar o programa
+lat = [-2.10] # parâmetro_mudar informação dada quando rodar o programa
 longt = [0] # parâmetro_mudar
-r = [0.10] # parâmetro_mudar Digite o raio da mancha em função do raio da estrela em pixels
+r = [0.025] # parâmetro_mudar Digite o raio da mancha em função do raio da estrela em pixels
 
 #####################################################################################
 
@@ -297,7 +297,7 @@ while (count3 < num_elements):
     print('área da mancha: ', area_spot)
     print('razao r_pot/r_star: ', f_spot)
     fatorEpsilon = 1 / (1 - (f_spot * (1 - intensidadeManchaRazao[count3])))
-    print('epsilon = ', fatorEpsilon)
+    print('epsilon de Rackham= ', fatorEpsilon)
 
 
 
@@ -343,7 +343,7 @@ while (count3 < num_elements):
 
 
     # eclipse
-    eclipse.criarEclipse(semiEixoRaioStar, raioPlanetaRstar, periodo, anguloInclinacao, lua, ecc, anom, fatorEpsilon)
+    eclipse.criarEclipse(semiEixoRaioStar, raioPlanetaRstar, periodo, anguloInclinacao, lua, ecc, anom)
 
     print("Tempo Total (Trânsito):", eclipse.getTempoTransito())
     tempoTransito = eclipse.getTempoTransito()
@@ -381,14 +381,17 @@ while(count4 < num_elements):
     print("Máxima profundidade de trânsito: ", min(stack_curvaLuz[count4]))
     count4 += 1
 
-pyplot.axis([-tempoTransito / 2, tempoTransito / 2, min(curvaLuz) - 0.0005, 1.001])
+pyplot.axis([-tempoTransito / 2, tempoTransito / 2, min(curvaLuz) - 0.00025, 1.0001])
 legend = pyplot.legend()
 legend.set_title("Wavelength [nm]")
 
 #print("Máxima profundidade de trânsito: ", min(curvaLuz))
 
-pyplot.xlabel("time from transit center (hr)", fontsize=17)
-pyplot.ylabel("relative flux", fontsize=17)
+pyplot.xlabel("time from transit center (hr)", fontsize=25)
+pyplot.ylabel("relative flux", fontsize=25)
+
+pyplot.tick_params(axis="x", direction="in", labelsize=15)
+pyplot.tick_params(axis="y", direction="in", labelsize=15)
 
 
 pyplot.show()
