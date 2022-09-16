@@ -37,27 +37,27 @@ y2 = np.poly1d(z2)
 
 fig = plt.figure()
 
-#graph1 = fig.add_subplot(1, 1, 1)
-#graph1.set_title('HD 69830 b', fontsize=20, fontweight='bold')
-#graph1.set_ylabel('$\epsilon$', fontsize=25, labelpad=20, fontweight="bold") # labelpad é a distância entre o título e o eixo
-#graph1.set_xlabel('R$_{spot}$/R$_{star}$', fontsize=20, labelpad=20, fontweight="bold")
-#graph1.plot(frac_r_spot_r_star, epsilon,  'o', linestyle='none', markersize=7, color='red')
-#graph1.plot(frac_r_spot_r_star, epsilon_Rackham,  'o', linestyle='none', markersize=7, color='blue')
-#graph1.tick_params(axis="x", direction="in", labelsize=12)
-#graph1.tick_params(axis="y", direction="in", labelsize=12)
-#plt.plot(frac_r_spot_r_star, y1(frac_r_spot_r_star), "-", color='red') # ajuste polinomial
+graph1 = fig.add_subplot(1, 1, 1)
+graph1.set_title('HD 69830 b', fontsize=20, fontweight='bold')
+graph1.set_ylabel('$\epsilon$', fontsize=30, fontweight="bold") # labelpad é a distância entre o título e o eixo
+graph1.set_xlabel('R$_{spot}$/R$_{star}$', fontsize=20, fontweight="bold")
+graph1.plot(frac_r_spot_r_star, epsilon,  'o', linestyle='none', markersize=7, color='red')
+graph1.plot(frac_r_spot_r_star, epsilon_Rackham,  'o', linestyle='none', markersize=7, color='blue')
+graph1.tick_params(axis="x", direction="in", labelsize=12)
+graph1.tick_params(axis="y", direction="in", labelsize=12)
+plt.plot(frac_r_spot_r_star, y1(frac_r_spot_r_star), "-", color='red') # ajuste polinomial
 
 
 
-graph2 = fig.add_subplot(1, 1, 1)
-#graph2.set_title('HD 69830 b', fontsize=20, fontweight='bold')
-graph2.set_ylabel('D$_{\mathrm{unnoc}}$ -- D$_{\mathrm{phot}}$ [ppm]', fontsize=25, fontweight="bold") # labelpad é a distância entre o título e o eixo
-graph2.set_xlabel('wavelength (nm)', fontsize=20, fontweight="bold")
-graph2.plot(wavelength, D_phot_unnoc,  'o', linestyle='none', markersize=7, color='red')
-#graph2.plot(wavelength, D_phot_unnoc, '-', color='black')
-graph2.tick_params(axis="x", direction="in", labelsize=12)
-graph2.tick_params(axis="y", direction="in", labelsize=12)
-plt.plot(wavelength, y2(wavelength), "-", color='red') # ajuste polinomial
+#graph2 = fig.add_subplot(1, 1, 1)
+##graph2.set_title('HD 69830 b', fontsize=20, fontweight='bold')
+#graph2.set_ylabel('D$_{\mathrm{unnoc}}$ -- D$_{\mathrm{phot}}$ [ppm]', fontsize=25, fontweight="bold") # labelpad é a distância entre o título e o eixo
+#graph2.set_xlabel('wavelength (nm)', fontsize=20, fontweight="bold")
+#graph2.plot(wavelength, D_phot_unnoc,  'o', linestyle='none', markersize=7, color='red')
+##graph2.plot(wavelength, D_phot_unnoc, '-', color='black')
+#graph2.tick_params(axis="x", direction="in", labelsize=12)
+#graph2.tick_params(axis="y", direction="in", labelsize=12)
+#plt.plot(wavelength, y2(wavelength), "-", color='red') # ajuste polinomial
 
 
 plt.show()

@@ -54,163 +54,166 @@ class estrela:
         # self.colors = ["gray","pink","hot"]
         error = 0
 
+        auxProfiles = ['linear', 'quadratic', 'square-root', 'logarithmic', 'exponential', '3-parameter', '4-parameter']
+        if profile in auxProfiles:
 ############################################################################################################
 ###################### for "quadratic" #####################################################################
 ############################################################################################################
-        if profile == 'quadratic':
-            self.estrela = [[0.0 for i in range(self.tamanhoMatriz)] for j in range(self.tamanhoMatriz)]
-            for j in range(len(self.estrela)):
-                for i in range(len(self.estrela[j])):
-                    distanciaCentro = math.sqrt(pow(i - self.tamanhoMatriz / 2, 2) + pow(j - self.tamanhoMatriz / 2, 2))
-                    if distanciaCentro <= self.raio:
-                        cosTheta = math.sqrt(1 - pow(distanciaCentro / self.raio, 2))
-                        self.estrela[i][j] = int(self.intensidadeMaxima * (
+            if profile == 'quadratic':
+                self.estrela = [[0.0 for i in range(self.tamanhoMatriz)] for j in range(self.tamanhoMatriz)]
+                for j in range(len(self.estrela)):
+                    for i in range(len(self.estrela[j])):
+                        distanciaCentro = math.sqrt(pow(i - self.tamanhoMatriz / 2, 2) + pow(j - self.tamanhoMatriz / 2, 2))
+                        if distanciaCentro <= self.raio:
+                            cosTheta = math.sqrt(1 - pow(distanciaCentro / self.raio, 2))
+                            self.estrela[i][j] = int(self.intensidadeMaxima * (
+                                        1 - self.coeficienteHum * (1 - cosTheta) - self.coeficienteDois * (
+                                    pow(1 - cosTheta, 2))))
+
+                self.error = error
+                self.Nx = self.tamanhoMatriz
+                self.Ny = self.tamanhoMatriz
+                # self.color = random.choice(self.colors)
+                self.color = "hot"
+                # Plotar(self.tamanhoMatriz,self.estrela)
+
+    ############################################################################################################
+    ###################### for "non-linear 4-parameters" #######################################################
+    ############################################################################################################
+            if profile == '4-parameter':
+                self.estrela = [[0.0 for i in range(self.tamanhoMatriz)] for j in range(self.tamanhoMatriz)]
+                for j in range(len(self.estrela)):
+                    for i in range(len(self.estrela[j])):
+                        distanciaCentro = math.sqrt(
+                            pow(i - self.tamanhoMatriz / 2, 2) + pow(j - self.tamanhoMatriz / 2, 2))
+                        if distanciaCentro <= self.raio:
+                            cosTheta = math.sqrt(1 - pow(distanciaCentro / self.raio, 2))
+                            self.estrela[i][j] = int(self.intensidadeMaxima * (
+                                    1 - self.coeficienteHum * (1 - pow(cosTheta, 1/2)) - self.coeficienteDois * (
+                                1 - cosTheta) - self.coeficienteTres * (1 - pow(cosTheta, 3/2)) - self.coeficienteQuatro * (
+                                1 - pow(cosTheta, 2))))
+
+                self.error = error
+                self.Nx = self.tamanhoMatriz
+                self.Ny = self.tamanhoMatriz
+                # self.color = random.choice(self.colors)
+                self.color = "hot"
+                # Plotar(self.tamanhoMatriz,self.estrela)
+
+    ############################################################################################################
+    ###################### for "non-linear 3-parameters" #######################################################
+    ############################################################################################################
+            if profile == '3-parameter':
+                self.estrela = [[0.0 for i in range(self.tamanhoMatriz)] for j in range(self.tamanhoMatriz)]
+                for j in range(len(self.estrela)):
+                    for i in range(len(self.estrela[j])):
+                        distanciaCentro = math.sqrt(
+                            pow(i - self.tamanhoMatriz / 2, 2) + pow(j - self.tamanhoMatriz / 2, 2))
+                        if distanciaCentro <= self.raio:
+                            cosTheta = math.sqrt(1 - pow(distanciaCentro / self.raio, 2))
+                            self.estrela[i][j] = int(self.intensidadeMaxima * (
                                     1 - self.coeficienteHum * (1 - cosTheta) - self.coeficienteDois * (
-                                pow(1 - cosTheta, 2))))
+                                    1 - pow(cosTheta, 3/2)) - self.coeficienteTres * (
+                                            1 - pow(cosTheta, 2))))
 
-            self.error = error
-            self.Nx = self.tamanhoMatriz
-            self.Ny = self.tamanhoMatriz
-            # self.color = random.choice(self.colors)
-            self.color = "hot"
-            # Plotar(self.tamanhoMatriz,self.estrela)
+                self.error = error
+                self.Nx = self.tamanhoMatriz
+                self.Ny = self.tamanhoMatriz
+                # self.color = random.choice(self.colors)
+                self.color = "hot"
+                # Plotar(self.tamanhoMatriz,self.estrela)
 
-############################################################################################################
-###################### for "non-linear 4-parameters" #######################################################
-############################################################################################################
-        if profile == '4-parameter':
-            self.estrela = [[0.0 for i in range(self.tamanhoMatriz)] for j in range(self.tamanhoMatriz)]
-            for j in range(len(self.estrela)):
-                for i in range(len(self.estrela[j])):
-                    distanciaCentro = math.sqrt(
-                        pow(i - self.tamanhoMatriz / 2, 2) + pow(j - self.tamanhoMatriz / 2, 2))
-                    if distanciaCentro <= self.raio:
-                        cosTheta = math.sqrt(1 - pow(distanciaCentro / self.raio, 2))
-                        self.estrela[i][j] = int(self.intensidadeMaxima * (
-                                1 - self.coeficienteHum * (1 - pow(cosTheta, 1/2)) - self.coeficienteDois * (
-                            1 - cosTheta) - self.coeficienteTres * (1 - pow(cosTheta, 3/2)) - self.coeficienteQuatro * (
-                            1 - pow(cosTheta, 2))))
+    ###########################################################################################
+    ###################### for "linear" #######################################################
+    ###########################################################################################
+            if profile == 'linear':
+                self.estrela = [[0.0 for i in range(self.tamanhoMatriz)] for j in range(self.tamanhoMatriz)]
+                for j in range(len(self.estrela)):
+                    for i in range(len(self.estrela[j])):
+                        distanciaCentro = math.sqrt(
+                            pow(i - self.tamanhoMatriz / 2, 2) + pow(j - self.tamanhoMatriz / 2, 2))
+                        if distanciaCentro <= self.raio:
+                            cosTheta = math.sqrt(1 - pow(distanciaCentro / self.raio, 2))
+                            self.estrela[i][j] = int(self.intensidadeMaxima * (
+                                    1 - self.coeficienteHum * (1 - cosTheta)))
 
-            self.error = error
-            self.Nx = self.tamanhoMatriz
-            self.Ny = self.tamanhoMatriz
-            # self.color = random.choice(self.colors)
-            self.color = "hot"
-            # Plotar(self.tamanhoMatriz,self.estrela)
+                self.error = error
+                self.Nx = self.tamanhoMatriz
+                self.Ny = self.tamanhoMatriz
+                # self.color = random.choice(self.colors)
+                self.color = "hot"
+                # Plotar(self.tamanhoMatriz,self.estrela)
 
-############################################################################################################
-###################### for "non-linear 3-parameters" #######################################################
-############################################################################################################
-        if profile == '3-parameter':
-            self.estrela = [[0.0 for i in range(self.tamanhoMatriz)] for j in range(self.tamanhoMatriz)]
-            for j in range(len(self.estrela)):
-                for i in range(len(self.estrela[j])):
-                    distanciaCentro = math.sqrt(
-                        pow(i - self.tamanhoMatriz / 2, 2) + pow(j - self.tamanhoMatriz / 2, 2))
-                    if distanciaCentro <= self.raio:
-                        cosTheta = math.sqrt(1 - pow(distanciaCentro / self.raio, 2))
-                        self.estrela[i][j] = int(self.intensidadeMaxima * (
-                                1 - self.coeficienteHum * (1 - cosTheta) - self.coeficienteDois * (
-                                1 - pow(cosTheta, 3/2)) - self.coeficienteTres * (
-                                        1 - pow(cosTheta, 2))))
+    ############################################################################################################
+    ###################### for "exponential" ###################################################################
+    ############################################################################################################
+            if profile == 'exponential':
+                self.estrela = [[0.0 for i in range(self.tamanhoMatriz)] for j in range(self.tamanhoMatriz)]
+                for j in range(len(self.estrela)):
+                    for i in range(len(self.estrela[j])):
+                        distanciaCentro = math.sqrt(
+                            pow(i - self.tamanhoMatriz / 2, 2) + pow(j - self.tamanhoMatriz / 2, 2))
+                        if distanciaCentro <= self.raio:
+                            cosTheta = math.sqrt(1 - pow(distanciaCentro / self.raio, 2))
+                            self.estrela[i][j] = int(self.intensidadeMaxima * (
+                                    1 - self.coeficienteHum * (1 - cosTheta) -
+                                    self.coeficienteDois) / (1 - np.exp(cosTheta)))
 
-            self.error = error
-            self.Nx = self.tamanhoMatriz
-            self.Ny = self.tamanhoMatriz
-            # self.color = random.choice(self.colors)
-            self.color = "hot"
-            # Plotar(self.tamanhoMatriz,self.estrela)
+                self.error = error
+                self.Nx = self.tamanhoMatriz
+                self.Ny = self.tamanhoMatriz
+                # self.color = random.choice(self.colors)
+                self.color = "hot"
+                # Plotar(self.tamanhoMatriz,self.estrela)
 
-###########################################################################################
-###################### for "linear" #######################################################
-###########################################################################################
-        if profile == 'linear':
-            self.estrela = [[0.0 for i in range(self.tamanhoMatriz)] for j in range(self.tamanhoMatriz)]
-            for j in range(len(self.estrela)):
-                for i in range(len(self.estrela[j])):
-                    distanciaCentro = math.sqrt(
-                        pow(i - self.tamanhoMatriz / 2, 2) + pow(j - self.tamanhoMatriz / 2, 2))
-                    if distanciaCentro <= self.raio:
-                        cosTheta = math.sqrt(1 - pow(distanciaCentro / self.raio, 2))
-                        self.estrela[i][j] = int(self.intensidadeMaxima * (
-                                1 - self.coeficienteHum * (1 - cosTheta)))
+    ############################################################################################################
+    ###################### for "logarithmic" ###################################################################
+    ############################################################################################################
+            if profile == 'logarithmic':
+                self.estrela = [[0.0 for i in range(self.tamanhoMatriz)] for j in range(self.tamanhoMatriz)]
+                for j in range(len(self.estrela)):
+                    for i in range(len(self.estrela[j])):
+                        distanciaCentro = math.sqrt(
+                            pow(i - self.tamanhoMatriz / 2, 2) + pow(j - self.tamanhoMatriz / 2, 2))
+                        if distanciaCentro <= self.raio:
+                            cosTheta = math.sqrt(1 - pow(distanciaCentro / self.raio, 2))
+                            self.estrela[i][j] = int(self.intensidadeMaxima * (
+                                    1 - self.coeficienteHum * (1 - cosTheta) - (self.coeficienteDois * cosTheta * np.log(cosTheta))))
+                self.error = error
+                self.Nx = self.tamanhoMatriz
+                self.Ny = self.tamanhoMatriz
+                # self.color = random.choice(self.colors)
+                self.color = "hot"
+                # Plotar(self.tamanhoMatriz,self.estrela)
 
-            self.error = error
-            self.Nx = self.tamanhoMatriz
-            self.Ny = self.tamanhoMatriz
-            # self.color = random.choice(self.colors)
-            self.color = "hot"
-            # Plotar(self.tamanhoMatriz,self.estrela)
+    ############################################################################################################
+    ###################### for "square-root" ###################################################################
+    ############################################################################################################
+            if profile == 'square-root':
+                self.estrela = [[0.0 for i in range(self.tamanhoMatriz)] for j in range(self.tamanhoMatriz)]
+                for j in range(len(self.estrela)):
+                    for i in range(len(self.estrela[j])):
+                        distanciaCentro = math.sqrt(
+                            pow(i - self.tamanhoMatriz / 2, 2) + pow(j - self.tamanhoMatriz / 2, 2))
+                        if distanciaCentro <= self.raio:
+                            cosTheta = math.sqrt(1 - pow(distanciaCentro / self.raio, 2))
+                            self.estrela[i][j] = int(self.intensidadeMaxima * (
+                                    1 - self.coeficienteHum * (1 - cosTheta) - self.coeficienteDois * (
+                                    1 - pow(cosTheta, 1/2))))
 
-############################################################################################################
-###################### for "exponential" ###################################################################
-############################################################################################################
-        if profile == 'exponential':
-            self.estrela = [[0.0 for i in range(self.tamanhoMatriz)] for j in range(self.tamanhoMatriz)]
-            for j in range(len(self.estrela)):
-                for i in range(len(self.estrela[j])):
-                    distanciaCentro = math.sqrt(
-                        pow(i - self.tamanhoMatriz / 2, 2) + pow(j - self.tamanhoMatriz / 2, 2))
-                    if distanciaCentro <= self.raio:
-                        cosTheta = math.sqrt(1 - pow(distanciaCentro / self.raio, 2))
-                        self.estrela[i][j] = int(self.intensidadeMaxima * (
-                                1 - self.coeficienteHum * (1 - cosTheta) -
-                                self.coeficienteDois) / (1 - np.exp(cosTheta)))
-
-            self.error = error
-            self.Nx = self.tamanhoMatriz
-            self.Ny = self.tamanhoMatriz
-            # self.color = random.choice(self.colors)
-            self.color = "hot"
-            # Plotar(self.tamanhoMatriz,self.estrela)
-
-############################################################################################################
-###################### for "logarithmic" ###################################################################
-############################################################################################################
-        if profile == 'logarithmic':
-            self.estrela = [[0.0 for i in range(self.tamanhoMatriz)] for j in range(self.tamanhoMatriz)]
-            for j in range(len(self.estrela)):
-                for i in range(len(self.estrela[j])):
-                    distanciaCentro = math.sqrt(
-                        pow(i - self.tamanhoMatriz / 2, 2) + pow(j - self.tamanhoMatriz / 2, 2))
-                    if distanciaCentro <= self.raio:
-                        cosTheta = math.sqrt(1 - pow(distanciaCentro / self.raio, 2))
-                        self.estrela[i][j] = int(self.intensidadeMaxima * (
-                                1 - self.coeficienteHum * (1 - cosTheta) - (self.coeficienteDois * cosTheta * np.log(cosTheta))))
-            self.error = error
-            self.Nx = self.tamanhoMatriz
-            self.Ny = self.tamanhoMatriz
-            # self.color = random.choice(self.colors)
-            self.color = "hot"
-            # Plotar(self.tamanhoMatriz,self.estrela)
-
-############################################################################################################
-###################### for "square-root" ###################################################################
-############################################################################################################
-        if profile == 'square-root':
-            self.estrela = [[0.0 for i in range(self.tamanhoMatriz)] for j in range(self.tamanhoMatriz)]
-            for j in range(len(self.estrela)):
-                for i in range(len(self.estrela[j])):
-                    distanciaCentro = math.sqrt(
-                        pow(i - self.tamanhoMatriz / 2, 2) + pow(j - self.tamanhoMatriz / 2, 2))
-                    if distanciaCentro <= self.raio:
-                        cosTheta = math.sqrt(1 - pow(distanciaCentro / self.raio, 2))
-                        self.estrela[i][j] = int(self.intensidadeMaxima * (
-                                1 - self.coeficienteHum * (1 - cosTheta) - self.coeficienteDois * (
-                                1 - pow(cosTheta, 1/2))))
-
-            self.error = error
-            self.Nx = self.tamanhoMatriz
-            self.Ny = self.tamanhoMatriz
-            # self.color = random.choice(self.colors)
-            self.color = "hot"
-            # Plotar(self.tamanhoMatriz,self.estrela)
-
-
+                self.error = error
+                self.Nx = self.tamanhoMatriz
+                self.Ny = self.tamanhoMatriz
+                # self.color = random.choice(self.colors)
+                self.color = "hot"
+                # Plotar(self.tamanhoMatriz,self.estrela)
 ##############################################################################################################
+        else:
+            print("Type a valid limb darkening profile")
+            return
 
-    ##########################################################################################################
-    #######  inserir manchas
+##########################################################################################################
+#######  inserir manchas
 
     def manchas(self, r, intensidadeMancha, lat, longt):
         '''
