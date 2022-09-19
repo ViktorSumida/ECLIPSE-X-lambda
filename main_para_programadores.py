@@ -351,9 +351,9 @@ while (count3 < num_elements):
     tempoHoras = eclipse.getTempoHoras()
 
     # Plotagem da curva de luz
-    #pyplot.plot(tempoHoras, curvaLuz)
-    #pyplot.axis([-tempoTransito / 2, tempoTransito / 2, min(curvaLuz) - 0.001, 1.001])
-
+    pyplot.plot(tempoHoras, curvaLuz)
+    pyplot.axis([-tempoTransito / 2, tempoTransito / 2, min(curvaLuz) - 0.001, 1.001])
+    pyplot.show()
 
     tempoHoras = np.asarray(tempoHoras)   # turning list into vector
     curvaLuz = np.asarray(curvaLuz)       # turning list into vector
