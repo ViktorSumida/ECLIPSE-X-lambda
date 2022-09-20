@@ -266,14 +266,26 @@ class estrela:
         spot = np.zeros(self.Ny * self.Nx) + 1
 
         spot[ii] = self.intensidadeMancha
+
+##############################################################
+    ######### esta parte do código auxilia o cálculo para o fator epsilon de Rackham et al. (2019)
+        area_star = np.pi * (self.raio ** 2)
+        area_spot = len(spot[ii])
+        print("área da mancha em pixels: ", area_spot)
+        print("área da estrela em pixels: ", area_star)
+        print("razao entre a area da mancha e a area da estrela:", area_spot/area_star)
+##############################################################
+
         spot = spot.reshape([self.Ny, self.Nx])
 
         self.estrela = self.estrela * spot
         plt.axis([0, self.Nx, 0, self.Ny])
 
+
         # self.estrelaManchada = estrelaManchada
 
         # Plotar(self.tamanhoMatriz,self.estrela)
+
         error = 0
         self.error = error
         return self.estrela  # retorna a decisão: se há manchas ou não

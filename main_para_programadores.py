@@ -232,9 +232,9 @@ while (count1 < num_elements):
 ####################################################################################
 
 quantidade = 1 # parâmetro_mudar quantidade de manchas desejadas, se quiser acrescentar, mude essa variavel
-lat = [-2.10] # parâmetro_mudar informação dada quando rodar o programa
+lat = [12] # parâmetro_mudar informação dada quando rodar o programa
 longt = [0] # parâmetro_mudar
-r = [0.025] # parâmetro_mudar Digite o raio da mancha em função do raio da estrela em pixels
+r = [0.2] # parâmetro_mudar Digite o raio da mancha em função do raio da estrela em pixels
 
 #####################################################################################
 
@@ -283,22 +283,23 @@ while (count3 < num_elements):
         li[count] = longt[count]
 
         raioMancha = r[count] * raioStar
-        area = np.pi * (raioMancha ** 2)
+        area = np.pi * (raioMancha ** 2) # área da mancha sem projeção
         fa[count] = area
 
         estrela = stack_estrela_[count3].manchas(r[count], intensidadeManchaRazao[count3], lat[count],
                                                  longt[count])  # recebe a escolha se irá receber manchas ou não
+
+        print("Razão entre intensidades: ", intensidadeManchaRazao[count3])
+
         count += 1
 
 
     area_spot = np.sum(fa)
     area_star = np.pi * (raioStar ** 2)
     f_spot = area_spot / area_star
-    print('área da mancha: ', area_spot)
-    print('razao r_pot/r_star: ', f_spot)
+    print('razao A_spot/A_star: ', f_spot)
     fatorEpsilon = 1 / (1 - (f_spot * (1 - intensidadeManchaRazao[count3])))
     print('epsilon de Rackham= ', fatorEpsilon)
-
 
 
     # print vetor de intensidade, longitude e area da mancha para testes
@@ -340,7 +341,6 @@ while (count3 < num_elements):
 
 
     estrela = stack_estrela_[count3].getEstrela()
-
 
     # eclipse
     eclipse.criarEclipse(semiEixoRaioStar, raioPlanetaRstar, periodo, anguloInclinacao, lua, ecc, anom)
