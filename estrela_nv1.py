@@ -267,8 +267,9 @@ class estrela:
 
         spot[ii] = self.intensidadeMancha
 
-##############################################################
-    ######### esta parte do código auxilia o cálculo para o fator epsilon de Rackham et al. (2019)
+###############################################################################################################
+############# esta parte do código auxilia o cálculo para o fator epsilon de Rackham et al. (2019) ############
+            # por causa da projeção da mancha no disco da estrela
         area_star = np.pi * (self.raio ** 2)
         area_spot = len(spot[ii])
         print("área da mancha em pixels: ", area_spot)
