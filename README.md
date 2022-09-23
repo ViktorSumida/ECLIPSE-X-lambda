@@ -1,2 +1,2 @@
 # StarsAndExoplanets
- My PhD thesis code
+ The code of my PhD thesis
