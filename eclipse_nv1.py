@@ -45,9 +45,8 @@ class Eclipse:
         self.raioEstrelaPixel = raioEstrelaPixel
         self.estrelaManchada = estrelaManchada
 
-
         # OUTPUT
-        curvaLuz = [1 for i in range(self.Nx)]
+        curvaLuz = [1.0 for i in range(self.Nx)]
         self.curvaLuz = curvaLuz
 
     def geraTempoHoras(self):
@@ -180,13 +179,11 @@ class Eclipse:
         Curva de Luz e normalização da intensidade
         '''
         # maximo da curva de luz, usado na normalizacao da intensidade
-
-        maxCurvaLuz = np.sum(self.estrelaManchada) # única linha do código original
+        maxCurvaLuz = np.sum(self.estrelaManchada)
 
         '''
         Criação da matriz para plotagem:
         '''
-
         # criacao de variaveis para plotagem da animacao
         fig, (ax1, ax2) = plt.subplots(2, 1)
         ims = []
@@ -198,7 +195,7 @@ class Eclipse:
         if (lua == False):
             for i in range(0, len(rangeloop)):
 
-                plan = np.zeros(tamanhoMatriz * tamanhoMatriz) + 1.  ## matriz de n por n
+                plan = np.zeros(tamanhoMatriz * tamanhoMatriz) + 1.  ##matriz de n por n
                 x0 = xplan[i]
                 y0 = yplan[i]
 
@@ -240,7 +237,7 @@ class Eclipse:
 
                 #####
                 plan = plan.reshape(self.tamanhoMatriz, self.tamanhoMatriz)  # posicao adicionada na matriz
-                self.curvaLuz[rangeloop[i]] = np.sum(self.estrelaManchada * plan, dtype=float) / maxCurvaLuz  # normalizacao
+                self.curvaLuz[rangeloop[i]] = np.sum(self.estrelaManchada * plan, dtype=float) / maxCurvaLuz
 
                 if (plota and self.curvaLuz[rangeloop[i]] != 1 and j < 200):
                     plt.axis([0, self.Nx, 0, self.Ny])

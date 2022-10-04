@@ -46,8 +46,8 @@ parâmetro longt:: longitude da mancha
 parâmetro raioMancha:: raio real da mancha
 parâmetro area::  area da mancha 
 --- eclipse ---
-parâmetro eclipse:: variavel que guarda o objeto da classe eclipse que gera a curva de luz. Chamadas das funções da classe 
-Eclipse () são feitas através dele. 
+parâmetro eclipse:: variavel que guarda o objeto da classe eclipse que gera a curva de luz. Chamadas das funções da 
+classe Eclipse () são feitas através dele. 
 parâmetro tempoTransito:: tempo do transito do planeta 
 parâmetro curvaLuz:: matriz curva de luz que sera plotada em forma de grafico 
 parâmetro tempoHoras:: tempo do transito em horas
@@ -232,9 +232,9 @@ while (count1 < num_elements):
 ####################################################################################
 
 quantidade = 1 # parâmetro_mudar quantidade de manchas desejadas, se quiser acrescentar, mude essa variavel
-lat = [12] # parâmetro_mudar informação dada quando rodar o programa
+lat = [-2.1001596827946862] # parâmetro_mudar informação dada quando rodar o programa
 longt = [0] # parâmetro_mudar
-r = [0.20] # parâmetro_mudar Digite o raio da mancha em função do raio da estrela em pixels
+r = [0.05] # parâmetro_mudar Digite o raio da mancha em função do raio da estrela em pixels
 
 #####################################################################################
 
