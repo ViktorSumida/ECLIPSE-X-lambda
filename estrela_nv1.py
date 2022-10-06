@@ -88,10 +88,10 @@ class estrela:
                             pow(i - self.tamanhoMatriz / 2, 2) + pow(j - self.tamanhoMatriz / 2, 2))
                         if distanciaCentro <= self.raio:
                             cosTheta = math.sqrt(1 - pow(distanciaCentro / self.raio, 2))
-                            self.estrela[i][j] = int(self.intensidadeMaxima * (
-                                    1 - self.coeficienteHum * (1 - pow(cosTheta, 1/2)) - self.coeficienteDois * (
-                                1 - cosTheta) - self.coeficienteTres * (1 - pow(cosTheta, 3/2)) - self.coeficienteQuatro * (
-                                1 - pow(cosTheta, 2))))
+                            self.estrela[i][j] = int(self.intensidadeMaxima * (1 - self.coeficienteHum * (1 -
+                                                 pow(cosTheta, 1/2)) - self.coeficienteDois * (1 - cosTheta) -
+                                                 self.coeficienteTres * (1 - pow(cosTheta, 3/2)) -
+                                                 self.coeficienteQuatro * (1 - pow(cosTheta, 2))))
 
                 self.error = error
                 self.Nx = self.tamanhoMatriz
@@ -99,6 +99,7 @@ class estrela:
                 # self.color = random.choice(self.colors)
                 self.color = "hot"
                 # Plotar(self.tamanhoMatriz,self.estrela)
+
 
     ############################################################################################################
     ###################### for "non-linear 3-parameters" #######################################################
@@ -209,7 +210,7 @@ class estrela:
                 # Plotar(self.tamanhoMatriz,self.estrela)
 ##############################################################################################################
         else:
-            print("Type a valid limb darkening profile")
+            print("Please, type a valid limb darkening profile")
             return
 
 ##########################################################################################################
@@ -274,7 +275,7 @@ class estrela:
         area_spot = len(spot[ii])
         print("área da mancha em pixels: ", area_spot)
         print("área da estrela em pixels: ", area_star)
-        print("razao entre a area da mancha e a area da estrela:", area_spot/area_star)
+        print("razao entre a area da mancha e a area da estrela (com projeção):", area_spot/area_star)
 ##############################################################
 
         spot = spot.reshape([self.Ny, self.Nx])

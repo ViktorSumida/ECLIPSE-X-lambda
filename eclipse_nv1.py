@@ -213,7 +213,7 @@ class Eclipse:
                     im = ax1.imshow(self.estrelaManchada * plan, cmap="hot", animated=True)
                     ims.append([im])  # armazena na animação os pontos do grafico (em imagem)
                     j += 1
-                plota = not (plota)  # variavel auxiliar que seleciona o intervalo correto para plotagem
+                plota = not(plota)  # variavel auxiliar que seleciona o intervalo correto para plotagem
         else:
             for i in range(0, len(rangeloop)):
 
@@ -244,7 +244,7 @@ class Eclipse:
                     im = ax1.imshow(self.estrelaManchada * plan, cmap="hot", animated=True)
                     ims.append([im])  # armazena na animação os pontos do grafico (em imagem)
                     j += 1
-                plota = not (plota)  # variavel auxiliar que seleciona o intervalo correto para plotagem
+                plota = not(plota)  # variavel auxiliar que seleciona o intervalo correto para plotagem
 
         ax2.plot(self.tempoHoras, self.curvaLuz)
         ax2.axis([-self.tempoTotal / 2, self.tempoTotal / 2, min(self.curvaLuz) - 0.001, 1.001])

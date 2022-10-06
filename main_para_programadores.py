@@ -8,10 +8,10 @@ from verify import Validar, ValidarEscolha, calSemiEixo, calculaLat
 import scipy
 
 ########### Fonte igual ao LaTeX ###### <https://matplotlib.org/stable/tutorials/text/usetex.html> ######
-pyplot.rcParams.update({
-    "text.usetex": True,
-    "font.family": "serif",
-    "font.serif": ["Computer Modern Roman"]})
+#pyplot.rcParams.update({
+#    "text.usetex": True,
+#    "font.family": "serif",
+#    "font.serif": ["Computer Modern Roman"]})
 #########################################################################################################
 
 '''
@@ -112,13 +112,12 @@ elif profile == 'quadratic' or 'square-root' or 'logarithmic' or 'exponential':
 ########################################################################################
 
 
-raio = 373.  # default (pixel)
-intensidadeMaxima = 240  # default
-tamanhoMatriz = 856  # default
+raio = 373.  # default (pixel) 373.
+intensidadeMaxima = 240  # default 240
+tamanhoMatriz = 856  # default 856
 raioStar = 0.89  # parâmetro_mudar raio da estrela em relacao ao raio do sol
 raioStar = raioStar * 696340  # multiplicando pelo raio solar em Km
-#coeficienteHum = 0.65
-#coeficienteDois = 0.28
+
 ecc = 0
 anom = 0
 
@@ -200,12 +199,12 @@ while (count1 < num_elements):
     Ny = estrela_.getNy()
 
     dtor = np.pi / 180.0
-    periodo = 6.099  # em dias
-    anguloInclinacao = 89.86  # em graus
+    periodo = 8.667  # [em dias] parâmetro_mudar
+    anguloInclinacao = 89.86  # [em graus] parâmetro_mudar
 
     dec = ValidarEscolha("Deseja calular o semieixo Orbital do planeta através da 3a LEI DE KEPLER? 1. Sim 2.Não |")
     if dec == 1:
-        mass = 0.86  # parâmetro_mudar colocar massa da estrela em relação a massa do sol
+        mass = 0.86  # parâmetro_mudar [colocar massa da estrela em relação a massa do sol]
         semieixoorbital = calSemiEixo(periodo, mass)
         semiEixoRaioStar = ((semieixoorbital / 1000) / raioStar)
         # transforma em km para fazer em relação ao raio da estrela
@@ -231,9 +230,9 @@ while (count1 < num_elements):
 ################## manchas #########################################################
 ####################################################################################
 
-quantidade = 1 # parâmetro_mudar quantidade de manchas desejadas, se quiser acrescentar, mude essa variavel
+quantidade = 0 # parâmetro_mudar quantidade de manchas desejadas, se quiser acrescentar, mude essa variavel
 lat = [-2.1001596827946862] # parâmetro_mudar informação dada quando rodar o programa
-longt = [0] # parâmetro_mudar
+longt = [70] # parâmetro_mudar
 r = [0.05] # parâmetro_mudar Digite o raio da mancha em função do raio da estrela em pixels
 
 #####################################################################################
@@ -244,7 +243,7 @@ fi = [0.] * quantidade  # vetor intensidade manchas
 li = [0.] * quantidade  # vetor longitude manchas
 
 
-tempSpot = 0.418 * tempStar + 1620
+tempSpot = 0.418 * tempStar + 1620 # Temp. calculada em Rackham et al. 2018 p/ estrelas do tipo F-G-K
 #tempSpot = 3000
 
 intensidadeMancha = np.zeros(num_elements)
