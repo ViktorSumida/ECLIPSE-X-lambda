@@ -98,7 +98,7 @@ class estrela:
                 self.Ny = self.tamanhoMatriz
                 # self.color = random.choice(self.colors)
                 self.color = "hot"
-                # Plotar(self.tamanhoMatriz,self.estrela)
+                # Plotar(self.tamanhoMatriz, self.estrela)
 
 
     ############################################################################################################

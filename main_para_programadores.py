@@ -112,9 +112,9 @@ elif profile == 'quadratic' or 'square-root' or 'logarithmic' or 'exponential':
 ########################################################################################
 
 
-raio = 373.  # default (pixel) 373.
-intensidadeMaxima = 240  # default 240
-tamanhoMatriz = 856  # default 856
+raio = 2000  # default (pixel) 373.
+intensidadeMaxima = 5000  # default 240
+tamanhoMatriz = 4050  # default 856
 raioStar = 0.89  # parâmetro_mudar raio da estrela em relacao ao raio do sol
 raioStar = raioStar * 696340  # multiplicando pelo raio solar em Km
 
@@ -191,8 +191,8 @@ while (count1 < num_elements):
     coeficienteQuatro = c4[count1]
 
 
-    estrela_ = estrela(raio, intensidadeEstrelaLambdaNormalizada[count1], coeficienteHum, coeficienteDois, coeficienteTres, coeficienteQuatro,
-                       tamanhoMatriz, profile)
+    estrela_ = estrela(raio, intensidadeEstrelaLambdaNormalizada[count1], coeficienteHum, coeficienteDois,
+                       coeficienteTres, coeficienteQuatro, tamanhoMatriz, profile)
 
 
     Nx = estrela_.getNx()  # Nx e Ny necessarios para a plotagem do eclipse
@@ -202,9 +202,10 @@ while (count1 < num_elements):
     periodo = 8.667  # [em dias] parâmetro_mudar
     anguloInclinacao = 89.86  # [em graus] parâmetro_mudar
 
-    dec = ValidarEscolha("Deseja calular o semieixo Orbital do planeta através da 3a LEI DE KEPLER? 1. Sim 2.Não |")
+    # dec = ValidarEscolha("Deseja calular o semieixo Orbital do planeta através da 3a LEI DE KEPLER? 1. Sim 2.Não |") descomentar para voltar ao original
+    dec = 1
     if dec == 1:
-        mass = 0.86  # parâmetro_mudar [colocar massa da estrela em relação a massa do sol]
+        mass = 0.86  # parâmetro_mudar [colocar massa da estrela em relação à massa do sol]
         semieixoorbital = calSemiEixo(periodo, mass)
         semiEixoRaioStar = ((semieixoorbital / 1000) / raioStar)
         # transforma em km para fazer em relação ao raio da estrela
@@ -230,9 +231,9 @@ while (count1 < num_elements):
 ################## manchas #########################################################
 ####################################################################################
 
-quantidade = 0 # parâmetro_mudar quantidade de manchas desejadas, se quiser acrescentar, mude essa variavel
-lat = [-2.1001596827946862] # parâmetro_mudar informação dada quando rodar o programa
-longt = [70] # parâmetro_mudar
+quantidade = 1 # parâmetro_mudar quantidade de manchas desejadas, se quiser acrescentar, mude essa variavel
+lat = [-2.654914842784862] # parâmetro_mudar informação dada quando rodar o programa
+longt = [0] # parâmetro_mudar
 r = [0.05] # parâmetro_mudar Digite o raio da mancha em função do raio da estrela em pixels
 
 #####################################################################################
@@ -298,7 +299,7 @@ while (count3 < num_elements):
     f_spot = area_spot / area_star
     print('razao A_spot/A_star: ', f_spot)
     fatorEpsilon = 1 / (1 - (f_spot * (1 - intensidadeManchaRazao[count3])))
-    print('epsilon de Rackham= ', fatorEpsilon)
+    print('epsilon de Rackham = ', fatorEpsilon)
 
 
     # print vetor de intensidade, longitude e area da mancha para testes
@@ -320,7 +321,7 @@ while (count3 < num_elements):
     eclipse = Eclipse(Nx, Ny, raio, estrela)
 
 
-    stack_estrela_[count3].Plotar(tamanhoMatriz, estrela)
+    # stack_estrela_[count3].Plotar(tamanhoMatriz, estrela) descomentar para imprimir a estrela
 
 
     eclipse.geraTempoHoras()
@@ -349,10 +350,10 @@ while (count3 < num_elements):
     curvaLuz = eclipse.getCurvaLuz()
     tempoHoras = eclipse.getTempoHoras()
 
-    # Plotagem da curva de luz
-    pyplot.plot(tempoHoras, curvaLuz)
-    pyplot.axis([-tempoTransito / 2, tempoTransito / 2, min(curvaLuz) - 0.001, 1.001])
-    pyplot.show()
+    ############ Plotagem da curva de luz individual #############
+    #pyplot.plot(tempoHoras, curvaLuz)
+    #pyplot.axis([-tempoTransito / 2, tempoTransito / 2, min(curvaLuz) - 0.001, 1.001])
+    #pyplot.show()
 
     tempoHoras = np.asarray(tempoHoras)   # turning list into vector
     curvaLuz = np.asarray(curvaLuz)       # turning list into vector

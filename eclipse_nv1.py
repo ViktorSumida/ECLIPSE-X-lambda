@@ -53,7 +53,8 @@ class Eclipse:
         '''
         Função chamada na Main para o cálculo do tempo de Trânsito em Horas
         '''
-        x = ValidarEscolha("Intervalo de tempo=1. Deseja alterar? 1. SIM | 2. NÃO:")
+        # x = ValidarEscolha("Intervalo de tempo=1. Deseja alterar? 1. SIM | 2. NÃO:") # descomentar para voltar ao origonal
+        x = 2
         if x == 1:
             self.intervaloTempo = Validar('Digite o intervalo de tempo em minutos:')
         elif x == 2:
@@ -185,7 +186,7 @@ class Eclipse:
         Criação da matriz para plotagem:
         '''
         # criacao de variaveis para plotagem da animacao
-        fig, (ax1, ax2) = plt.subplots(2, 1)
+        # fig, (ax1, ax2) = plt.subplots(2, 1) descomentar para voltar ao original
         ims = []
         j = 0  # variavel auxiliar utilizada para plotagem da animacao
         plota = True  # variavel FLAG que indica quando armazenar a imagem do PLOT
@@ -210,14 +211,14 @@ class Eclipse:
 
                 if (plota and self.curvaLuz[rangeloop[i]] != 1 and j < 200):
                     plt.axis([0, self.Nx, 0, self.Ny])
-                    im = ax1.imshow(self.estrelaManchada * plan, cmap="hot", animated=True)
-                    ims.append([im])  # armazena na animação os pontos do grafico (em imagem)
+                    # im = ax1.imshow(self.estrelaManchada * plan, cmap="hot", animated=True) descomentar para voltar ao original
+                    # ims.append([im])  # armazena na animação os pontos do grafico (em imagem) descomentar para voltar ao original
                     j += 1
                 plota = not(plota)  # variavel auxiliar que seleciona o intervalo correto para plotagem
         else:
             for i in range(0, len(rangeloop)):
 
-                plan = np.zeros(tamanhoMatriz * tamanhoMatriz) + 1.  ##matriz de n por n
+                plan = np.zeros(tamanhoMatriz * tamanhoMatriz) + 1.  ## matriz de n por n
                 x0 = xplan[i]
                 y0 = yplan[i]
 
@@ -241,15 +242,15 @@ class Eclipse:
 
                 if (plota and self.curvaLuz[rangeloop[i]] != 1 and j < 200):
                     plt.axis([0, self.Nx, 0, self.Ny])
-                    im = ax1.imshow(self.estrelaManchada * plan, cmap="hot", animated=True)
-                    ims.append([im])  # armazena na animação os pontos do grafico (em imagem)
+                    # im = ax1.imshow(self.estrelaManchada * plan, cmap="hot", animated=True) descomentar para voltar ao original
+                    # ims.append([im])  # armazena na animação os pontos do grafico (em imagem) descomentar para voltar ao original
                     j += 1
                 plota = not(plota)  # variavel auxiliar que seleciona o intervalo correto para plotagem
 
-        ax2.plot(self.tempoHoras, self.curvaLuz)
-        ax2.axis([-self.tempoTotal / 2, self.tempoTotal / 2, min(self.curvaLuz) - 0.001, 1.001])
-        ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True, repeat_delay=0.1)
-        plt.show()
+        # ax2.plot(self.tempoHoras, self.curvaLuz) descomentar para voltar ao original
+        # ax2.axis([-self.tempoTotal / 2, self.tempoTotal / 2, min(self.curvaLuz) - 0.001, 1.001]) descomentar para voltar ao original
+        # ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True, repeat_delay=0.1) descomentar para voltar ao original
+        # plt.show() descomentar para voltar ao original
         # ani.save('animacao_transito.gif',writer="PillowWriter") #salva o gif gerado na raiz do arquivo, para utilizacao do usuario
 
         error = 0
