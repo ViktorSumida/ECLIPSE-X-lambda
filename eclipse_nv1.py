@@ -186,7 +186,7 @@ class Eclipse:
         Criação da matriz para plotagem:
         '''
         # criacao de variaveis para plotagem da animacao
-        # fig, (ax1, ax2) = plt.subplots(2, 1) descomentar para voltar ao original
+        fig, (ax1, ax2) = plt.subplots(2, 1) # descomentar para voltar ao original
         ims = []
         j = 0  # variavel auxiliar utilizada para plotagem da animacao
         plota = True  # variavel FLAG que indica quando armazenar a imagem do PLOT
@@ -211,8 +211,8 @@ class Eclipse:
 
                 if (plota and self.curvaLuz[rangeloop[i]] != 1 and j < 200):
                     plt.axis([0, self.Nx, 0, self.Ny])
-                    # im = ax1.imshow(self.estrelaManchada * plan, cmap="hot", animated=True) descomentar para voltar ao original
-                    # ims.append([im])  # armazena na animação os pontos do grafico (em imagem) descomentar para voltar ao original
+                    im = ax1.imshow(self.estrelaManchada * plan, cmap="hot", animated=True) # descomentar para voltar ao original
+                    ims.append([im])  # armazena na animação os pontos do grafico (em imagem) # descomentar para voltar ao original
                     j += 1
                 plota = not(plota)  # variavel auxiliar que seleciona o intervalo correto para plotagem
         else:
@@ -242,15 +242,15 @@ class Eclipse:
 
                 if (plota and self.curvaLuz[rangeloop[i]] != 1 and j < 200):
                     plt.axis([0, self.Nx, 0, self.Ny])
-                    # im = ax1.imshow(self.estrelaManchada * plan, cmap="hot", animated=True) descomentar para voltar ao original
-                    # ims.append([im])  # armazena na animação os pontos do grafico (em imagem) descomentar para voltar ao original
+                    im = ax1.imshow(self.estrelaManchada * plan, cmap="hot", animated=True) # descomentar para voltar ao original
+                    ims.append([im])  # armazena na animação os pontos do grafico (em imagem) # descomentar para voltar ao original
                     j += 1
                 plota = not(plota)  # variavel auxiliar que seleciona o intervalo correto para plotagem
 
-        # ax2.plot(self.tempoHoras, self.curvaLuz) descomentar para voltar ao original
-        # ax2.axis([-self.tempoTotal / 2, self.tempoTotal / 2, min(self.curvaLuz) - 0.001, 1.001]) descomentar para voltar ao original
-        # ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True, repeat_delay=0.1) descomentar para voltar ao original
-        # plt.show() descomentar para voltar ao original
+        ax2.plot(self.tempoHoras, self.curvaLuz) # descomentar para voltar ao original
+        ax2.axis([-self.tempoTotal / 2, self.tempoTotal / 2, min(self.curvaLuz) - 0.001, 1.001]) # descomentar para voltar ao original
+        ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True, repeat_delay=0.1) # descomentar para voltar ao original
+        plt.show() # descomentar para voltar ao original
         # ani.save('animacao_transito.gif',writer="PillowWriter") #salva o gif gerado na raiz do arquivo, para utilizacao do usuario
 
         error = 0

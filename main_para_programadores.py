@@ -5,6 +5,7 @@ from matplotlib import pyplot
 from estrela_nv1 import estrela
 from eclipse_nv1 import Eclipse
 from verify import Validar, ValidarEscolha, calSemiEixo, calculaLat
+from openpyxl import Workbook
 import scipy
 
 ########### Fonte igual ao LaTeX ###### <https://matplotlib.org/stable/tutorials/text/usetex.html> ######
@@ -73,21 +74,21 @@ def planck(wavelength, Temp) :
 table_ExoCTK = pd.read_excel('C:/Users/vikto/PycharmProjects/StarsAndExoplanets/ExoCTK_results.xlsx', engine='openpyxl')
 
 profile_aux = table_ExoCTK['profile'].to_numpy()
-profile_aux = np.delete(profile_aux, 0)    # removing the column reader
+profile_aux = np.delete(profile_aux, 0)    # removing the column reader "-----"
 profile = profile_aux[0]
 c1 = table_ExoCTK['c1'].to_numpy()
-c1 = np.delete(c1, 0)    # removing the column reader
+c1 = np.delete(c1, 0)    # removing the column reader "-----"
 c2 = table_ExoCTK['c2'].to_numpy()
-c2 = np.delete(c2, 0)    # removing the column reader
+c2 = np.delete(c2, 0)    # removing the column reader "-----"
 lambdaEff = table_ExoCTK['wave_eff'].to_numpy()
-lambdaEff = np.delete(lambdaEff, 0) # removing the column reader
+lambdaEff = np.delete(lambdaEff, 0) # removing the column reader "-----"
 lambdaMin = table_ExoCTK['wave_min'].to_numpy()
-lambdaMin = np.delete(lambdaEff, 0) # removing the column reader
+lambdaMin = np.delete(lambdaEff, 0) # removing the column reader "-----"
 lambdaMax = table_ExoCTK['wave_max'].to_numpy()
-lambdaMax = np.delete(lambdaEff, 0) # removing the column reader
+lambdaMax = np.delete(lambdaEff, 0) # removing the column reader "-----"
 num_elements = len(c1)  # number of different wavelengths
 temp = table_ExoCTK['Teff'].to_numpy()
-temp = np.delete(temp, 0)    # removing the column reader
+temp = np.delete(temp, 0)    # removing the column reader "-----"
 tempStar = temp[0]
 
 
@@ -109,17 +110,71 @@ elif profile == 'quadratic' or 'square-root' or 'logarithmic' or 'exponential':
     c4 = [0 for j in range(num_elements)]
 
 ########################################################################################
-########################################################################################
+######################### Parâmetros ###################################################
 
+parameters = pd.read_excel('C:/Users/vikto/PycharmProjects/StarsAndExoplanets/Parâmetros.xlsx', engine='openpyxl',
+                           keep_default_na=False) # To read empty cell as empty string, use keep_default_na=False
 
-raio = 2000  # default (pixel) 373.
-intensidadeMaxima = 5000  # default 240
-tamanhoMatriz = 4050  # default 856
-raioStar = 0.89  # parâmetro_mudar raio da estrela em relacao ao raio do sol
+raio = parameters['raio'].to_numpy()
+nullAux = np.where(raio == '')
+raio = np.delete(raio, nullAux)   # removendo os valores ''
+raio = int(raio[0])         # necessário converter vetor para variável
+
+intensidadeMaxima = parameters['intensidadeMaxima'].to_numpy()
+nullAux = np.where(intensidadeMaxima == '')
+intensidadeMaxima = np.delete(intensidadeMaxima, nullAux)  # removendo os valores ''
+intensidadeMaxima = int(intensidadeMaxima[0]) # necessário converter vetor para variável
+
+tamanhoMatriz = parameters['tamanhoMatriz'].to_numpy()
+nullAux = np.where(tamanhoMatriz == '')
+tamanhoMatriz = np.delete(tamanhoMatriz, nullAux)  # removendo os valores ''
+tamanhoMatriz = int(tamanhoMatriz[0]) # necessário converter vetor para variável
+
+raioStar = parameters['raioStar'].to_numpy()
+nullAux = np.where(raioStar == '')
+raioStar = np.delete(raioStar, nullAux)  # removendo os valores ''
+raioStar = float(raioStar[0]) # necessário converter vetor em float
+
+####### manchas ########
+
+manchas = parameters['manchas'].to_numpy()
+nullAux = np.where(manchas == '')
+quantidade = np.delete(manchas, nullAux) # removendo os valores ''
+quantidade = int(quantidade[0]) # necessário converter vetor para variável
+
+lat = parameters['lat'].to_numpy()
+nullAux = np.where(lat == '')
+lat = np.delete(lat, nullAux) # removendo os valores ''
+
+longt = parameters['longt'].to_numpy()
+nullAux = np.where(longt == '')
+longt = np.delete(longt, nullAux) # removendo os valores ''
+
+r = parameters['r'].to_numpy()
+nullAux = np.where(r == '')
+r = np.delete(r, nullAux) # removendo os valores ''
+
+ecc = parameters['ecc'].to_numpy()
+nullAux = np.where(ecc == '')
+ecc = np.delete(ecc, nullAux) # removendo os valores ''
+ecc = float(ecc[0]) # necessário converter vetor para variável
+
+anom = parameters['anom'].to_numpy()
+nullAux = np.where(anom == '')
+anom = np.delete(anom, nullAux) # removendo os valores ''
+anom = float(anom[0]) # necessário converter vetor para variável
+
+#raio = 2000  # default (pixel) 373.
+#intensidadeMaxima = 5000  # default 240
+#tamanhoMatriz = 4050  # default 856
+#raioStar = 0.89  # parâmetro_mudar raio da estrela em relacao ao raio do sol
 raioStar = raioStar * 696340  # multiplicando pelo raio solar em Km
 
-ecc = 0
-anom = 0
+#ecc = 0
+#anom = 0
+
+##########################################################################################
+
 
 # cria estrela
 
@@ -199,23 +254,47 @@ while (count1 < num_elements):
     Ny = estrela_.getNy()
 
     dtor = np.pi / 180.0
-    periodo = 8.667  # [em dias] parâmetro_mudar
-    anguloInclinacao = 89.86  # [em graus] parâmetro_mudar
+    #periodo = 8.667  # [em dias] parâmetro_mudar
+    periodo = parameters['periodo'].to_numpy()
+    nullAux = np.where(periodo == '')
+    periodo = np.delete(periodo, nullAux)  # removendo os valores ''
+    periodo = float(periodo[0])  # necessário converter vetor para variável
+    #anguloInclinacao = 89.86  # [em graus] parâmetro_mudar
+    anguloInclinacao = parameters['anguloInclinacao'].to_numpy()
+    nullAux = np.where(anguloInclinacao == '')
+    anguloInclinacao = np.delete(anguloInclinacao, nullAux)  # removendo os valores ''
+    anguloInclinacao = float(anguloInclinacao[0])  # necessário converter vetor para variável (se for = 0, tirar float)
 
     # dec = ValidarEscolha("Deseja calular o semieixo Orbital do planeta através da 3a LEI DE KEPLER? 1. Sim 2.Não |") descomentar para voltar ao original
-    dec = 1
+    kepler = parameters['Kepler'].to_numpy()
+    nullAux = np.where(kepler == '')
+    dec = np.delete(kepler, nullAux)  # removendo os valores ''
+    dec = int(dec[0])  # necessário converter vetor para variável
     if dec == 1:
-        mass = 0.86  # parâmetro_mudar [colocar massa da estrela em relação à massa do sol]
-        semieixoorbital = calSemiEixo(periodo, mass)
+        #massStar = 0.86  # parâmetro_mudar [colocar massa da estrela em relação à massa do sol]
+        massStar = parameters['massStar'].to_numpy()
+        nullAux = np.where(massStar == '')
+        massStar = np.delete(massStar, nullAux)  # removendo os valores ''
+        massStar = float(massStar[0])  # necessário converter vetor para variável
+        semieixoorbital = calSemiEixo(periodo, massStar)
         semiEixoRaioStar = ((semieixoorbital / 1000) / raioStar)
         # transforma em km para fazer em relação ao raio da estrela
     else:
-        semiEixoRaioStar = Validar('Semi eixo (em UA:)')
+        #semiEixoRaioStar = Validar('Semi eixo (em UA:)')
         # em unidades de Rstar
+        semiEixoRaioStar = parameters['semiEixoRaioStar'].to_numpy()
+        nullAux = np.where(semiEixoRaioStar == '')
+        semiEixoRaioStar = np.delete(semiEixoRaioStar, nullAux)  # removendo os valores ''
+        semiEixoRaioStar = float(semiEixoRaioStar[0])  # necessário converter vetor para variável
         semiEixoRaioStar = ((1.469 * (10 ** 8)) * semiEixoRaioStar) / raioStar
         # multiplicando pelas UA (transformando em Km) e convertendo em relacao ao raio da estrela
 
-    raioPlanetaRstar = 0.283  # parâmetro_mudar em relação ao raio de jupiter
+    #raioPlanetaRstar = 0.283  # parâmetro_mudar em relação ao raio de jupiter
+    raioPlanetaRstar = parameters['raioPlaneta'].to_numpy()
+    nullAux = np.where(raioPlanetaRstar == '')
+    raioPlanetaRstar = np.delete(raioPlanetaRstar, nullAux)  # removendo os valores ''
+    raioPlanetaRstar = float(raioPlanetaRstar[0])  # necessário converter vetor para variável
+
     raioPlanetaRstar = (raioPlanetaRstar * 69911) / raioStar  # multiplicando pelo raio de jupiter em km
 
     latsugerida = calculaLat(semiEixoRaioStar, anguloInclinacao)
@@ -231,10 +310,10 @@ while (count1 < num_elements):
 ################## manchas #########################################################
 ####################################################################################
 
-quantidade = 1 # parâmetro_mudar quantidade de manchas desejadas, se quiser acrescentar, mude essa variavel
-lat = [-2.654914842784862] # parâmetro_mudar informação dada quando rodar o programa
-longt = [0] # parâmetro_mudar
-r = [0.05] # parâmetro_mudar Digite o raio da mancha em função do raio da estrela em pixels
+#quantidade = 1 # parâmetro_mudar quantidade de manchas desejadas, se quiser acrescentar, mude essa variavel
+#lat = [-2.654914842784862] # parâmetro_mudar informação dada quando rodar o programa
+#longt = [0] # parâmetro_mudar
+#r = [0.05] # parâmetro_mudar Digite o raio da mancha em função do raio da estrela em pixels
 
 #####################################################################################
 
@@ -327,17 +406,37 @@ while (count3 < num_elements):
     eclipse.geraTempoHoras()
     tempoHoras = eclipse.getTempoHoras()
     # instanciando LUA
-    rmoon = 0.5  # parâmetro_mudar em relacao ao raio da Terra
+    #rmoon = 0.5  # parâmetro_mudar em relacao ao raio da Terra
+    rmoon = parameters['rMoon'].to_numpy()
+    nullAux = np.where(rmoon == '')
+    rmoon = np.delete(rmoon, nullAux)  # removendo os valores ''
+    rmoon = float(rmoon[0])  # necessário converter vetor para variável
     rmoon = rmoon * 6371  # parâmetro_mudar multiplicando pelo R da terra em Km
-    mass = 0.001  # parâmetro_mudar em relacao a massa da Terra
-    mass = mass * (5.972 * (10 ** 24))
-    massPlaneta = 0.0321  # parâmetro_mudar em relacao ao R de jupiter
+
+    #massMoon = 0.001  # parâmetro_mudar em relacao a massa da Terra
+    massMoon = parameters['massMoon'].to_numpy()
+    nullAux = np.where(massMoon == '')
+    massMoon = np.delete(massMoon, nullAux)  # removendo os valores ''
+    massMoon = float(massMoon[0])  # necessário converter vetor para variável
+    massMoon = massMoon * (5.972 * (10 ** 24))
+
+    #massPlaneta = 0.0321  # parâmetro_mudar em relacao ao R de jupiter
+    massPlaneta = parameters['massPlaneta'].to_numpy()
+    nullAux = np.where(massPlaneta == '')
+    massPlaneta = np.delete(massPlaneta, nullAux)  # removendo os valores ''
+    massPlaneta = float(massPlaneta[0])  # necessário converter vetor para variável
     massPlaneta = massPlaneta * (1.898 * (10 ** 27))  # passar para gramas por conta da constante G
     G = (6.674184 * (10 ** (-11)))
-    perLua = 0.1  # parâmetro_mudar em dias
-    distancia = ((((perLua * 24. * 3600. / 2. / np.pi) ** 2) * G * (massPlaneta + mass)) ** (1. / 3)) / raioStar
+
+    #perLua = 0.1  # parâmetro_mudar [em dias]
+    perLua = parameters['perMoon'].to_numpy()
+    nullAux = np.where(perLua == '')
+    perLua = np.delete(perLua, nullAux)  # removendo os valores ''
+    perLua = float(perLua[0])  # necessário converter vetor para variável
+
+    distancia = ((((perLua * 24. * 3600. / 2. / np.pi) ** 2) * G * (massPlaneta + massMoon)) ** (1. / 3)) / raioStar
     distancia = distancia / 100
-    moon = eclipse.criarLua(rmoon, mass, raio, raioStar, tempoHoras, anguloInclinacao, periodo, distancia)
+    moon = eclipse.criarLua(rmoon, massMoon, raio, raioStar, tempoHoras, anguloInclinacao, periodo, distancia)
 
 
     estrela = stack_estrela_[count3].getEstrela()
