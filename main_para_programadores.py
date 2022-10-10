@@ -1,12 +1,11 @@
 import numpy as np
 import pandas as pd
-import xlrd
 from matplotlib import pyplot
 from estrela_nv1 import estrela
 from eclipse_nv1 import Eclipse
 from verify import Validar, ValidarEscolha, calSemiEixo, calculaLat
-from openpyxl import Workbook
-import scipy
+
+
 
 ########### Fonte igual ao LaTeX ###### <https://matplotlib.org/stable/tutorials/text/usetex.html> ######
 #pyplot.rcParams.update({
@@ -381,11 +380,6 @@ while (count3 < num_elements):
     print('epsilon de Rackham = ', fatorEpsilon)
 
 
-    # print vetor de intensidade, longitude e area da mancha para testes
-    #print("Intensidades:", fi)
-    #print("Longitudes:", li)
-    #print("Areas:", fa)
-
     estrela = stack_estrela_[count3].getEstrela()  #getEstrela(self)  Retorna a estrela, plotada sem as manchas,
                                                     # necessário caso o usuário escolha a plotagem sem manchas.
 
@@ -471,12 +465,13 @@ while (count3 < num_elements):
 ########## Plotting the light curves at different wavelengths in the same graph ############
 ############################################################################################
 lambdaEff_nm = [0.] * num_elements
-
+D_lambda = [0.] * num_elements
 count4 = 0
 
 while(count4 < num_elements):
     lambdaEff_nm[count4] = lambdaEff[count4] * 1000
     pyplot.plot(stack_tempoHoras[count4], stack_curvaLuz[count4], label=int(lambdaEff_nm[count4]))
+    D_lambda[count4] = min(stack_curvaLuz[count4])
     print("Máxima profundidade de trânsito: ", min(stack_curvaLuz[count4]))
     count4 += 1
 
@@ -492,5 +487,10 @@ pyplot.ylabel("relative flux", fontsize=25)
 pyplot.tick_params(axis="x", direction="in", labelsize=15)
 pyplot.tick_params(axis="y", direction="in", labelsize=15)
 
+df1 = pd.DataFrame([D_lambda, lambdaEff_nm],
+                   index=['D_lamb', 'wave'])
+df1.to_excel("output.xlsx")
+
+print(D_lambda)
 
 pyplot.show()
