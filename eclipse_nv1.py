@@ -29,6 +29,7 @@ from keplerAux import keplerfunc  #biblioteca auxiliar caso a biblioteca kepler 
 import matplotlib.animation as animation
 import kepler  # para o calculo de orbitas excentricas (pip install kepler)
 import os
+import pandas as pd
 
 
 class Eclipse:
@@ -49,16 +50,31 @@ class Eclipse:
         curvaLuz = [1.0 for i in range(self.Nx)]
         self.curvaLuz = curvaLuz
 
+
+
     def geraTempoHoras(self):
         '''
         Função chamada na Main para o cálculo do tempo de Trânsito em Horas
         '''
+
+        ######## Intervalo de tempo da animação #######################
+        parameters = pd.read_excel('C:/Users/vikto/PycharmProjects/StarsAndExoplanets/Parâmetros.xlsx',
+                                   engine='openpyxl',
+                                   keep_default_na=False)  # To read empty cell as empty string, use keep_default_na=False
+
+        timeInterval = parameters['timeInterval'].to_numpy()
+        nullAux = np.where(timeInterval == '')
+        timeInterval = np.delete(timeInterval, nullAux)  # removendo os valores ''
+        timeInterval = int(timeInterval[0])  # necessário converter vetor para variável
+        #########################
+
+        self.intervaloTempo = timeInterval
         # x = ValidarEscolha("Intervalo de tempo=1. Deseja alterar? 1. SIM | 2. NÃO:") # descomentar para voltar ao origonal
-        x = 2
-        if x == 1:
-            self.intervaloTempo = Validar('Digite o intervalo de tempo em minutos:')
-        elif x == 2:
-            self.intervaloTempo = 1.  # em minutos
+        #x = 2
+        #if x == 1:
+        #    self.intervaloTempo = Validar('Digite o intervalo de tempo em minutos:')
+        #elif x == 2:
+        #    self.intervaloTempo = 1.  # em minutos
 
         self.tamanhoMatriz = self.Nx  # Nx ou Ny
         tempoHoras = (np.arange(self.tamanhoMatriz) - self.tamanhoMatriz / 2) * self.intervaloTempo / 60.  # em horas
@@ -96,6 +112,17 @@ class Eclipse:
         :parâmetro ecc: excêntricidade da órbita do planeta
         :parâmetro anom: anomalia da órbita do planeta
         '''
+
+        ######## Plotar ou não a animação #######################
+        parameters = pd.read_excel('C:/Users/vikto/PycharmProjects/StarsAndExoplanets/Parâmetros.xlsx',
+                                   engine='openpyxl',
+                                   keep_default_na=False)  # To read empty cell as empty string, use keep_default_na=False
+
+        plotAnimacao = parameters['plotAnimacao'].to_numpy()
+        nullAux = np.where(plotAnimacao == '')
+        plotAnimacao = np.delete(plotAnimacao, nullAux)  # removendo os valores ''
+        plotAnimacao = int(plotAnimacao[0])  # necessário converter vetor para variável
+        #########################
 
         intervaloTempo = self.intervaloTempo
         tamanhoMatriz = self.tamanhoMatriz
@@ -185,73 +212,149 @@ class Eclipse:
         '''
         Criação da matriz para plotagem:
         '''
-        # criacao de variaveis para plotagem da animacao
-        #fig, (ax1, ax2) = plt.subplots(2, 1) # descomentar para voltar ao original
-        ims = []
-        j = 0  # variavel auxiliar utilizada para plotagem da animacao
-        plota = True  # variavel FLAG que indica quando armazenar a imagem do PLOT
 
-        print("\nAguarde um momento, a animacao do trânsito está sendo gerada.\n")
-        # Inicio dos loops para a plotagem e calculo do trânsito
-        if (lua == False):
-            for i in range(0, len(rangeloop)):
+        if (plotAnimacao == 1):
 
-                plan = np.zeros(tamanhoMatriz * tamanhoMatriz) + 1.  ##matriz de n por n
-                x0 = xplan[i]
-                y0 = yplan[i]
+            # criacao de variaveis para plotagem da animacao
+            fig, (ax1, ax2) = plt.subplots(2, 1) # descomentar para voltar ao original
+            ims = []
+            j = 0  # variavel auxiliar utilizada para plotagem da animacao
+            plota = True  # variavel FLAG que indica quando armazenar a imagem do PLOT
 
-                kk = np.arange(tamanhoMatriz * tamanhoMatriz)
+            print("\nAguarde um momento, a animacao do trânsito está sendo gerada.\n")
+            # Inicio dos loops para a plotagem e calculo do trânsito
+            if (lua == False):
+                for i in range(0, len(rangeloop)):
 
-                ii = np.where((kk / tamanhoMatriz - y0) ** 2 + (
+                    plan = np.zeros(tamanhoMatriz * tamanhoMatriz) + 1.  ##matriz de n por n
+                    x0 = xplan[i]
+                    y0 = yplan[i]
+
+                    kk = np.arange(tamanhoMatriz * tamanhoMatriz)
+
+                    ii = np.where((kk / tamanhoMatriz - y0) ** 2 + (
+                                kk - tamanhoMatriz * np.fix(kk / tamanhoMatriz) - x0) ** 2 <= raioPlanetaPixel ** 2)
+
+                    plan[ii] = 0.
+                    plan = plan.reshape(self.tamanhoMatriz, self.tamanhoMatriz)  # posicao adicionada na matriz
+                    self.curvaLuz[rangeloop[i]] = np.sum(self.estrelaManchada * plan, dtype=float) / maxCurvaLuz
+
+                    if (plota and self.curvaLuz[rangeloop[i]] != 1 and j < 200):
+                        plt.axis([0, self.Nx, 0, self.Ny])
+                        im = ax1.imshow(self.estrelaManchada * plan, cmap="hot", animated=True) # descomentar para voltar ao original
+                        ims.append([im])  # armazena na animação os pontos do grafico (em imagem) # descomentar para voltar ao original
+                        j += 1
+                    plota = not(plota)  # variavel auxiliar que seleciona o intervalo correto para plotagem
+            else:
+                for i in range(0, len(rangeloop)):
+
+                    plan = np.zeros(tamanhoMatriz * tamanhoMatriz) + 1.  ## matriz de n por n
+                    x0 = xplan[i]
+                    y0 = yplan[i]
+
+                    kk = np.arange(tamanhoMatriz * tamanhoMatriz)
+
+                    ii = np.where((kk / tamanhoMatriz - y0) ** 2 + (
+                                kk - tamanhoMatriz * np.fix(kk / tamanhoMatriz) - x0) ** 2 <= raioPlanetaPixel ** 2)
+
+                    plan[ii] = 0.
+
+                    ### adicionando luas ###
+                    xm = x0 - self.xxm[i]
+                    ym = y0 - self.yym[i]
+                    ll = np.where((kk / tamanhoMatriz - ym) ** 2 + (
+                                kk - tamanhoMatriz * np.fix(kk / tamanhoMatriz) - xm) ** 2 <= self.Rmoon ** 2)
+                    plan[ll] = 0.
+
+                    #####
+                    plan = plan.reshape(self.tamanhoMatriz, self.tamanhoMatriz)  # posicao adicionada na matriz
+                    self.curvaLuz[rangeloop[i]] = np.sum(self.estrelaManchada * plan, dtype=float) / maxCurvaLuz
+
+                    if (plota and self.curvaLuz[rangeloop[i]] != 1 and j < 200):
+                        plt.axis([0, self.Nx, 0, self.Ny])
+                        im = ax1.imshow(self.estrelaManchada * plan, cmap="hot", animated=True) # descomentar para voltar ao original
+                        ims.append([im])  # armazena na animação os pontos do grafico (em imagem) # descomentar para voltar ao original
+                        j += 1
+                    plota = not(plota)  # variavel auxiliar que seleciona o intervalo correto para plotagem
+
+            ax2.plot(self.tempoHoras, self.curvaLuz) # descomentar para voltar ao original
+            ax2.axis([-self.tempoTotal / 2, self.tempoTotal / 2, min(self.curvaLuz) - 0.001, 1.001]) # descomentar para voltar ao original
+            ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True, repeat_delay=0.1) # descomentar para voltar ao original
+            plt.show() # descomentar para voltar ao original
+            # ani.save('animacao_transito.gif',writer="PillowWriter") #salva o gif gerado na raiz do arquivo, para utilizacao do usuario
+
+        if (plotAnimacao == 0):
+            # criacao de variaveis para plotagem da animacao
+            # fig, (ax1, ax2) = plt.subplots(2, 1) # descomentar para voltar ao original
+            ims = []
+            j = 0  # variavel auxiliar utilizada para plotagem da animacao
+            plota = True  # variavel FLAG que indica quando armazenar a imagem do PLOT
+
+            print("\nAguarde um momento, os dados estão sendo gerados.\n")
+            # Inicio dos loops para a plotagem e calculo do trânsito
+            if (lua == False):
+                for i in range(0, len(rangeloop)):
+
+                    plan = np.zeros(tamanhoMatriz * tamanhoMatriz) + 1.  ##matriz de n por n
+                    x0 = xplan[i]
+                    y0 = yplan[i]
+
+                    kk = np.arange(tamanhoMatriz * tamanhoMatriz)
+
+                    ii = np.where((kk / tamanhoMatriz - y0) ** 2 + (
                             kk - tamanhoMatriz * np.fix(kk / tamanhoMatriz) - x0) ** 2 <= raioPlanetaPixel ** 2)
 
-                plan[ii] = 0.
-                plan = plan.reshape(self.tamanhoMatriz, self.tamanhoMatriz)  # posicao adicionada na matriz
-                self.curvaLuz[rangeloop[i]] = np.sum(self.estrelaManchada * plan, dtype=float) / maxCurvaLuz
+                    plan[ii] = 0.
+                    plan = plan.reshape(self.tamanhoMatriz, self.tamanhoMatriz)  # posicao adicionada na matriz
+                    self.curvaLuz[rangeloop[i]] = np.sum(self.estrelaManchada * plan, dtype=float) / maxCurvaLuz
 
-                if (plota and self.curvaLuz[rangeloop[i]] != 1 and j < 200):
-                    plt.axis([0, self.Nx, 0, self.Ny])
-                    #im = ax1.imshow(self.estrelaManchada * plan, cmap="hot", animated=True) # descomentar para voltar ao original
-                    #ims.append([im])  # armazena na animação os pontos do grafico (em imagem) # descomentar para voltar ao original
-                    j += 1
-                plota = not(plota)  # variavel auxiliar que seleciona o intervalo correto para plotagem
-        else:
-            for i in range(0, len(rangeloop)):
+                    if (plota and self.curvaLuz[rangeloop[i]] != 1 and j < 200):
+                        plt.axis([0, self.Nx, 0, self.Ny])
+                        # im = ax1.imshow(self.estrelaManchada * plan, cmap="hot", animated=True) # descomentar para voltar ao original
+                        # ims.append([im])  # armazena na animação os pontos do grafico (em imagem) # descomentar para voltar ao original
+                        j += 1
+                    plota = not (plota)  # variavel auxiliar que seleciona o intervalo correto para plotagem
+            else:
+                for i in range(0, len(rangeloop)):
 
-                plan = np.zeros(tamanhoMatriz * tamanhoMatriz) + 1.  ## matriz de n por n
-                x0 = xplan[i]
-                y0 = yplan[i]
+                    plan = np.zeros(tamanhoMatriz * tamanhoMatriz) + 1.  ## matriz de n por n
+                    x0 = xplan[i]
+                    y0 = yplan[i]
 
-                kk = np.arange(tamanhoMatriz * tamanhoMatriz)
+                    kk = np.arange(tamanhoMatriz * tamanhoMatriz)
 
-                ii = np.where((kk / tamanhoMatriz - y0) ** 2 + (
+                    ii = np.where((kk / tamanhoMatriz - y0) ** 2 + (
                             kk - tamanhoMatriz * np.fix(kk / tamanhoMatriz) - x0) ** 2 <= raioPlanetaPixel ** 2)
 
-                plan[ii] = 0.
+                    plan[ii] = 0.
 
-                ### adicionando luas ###
-                xm = x0 - self.xxm[i]
-                ym = y0 - self.yym[i]
-                ll = np.where((kk / tamanhoMatriz - ym) ** 2 + (
+                    ### adicionando luas ###
+                    xm = x0 - self.xxm[i]
+                    ym = y0 - self.yym[i]
+                    ll = np.where((kk / tamanhoMatriz - ym) ** 2 + (
                             kk - tamanhoMatriz * np.fix(kk / tamanhoMatriz) - xm) ** 2 <= self.Rmoon ** 2)
-                plan[ll] = 0.
+                    plan[ll] = 0.
 
-                #####
-                plan = plan.reshape(self.tamanhoMatriz, self.tamanhoMatriz)  # posicao adicionada na matriz
-                self.curvaLuz[rangeloop[i]] = np.sum(self.estrelaManchada * plan, dtype=float) / maxCurvaLuz
+                    #####
+                    plan = plan.reshape(self.tamanhoMatriz, self.tamanhoMatriz)  # posicao adicionada na matriz
+                    self.curvaLuz[rangeloop[i]] = np.sum(self.estrelaManchada * plan, dtype=float) / maxCurvaLuz
 
-                if (plota and self.curvaLuz[rangeloop[i]] != 1 and j < 200):
-                    plt.axis([0, self.Nx, 0, self.Ny])
-                    #im = ax1.imshow(self.estrelaManchada * plan, cmap="hot", animated=True) # descomentar para voltar ao original
-                    #ims.append([im])  # armazena na animação os pontos do grafico (em imagem) # descomentar para voltar ao original
-                    j += 1
-                plota = not(plota)  # variavel auxiliar que seleciona o intervalo correto para plotagem
+                    if (plota and self.curvaLuz[rangeloop[i]] != 1 and j < 200):
+                        plt.axis([0, self.Nx, 0, self.Ny])
+                        # im = ax1.imshow(self.estrelaManchada * plan, cmap="hot", animated=True) # descomentar para voltar ao original
+                        # ims.append([im])  # armazena na animação os pontos do grafico (em imagem) # descomentar para voltar ao original
+                        j += 1
+                    plota = not (plota)  # variavel auxiliar que seleciona o intervalo correto para plotagem
 
-        #ax2.plot(self.tempoHoras, self.curvaLuz) # descomentar para voltar ao original
-        #ax2.axis([-self.tempoTotal / 2, self.tempoTotal / 2, min(self.curvaLuz) - 0.001, 1.001]) # descomentar para voltar ao original
-        #ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True, repeat_delay=0.1) # descomentar para voltar ao original
-        #plt.show() # descomentar para voltar ao original
-        # ani.save('animacao_transito.gif',writer="PillowWriter") #salva o gif gerado na raiz do arquivo, para utilizacao do usuario
+            # ax2.plot(self.tempoHoras, self.curvaLuz) # descomentar para voltar ao original
+            # ax2.axis([-self.tempoTotal / 2, self.tempoTotal / 2, min(self.curvaLuz) - 0.001, 1.001]) # descomentar para voltar ao original
+            # ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True, repeat_delay=0.1) # descomentar para voltar ao original
+            # plt.show() # descomentar para voltar ao original
+            # ani.save('animacao_transito.gif',writer="PillowWriter") #salva o gif gerado na raiz do arquivo, para utilizacao do usuario
+
+        else:
+            print("\nNa tab. Parâmetros digite 0 (não) ou 1 (sim) para a plotagem da animação.\n")
+            return
 
         error = 0
         self.error = error
