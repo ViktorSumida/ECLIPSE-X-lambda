@@ -487,8 +487,10 @@ pyplot.ylabel("relative flux", fontsize=25)
 pyplot.tick_params(axis="x", direction="in", labelsize=15)
 pyplot.tick_params(axis="y", direction="in", labelsize=15)
 
-df1 = pd.DataFrame([D_lambda, lambdaEff_nm],
-                   index=['D_lamb', 'wave'])
+d = {'Wavelength [nm]': lambdaEff_nm, 'D_lambda': D_lambda}
+df1 = pd.DataFrame(data=d)
+#df1 = pd.DataFrame([D_lambda, lambdaEff_nm],
+#                   index=['D_lamb', 'wave'])
 df1.to_excel("output.xlsx")
 
 print(D_lambda)
