@@ -2,7 +2,7 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 
-graphic = 2
+graphic = 1
 
 if graphic == 1:
 
