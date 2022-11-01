@@ -394,8 +394,20 @@ while (count3 < num_elements):
     eclipse = Eclipse(Nx, Ny, raio, estrela)
 
 
-    # stack_estrela_[count3].Plotar(tamanhoMatriz, estrela) descomentar para imprimir a estrela
+    ######## Plotar ou não a a estrela junto com a animação #######################
+    parameters = pd.read_excel('C:/Users/vikto/PycharmProjects/StarsAndExoplanets/Parâmetros.xlsx',
+                               engine='openpyxl',
+                               keep_default_na=False)  # To read empty cell as empty string, use keep_default_na=False
 
+    plotEstrela = parameters['plotAnimacao'].to_numpy()
+    nullAux = np.where(plotEstrela == '')
+    plotEstrela = np.delete(plotEstrela, nullAux)  # removendo os valores ''
+    plotEstrela = int(plotEstrela[0])  # necessário converter vetor para variável
+
+    if (plotEstrela == 1):
+        stack_estrela_[count3].Plotar(tamanhoMatriz, estrela) # descomentar para imprimir a estrela
+
+    #########################
 
     eclipse.geraTempoHoras()
     tempoHoras = eclipse.getTempoHoras()
