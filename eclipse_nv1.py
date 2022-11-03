@@ -65,7 +65,7 @@ class Eclipse:
         timeInterval = parameters['timeInterval'].to_numpy()
         nullAux = np.where(timeInterval == '')
         timeInterval = np.delete(timeInterval, nullAux)  # removendo os valores ''
-        timeInterval = int(timeInterval[0])  # necessário converter vetor para variável
+        timeInterval = timeInterval[0]  # necessário converter vetor para variável
         #########################
 
         self.intervaloTempo = timeInterval
@@ -281,7 +281,7 @@ class Eclipse:
             ax2.axis([-self.tempoTotal / 2, self.tempoTotal / 2, min(self.curvaLuz) - 0.001, 1.001]) # descomentar para voltar ao original
             ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True, repeat_delay=0.1) # descomentar para voltar ao original
             plt.show() # descomentar para voltar ao original
-            # ani.save('animacao_transito.gif',writer="PillowWriter") #salva o gif gerado na raiz do arquivo, para utilizacao do usuario
+            ani.save('animacao_transito.gif', writer="PillowWriter") #salva o gif gerado na raiz do arquivo, para utilizacao do usuario
 
         if (plotAnimacao == 0):
             # criacao de variaveis para plotagem da animacao
