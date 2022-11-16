@@ -484,6 +484,7 @@ while(count4 < num_elements):
     lambdaEff_nm[count4] = lambdaEff[count4] * 1000
     pyplot.plot(stack_tempoHoras[count4], stack_curvaLuz[count4], label=int(lambdaEff_nm[count4]))
     D_lambda[count4] = min(stack_curvaLuz[count4])
+    D_lambda[count4] = (1 - D_lambda[count4]) * 1000000 # profundidade de trânsito está em ppm, CUIDADO!!!
     print("Máxima profundidade de trânsito: ", min(stack_curvaLuz[count4]))
     count4 += 1
 
@@ -499,7 +500,7 @@ pyplot.ylabel("relative flux", fontsize=25)
 pyplot.tick_params(axis="x", direction="in", labelsize=15)
 pyplot.tick_params(axis="y", direction="in", labelsize=15)
 
-d = {'Wavelength [nm]': lambdaEff_nm, 'D_lambda': D_lambda}
+d = {'Wavelength [nm]': lambdaEff_nm, 'D_lambda [ppm]': D_lambda}
 df1 = pd.DataFrame(data=d)
 #df1 = pd.DataFrame([D_lambda, lambdaEff_nm],
 #                   index=['D_lamb', 'wave'])
