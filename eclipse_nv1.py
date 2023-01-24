@@ -107,7 +107,7 @@ class Eclipse:
         self.yl = moon.getyl()
         return moon
 
-    def criarEclipse(self, semiEixoRaioStar, raioPlanetaRstar, periodo, anguloInclinacao, lua, ecc, anom,anim=False,plot=False):
+    def criarEclipse(self, semiEixoRaioStar, raioPlanetaRstar, periodo, anguloInclinacao, lua, ecc, anom):
 
         '''
         Criação da classe eclipse, que retornará a curva de luz do trânsito do planeta ao redor da estrela
@@ -130,6 +130,8 @@ class Eclipse:
         nullAux = np.where(plotAnimacao == '')
         plotAnimacao = np.delete(plotAnimacao, nullAux)  # removendo os valores ''
         plotAnimacao = int(plotAnimacao[0])  # necessário converter vetor para variável
+        anim = plotAnimacao
+        plot = plotAnimacao
         #########################
 
         intervaloTempo = self.intervaloTempo
@@ -259,7 +261,7 @@ class Eclipse:
         '''
         Criação da matriz para plotagem:
         '''
-        if (anim):
+        if (anim == 1):
             # criacao de variaveis para plotagem da animacao
             fig, (ax1, ax2) = plt.subplots(2, 1)
             ims = []
@@ -347,7 +349,7 @@ class Eclipse:
 
                     self.curvaLuz[rangeloop[i]] = my_func.curvaLuzLua(x0, y0, xm, ym, self.Rmoon, self.tamanhoMatriz,
                                                                       raioPlanetaPixel, em, kk2, maxCurvaLuz)
-            if (plot):
+            if (plot == 1):
                 end = time.time()
                 print(end - start)
                 plt.plot(self.tempoHoras, self.curvaLuz)
