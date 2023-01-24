@@ -208,7 +208,7 @@ class Eclipse:
             else:
                 rangeloop = self.ppMoon
                 xplan = xplaneta[
-                            self.ppMoon] + tamanhoMatriz / 2  # x plan e y plan se alteram caso haja o acrescimo de luas
+                            self.ppMoon] + tamanhoMatriz / 2  # x plan e y plan se alteram caso haja o acréscimo de luas
                 yplan = yplaneta[self.ppMoon] + tamanhoMatriz / 2
         else:
             rangeloop = pp
@@ -222,7 +222,7 @@ class Eclipse:
         # definição de variaveis para utilizacao da função de calculo da curva de luz em C
         tamanho = self.tamanhoMatriz * self.tamanhoMatriz
 
-        # Matriz em auxiliar para ser passada como parametro para o script em C
+        # Matriz "em" auxiliar para ser passada como parametro para o script em C
         em = (c_double * tamanho)()
         for j in range(self.tamanhoMatriz):
             for i in range(self.tamanhoMatriz):
@@ -256,7 +256,9 @@ class Eclipse:
         my_func.curvaLuzLua.argtypes = c_double, c_double, c_double, c_double, c_double, c_int, c_int, POINTER(
             c_double), POINTER(c_double), c_double
 
-        raioPlanetaPixel = int(raioPlanetaPixel)
+
+        raioPlanetaPixel = int(raioPlanetaPixel) # não pode ser inteiro!!!
+
 
         '''
         Criação da matriz para plotagem:
