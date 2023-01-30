@@ -396,17 +396,19 @@ while (count3 < num_elements):
 
 
     ######## Plotar ou não a a estrela junto com a animação #######################
-    #parameters = pd.read_excel('C:/Users/vikto/PycharmProjects/StarsAndExoplanets/Parâmetros.xlsx',
-    #                           engine='openpyxl',
-    #                           keep_default_na=False)  # To read empty cell as empty string, use keep_default_na=False
+   
+    plotGrafico = parameters['plotGrafico'].to_numpy()
+    nullAux = np.where(plotGrafico == '')
+    plotGrafico = np.delete(plotGrafico, nullAux)  # removendo os valores ''
+    plotGrafico = int(plotGrafico[0])  # necessário converter vetor para variável
+    
+    plotEstrela = parameters['plotAnimacao'].to_numpy()
+    nullAux = np.where(plotEstrela == '')
+    plotEstrela = np.delete(plotEstrela, nullAux)  # removendo os valores ''
+    plotEstrela = int(plotEstrela[0])  # necessário converter vetor para variável
 
-    #plotEstrela = parameters['plotAnimacao'].to_numpy()
-    #nullAux = np.where(plotEstrela == '')
-    #plotEstrela = np.delete(plotEstrela, nullAux)  # removendo os valores ''
-    #plotEstrela = int(plotEstrela[0])  # necessário converter vetor para variável
-
-    #if (plotEstrela == 1):
-    stack_estrela_[count3].Plotar(tamanhoMatriz, estrela) # descomentar para imprimir a estrela
+    if (plotEstrela == 1 or plotGrafico == 1):
+        stack_estrela_[count3].Plotar(tamanhoMatriz, estrela) # descomentar para imprimir a estrela
 
     #########################
 
