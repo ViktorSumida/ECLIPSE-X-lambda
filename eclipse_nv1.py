@@ -130,8 +130,17 @@ class Eclipse:
         nullAux = np.where(plotAnimacao == '')
         plotAnimacao = np.delete(plotAnimacao, nullAux)  # removendo os valores ''
         plotAnimacao = int(plotAnimacao[0])  # necessário converter vetor para variável
+        
+        parameters = pd.read_excel('C:/Users/vikto/PycharmProjects/StarsAndExoplanets/Parâmetros.xlsx',
+                                   engine='openpyxl',
+                                   keep_default_na=False)  # To read empty cell as empty string, use keep_default_na=False
+
+        plotGrafico = parameters['plotGrafico'].to_numpy()
+        nullAux = np.where(plotGrafico == '')
+        plotGrafico = np.delete(plotGrafico, nullAux)  # removendo os valores ''
+        plotGrafico = int(plotGrafico[0])  # necessário converter vetor para variável
         anim = plotAnimacao
-        plot = plotAnimacao
+        plot = plotGrafico
         #########################
 
         intervaloTempo = self.intervaloTempo
@@ -252,9 +261,11 @@ class Eclipse:
         # Prepara os tipos de cada variável dos argumentos e do retorno da função do calculo da curva de luz
         my_func.curvaLuz.restype = c_double
         my_func.curvaLuz.argtypes = c_double, c_double, c_int, c_int, POINTER(c_double), POINTER(c_double), c_double
+        # my_func.curvaLuz(x0, y0, self.tamanhoMatriz, raioPlanetaPixel, em, kk2, maxCurvaLuz)
         my_func.curvaLuzLua.restype = c_double
         my_func.curvaLuzLua.argtypes = c_double, c_double, c_double, c_double, c_double, c_int, c_int, POINTER(
             c_double), POINTER(c_double), c_double
+        # my_func.curvaLuzLua(x0, y0, xm, ym, self.Rmoon, self.tamanhoMatriz, raioPlanetaPixel, em, kk2, maxCurvaLuz)
 
 
         raioPlanetaPixel = int(raioPlanetaPixel) # não pode ser inteiro!!!
