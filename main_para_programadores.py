@@ -70,7 +70,7 @@ def planck(wavelength, Temp) :
 ################# https://exoctk.stsci.edu/limb_darkening ########################################
 ##################################################################################################
 
-table_ExoCTK = pd.read_excel('C:/Users/vikto/PycharmProjects/StarsAndExoplanets/ExoCTK_results.xlsx', engine='openpyxl')
+table_ExoCTK = pd.read_excel('ExoCTK_results.xlsx', engine='openpyxl')
 
 profile_aux = table_ExoCTK['profile'].to_numpy()
 profile_aux = np.delete(profile_aux, 0)    # removing the column reader "-----"
@@ -111,7 +111,7 @@ elif profile == 'quadratic' or 'square-root' or 'logarithmic' or 'exponential':
 ########################################################################################
 ######################### Parâmetros ###################################################
 
-parameters = pd.read_excel('C:/Users/vikto/PycharmProjects/StarsAndExoplanets/Parâmetros.xlsx', engine='openpyxl',
+parameters = pd.read_excel('Parâmetros.xlsx', engine='openpyxl',
                            keep_default_na=False) # To read empty cell as empty string, use keep_default_na=False
 
 raio = parameters['raio'].to_numpy()

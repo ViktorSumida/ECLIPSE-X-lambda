@@ -66,7 +66,7 @@ class Eclipse:
         '''
 
         ######## Intervalo de tempo da animação #######################
-        parameters = pd.read_excel('C:/Users/vikto/PycharmProjects/StarsAndExoplanets/Parâmetros.xlsx',
+        parameters = pd.read_excel('Parâmetros.xlsx',
                                    engine='openpyxl',
                                    keep_default_na=False)  # To read empty cell as empty string, use keep_default_na=False
 
@@ -122,7 +122,7 @@ class Eclipse:
         '''
 
         ######## Plotar ou não a animação #######################
-        parameters = pd.read_excel('C:/Users/vikto/PycharmProjects/StarsAndExoplanets/Parâmetros.xlsx',
+        parameters = pd.read_excel('Parâmetros.xlsx',
                                    engine='openpyxl',
                                    keep_default_na=False)  # To read empty cell as empty string, use keep_default_na=False
 
@@ -131,10 +131,7 @@ class Eclipse:
         plotAnimacao = np.delete(plotAnimacao, nullAux)  # removendo os valores ''
         plotAnimacao = int(plotAnimacao[0])  # necessário converter vetor para variável
         
-        parameters = pd.read_excel('C:/Users/vikto/PycharmProjects/StarsAndExoplanets/Parâmetros.xlsx',
-                                   engine='openpyxl',
-                                   keep_default_na=False)  # To read empty cell as empty string, use keep_default_na=False
-
+        
         plotGrafico = parameters['plotGrafico'].to_numpy()
         nullAux = np.where(plotGrafico == '')
         plotGrafico = np.delete(plotGrafico, nullAux)  # removendo os valores ''
