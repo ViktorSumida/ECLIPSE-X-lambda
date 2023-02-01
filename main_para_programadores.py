@@ -1,5 +1,7 @@
 #######################################################################
-# Código utilizado no meu doutorado ###################################
+# Viktor Y. D. Sumida e-mail: viktor.sumida@alumni.usp.br #############
+# PhD student in Astrophysics at Mackenzie University #################
+# Contact via e-mail: viktor.sumida@alumni.usp.br        ##############
 #######################################################################
 
 import numpy as np
@@ -114,7 +116,7 @@ elif profile == 'quadratic' or 'square-root' or 'logarithmic' or 'exponential':
 ########################################################################################
 ######################### Parâmetros ###################################################
 
-parameters = pd.read_excel('Parâmetros.xlsx', engine='openpyxl',
+parameters = pd.read_excel('Par�metros.xlsx', engine='openpyxl',
                            keep_default_na=False) # To read empty cell as empty string, use keep_default_na=False
 
 raio = parameters['raio'].to_numpy()
