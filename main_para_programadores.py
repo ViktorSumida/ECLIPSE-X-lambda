@@ -1,10 +1,13 @@
+#######################################################################
+# Código utilizado no meu doutorado ###################################
+#######################################################################
+
 import numpy as np
 import pandas as pd
 from matplotlib import pyplot
 from estrela_nv1 import estrela
 from eclipse_nv1 import Eclipse
 from verify import Validar, ValidarEscolha, calSemiEixo, calculaLat
-
 
 
 ########### Fonte igual ao LaTeX ###### <https://matplotlib.org/stable/tutorials/text/usetex.html> ######
