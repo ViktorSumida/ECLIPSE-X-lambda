@@ -337,7 +337,7 @@ class Eclipse:
             ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True, repeat_delay=0.1)
 
             plt.show()
-            # ani.save('animacao_transito.gif',writer="PillowWriter") #salva o gif gerado na raiz do arquivo, para utilizacao do usuario
+            ani.save('animacao_transito.gif',writer="PillowWriter") #salva o gif gerado na raiz do arquivo, para utilizacao do usuario
         else:
             # Inicio dos loops para a plotagem e calculo do trânsito
             start = time.time()
