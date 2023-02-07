@@ -335,6 +335,8 @@ intensidadeMancha = np.zeros(num_elements)
 intensidadeManchaNormalizada = np.zeros(num_elements)
 intensidadeManchaRazao = np.zeros(num_elements)
 
+epsilon_Rackham = [0 for j in range(num_elements)]
+
 count3 = 0
 while (count3 < num_elements):
 
@@ -383,6 +385,7 @@ while (count3 < num_elements):
     f_spot = area_spot / area_star
     print('razao A_spot/A_star: ', f_spot)
     fatorEpsilon = 1 / (1 - (f_spot * (1 - intensidadeManchaRazao[count3])))
+    epsilon_Rackham[count3] = fatorEpsilon
     print('epsilon de Rackham = ', fatorEpsilon)
 
 
@@ -515,5 +518,7 @@ df1 = pd.DataFrame(data=d)
 df1.to_excel("output.xlsx")
 
 print(D_lambda)
+
+print(epsilon_Rackham)
 
 pyplot.show()
