@@ -334,10 +334,12 @@ class Eclipse:
             # print(end-start)
             ax2.plot(self.tempoHoras, self.curvaLuz)
             ax2.axis([-self.tempoTotal / 2, self.tempoTotal / 2, min(self.curvaLuz) - 0.001, 1.001])
+            ax2.set_xlabel("time from transit center (hr)", fontsize=19)
+            ax2.set_ylabel("relative flux", fontsize=19)
             ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True, repeat_delay=0.1)
-
             plt.show()
-            ani.save('animacao_transito.gif',writer="PillowWriter") #salva o gif gerado na raiz do arquivo, para utilizacao do usuario
+            #ani.save('animacao_transito.gif', writer="PillowWriter") #salva o gif gerado na raiz do arquivo, para utilizacao do usuario
+
         else:
             # Inicio dos loops para a plotagem e calculo do trânsito
             start = time.time()
@@ -364,6 +366,10 @@ class Eclipse:
                 print(end - start)
                 plt.plot(self.tempoHoras, self.curvaLuz)
                 plt.axis([-self.tempoTotal / 2, self.tempoTotal / 2, min(self.curvaLuz) - 0.001, 1.001])
+                plt.xlabel("time from transit center (hr)", fontsize=19)
+                plt.ylabel("relative flux", fontsize=19)
+                plt.tick_params(axis="x", direction="in")
+                plt.tick_params(axis="y", direction="in")
                 plt.show()
 
         locals().clear  # Limpa qualquer possível sujeira de memória

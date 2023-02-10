@@ -499,7 +499,7 @@ while(count4 < num_elements):
     print("Máxima profundidade de trânsito: ", min(stack_curvaLuz[count4]))
     count4 += 1
 
-pyplot.axis([-tempoTransito / 2, tempoTransito / 2, min(curvaLuz) - 0.001, 1.001])
+pyplot.axis([-tempoTransito / 2, tempoTransito / 2, min(curvaLuz) - (min(curvaLuz)/100), 1.001])
 legend = pyplot.legend()
 legend.set_title("Wavelength [nm]")
 
