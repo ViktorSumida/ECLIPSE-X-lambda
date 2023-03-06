@@ -28,9 +28,9 @@ from verify import Validar, ValidarEscolha
 from keplerAux import keplerfunc  #biblioteca auxiliar caso a biblioteca kepler nao funcione
 import matplotlib.animation as animation
 import kepler  # para o calculo de orbitas excentricas (pip install kepler)
+from kepler._core import solve
 import os
 import pandas as pd
-
 import os
 from ctypes import *
 from numpy.ctypeslib import ndpointer
@@ -130,8 +130,8 @@ class Eclipse:
         nullAux = np.where(plotAnimacao == '')
         plotAnimacao = np.delete(plotAnimacao, nullAux)  # removendo os valores ''
         plotAnimacao = int(plotAnimacao[0])  # necessário converter vetor para variável
-        
-        
+
+
         plotGrafico = parameters['plotGrafico'].to_numpy()
         nullAux = np.where(plotGrafico == '')
         plotGrafico = np.delete(plotGrafico, nullAux)  # removendo os valores ''
@@ -171,10 +171,12 @@ class Eclipse:
         eccanom = keplerfunc(m, ecc)  # subrotina em anexo
         xs = semiEixoPixel * (np.cos(eccanom) - ecc)
         ys = semiEixoPixel * (math.sqrt(1 - (ecc ** 2)) * np.sin(eccanom))
+        print('anomalia excentrica eccanom, xs, ys: ', eccanom, xs, ys)
 
         ang = anom * dtor - (np.pi / 2)
         xp = xs * np.cos(ang) - ys * np.sin(ang)
         yp = xs * np.sin(ang) + ys * np.cos(ang)
+        print('xp, yp: ', xp, yp)
 
         ie, = np.where(self.tempoHoras == min(abs(self.tempoHoras)))
 
@@ -249,23 +251,27 @@ class Eclipse:
         # Matriz kk auxiliar para ser passada como parametro para o script em C
         kk2 = (c_double * len(kk))(*kk)
 
-        # Verifica se o Python é 32 ou 64 bit
-        if (platform.architecture()[0] == "32bit"):
-            my_func = WinDLL('scripts/func32.dll', winmode=0x8)
-        elif (platform.architecture()[0] == "64bit"):
-            my_func = WinDLL('scripts/func64.dll', winmode=0x8)
+        # Verifica o SO e se o Python é 32 ou 64 bit
+        if(platform.system() == "Windows"):
+            if(platform.architecture()[0] == "32bit"):
+                my_func = WinDLL('scripts/func32.dll', winmode = 0x8)
+            elif(platform.architecture()[0] == "64bit"):
+                my_func = WinDLL('scripts/func64.dll', winmode = 0x8)
+        elif(platform.system() == "Darwin"):
+            my_func = cdll.LoadLibrary('scripts/func64.dylib')
+        else:
+            my_func = CDLL('scripts/func64.so')
 
         # Prepara os tipos de cada variável dos argumentos e do retorno da função do calculo da curva de luz
         my_func.curvaLuz.restype = c_double
-        my_func.curvaLuz.argtypes = c_double, c_double, c_int, c_int, POINTER(c_double), POINTER(c_double), c_double
+        my_func.curvaLuz.argtypes = c_double, c_double, c_int, c_double, POINTER(c_double), POINTER(c_double), c_double
         # my_func.curvaLuz(x0, y0, self.tamanhoMatriz, raioPlanetaPixel, em, kk2, maxCurvaLuz)
         my_func.curvaLuzLua.restype = c_double
-        my_func.curvaLuzLua.argtypes = c_double, c_double, c_double, c_double, c_double, c_int, c_int, POINTER(
-            c_double), POINTER(c_double), c_double
+        my_func.curvaLuzLua.argtypes = c_double, c_double, c_double, c_double, c_double, c_int, c_double, \
+                                       POINTER(c_double), POINTER(c_double), c_double
         # my_func.curvaLuzLua(x0, y0, xm, ym, self.Rmoon, self.tamanhoMatriz, raioPlanetaPixel, em, kk2, maxCurvaLuz)
 
-
-        raioPlanetaPixel = int(raioPlanetaPixel) # não pode ser inteiro!!!
+        raioPlanetaPixel = float(raioPlanetaPixel) # não pode ser inteiro!!!
 
 
         '''

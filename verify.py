@@ -29,7 +29,7 @@ def ValidarEscolha(msg):
         except Exception as erro:
             print(f'\033[0;31mO valor digitado é inválido. Por favor, digite novamente. O tipo de problema encontrado foi{erro.__class__}\n\n\033[m')
 
-def calSemiEixo(periodo,mass):
+def calSemiEixo(periodo, mass):
     '''
     funcao que calcula o semieixo do planeta de acordo com o peridodo atraves da 3a lei de Kepler
     parametros:
@@ -52,14 +52,15 @@ def calSemiEixo(periodo,mass):
     A seguir, digite a massa da estrela em Kg para que a 3a Lei de Kepler seja apli-
     cada e entao, o Semi Eixo orbital seja calculado.
     \033[m''')
-    G= (6.674184*(10**(-11))) #constante gravitacao universal
-    periodos=periodo*86400 #transformando o periodo que é dado em dias em segundos
-    massestrela = mass * (1.989*(10**30))
-    a=(((periodos**2)*G*massestrela)/(4*(np.pi**2)))**(1/3)
+    G = (6.674184 * (10**(-11))) #constante gravitacao universal
+    periodoSeg = periodo * 86400 #transformando o periodo que é dado em dias em segundos
+    massEstrela = mass * (1.989 * (10**30))
+    a = (((periodoSeg**2) * G * massEstrela) / (4 * (np.pi**2))) ** (1/3)
+    print('a: ', a)
     return a
 
 def calculaLat(semiEixoRaioStar,anguloInclinacao):
     '''Funcao que calcula latitude para que a mancha seja influente na curva de luz'''
-    dtor=np.pi/180
-    lat = - (np.arcsin(semiEixoRaioStar*np.cos(anguloInclinacao*dtor))/dtor)
+    dtor = np.pi/180
+    lat = - (np.arcsin(semiEixoRaioStar * np.cos(anguloInclinacao * dtor)) / dtor)
     return lat

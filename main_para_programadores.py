@@ -272,9 +272,9 @@ while (count1 < num_elements):
     # dec = ValidarEscolha("Deseja calular o semieixo Orbital do planeta através da 3a LEI DE KEPLER? 1. Sim 2.Não |") descomentar para voltar ao original
     kepler = parameters['Kepler'].to_numpy()
     nullAux = np.where(kepler == '')
-    dec = np.delete(kepler, nullAux)  # removendo os valores ''
-    dec = int(dec[0])  # necessário converter vetor para variável
-    if dec == 1:
+    decisao = np.delete(kepler, nullAux)  # removendo os valores ''
+    decisao = int(decisao[0])  # necessário converter vetor para variável
+    if decisao == 1:
         #massStar = 0.86  # parâmetro_mudar [colocar massa da estrela em relação à massa do sol]
         massStar = parameters['massStar'].to_numpy()
         nullAux = np.where(massStar == '')
@@ -282,7 +282,8 @@ while (count1 < num_elements):
         massStar = float(massStar[0])  # necessário converter vetor para variável
         semieixoorbital = calSemiEixo(periodo, massStar)
         semiEixoRaioStar = ((semieixoorbital / 1000) / raioStar)
-        # transforma em km para fazer em relação ao raio da estrela
+        # transforma em km para fazer em relação ao raio da estrela, que também está em km
+
     else:
         #semiEixoRaioStar = Validar('Semi eixo (em UA:)')
         # em unidades de Rstar
@@ -290,7 +291,7 @@ while (count1 < num_elements):
         nullAux = np.where(semiEixoRaioStar == '')
         semiEixoRaioStar = np.delete(semiEixoRaioStar, nullAux)  # removendo os valores ''
         semiEixoRaioStar = float(semiEixoRaioStar[0])  # necessário converter vetor para variável
-        semiEixoRaioStar = ((1.469 * (10 ** 8)) * semiEixoRaioStar) / raioStar
+        semiEixoRaioStar = ((1.496 * (10**8)) * semiEixoRaioStar) / raioStar
         # multiplicando pelas UA (transformando em Km) e convertendo em relacao ao raio da estrela
 
     #raioPlanetaRstar = 0.283  # parâmetro_mudar em relação ao raio de jupiter

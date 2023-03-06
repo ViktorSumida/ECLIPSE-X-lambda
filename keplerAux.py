@@ -30,7 +30,7 @@ def keplerfunc(Marr, eccarr):
 
     Earr = Marr + np.sign(np.sin(Marr)) * k * eccarr  # first guess at E
     # fiarr should go to zero when converges
-    fiarr = ( Earr - eccarr * np.sin(Earr) - Marr)
+    fiarr = (Earr - eccarr * np.sin(Earr) - Marr)
     convd = np.where(np.abs(fiarr) > conv)[0]  # which indices have not converged
     nd = len(convd)  # number of unconverged elements
     count = 0
@@ -53,7 +53,7 @@ def keplerfunc(Marr, eccarr):
         d3 = -fi / (fip + d2 * fipp / 2.0 + d2 * d2 * fippp / 6.0)
         E = E + d3
         Earr[convd] = E
-        fiarr = ( Earr - eccarr * np.sin( Earr ) - Marr) # how well did we do?
+        fiarr = (Earr - eccarr * np.sin(Earr) - Marr) # how well did we do?
         convd = np.abs(fiarr) > conv  # test for convergence
         nd = np.sum(convd is True)
 
