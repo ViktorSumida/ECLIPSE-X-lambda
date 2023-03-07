@@ -117,7 +117,7 @@ class Eclipse:
         :parâmetro anguloInclinacao: angulo de inclinação do planeta
         :parâmetro raioPlanetaRstar: raio do planeta em relacao ao raio da estrela
         :parâmetro lua: lua que orbita o planeta (entra como True or False)
-        :parâmetro ecc: excêntricidade da órbita do planeta
+        :parâmetro ecc: excentricidade da órbita do planeta
         :parâmetro anom: anomalia da órbita do planeta
         '''
 
@@ -168,15 +168,13 @@ class Eclipse:
         m = nk * (self.tempoHoras - Tp)  # em radianos
 
         # calculando a anomalia excentrica em radianos
-        eccanom = keplerfunc(m, ecc)  # subrotina em anexo
+        eccanom = solve(m, ecc)  # subrotina em anexo
         xs = semiEixoPixel * (np.cos(eccanom) - ecc)
         ys = semiEixoPixel * (math.sqrt(1 - (ecc ** 2)) * np.sin(eccanom))
-        print('anomalia excentrica eccanom, xs, ys: ', eccanom, xs, ys)
 
         ang = anom * dtor - (np.pi / 2)
         xp = xs * np.cos(ang) - ys * np.sin(ang)
         yp = xs * np.sin(ang) + ys * np.cos(ang)
-        print('xp, yp: ', xp, yp)
 
         ie, = np.where(self.tempoHoras == min(abs(self.tempoHoras)))
 
