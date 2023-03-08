@@ -10,6 +10,7 @@ from matplotlib import pyplot
 from estrela_nv1 import estrela
 from eclipse_nv1 import Eclipse
 from verify import Validar, ValidarEscolha, calSemiEixo, calculaLat
+import csv
 
 
 ########### Fonte igual ao LaTeX ###### <https://matplotlib.org/stable/tutorials/text/usetex.html> ######
@@ -512,11 +513,19 @@ pyplot.ylabel("relative flux", fontsize=25)
 pyplot.tick_params(axis="x", direction="in", labelsize=15)
 pyplot.tick_params(axis="y", direction="in", labelsize=15)
 
+# imprimindo valores da profundidade de trânsito no excel
 d = {'Wavelength [nm]': lambdaEff_nm, 'D_lambda [ppm]': D_lambda}
 df1 = pd.DataFrame(data=d)
 #df1 = pd.DataFrame([D_lambda, lambdaEff_nm],
 #                   index=['D_lamb', 'wave'])
-df1.to_excel("output.xlsx")
+df1.to_excel("output_transit_depth.xlsx")
+
+# imprimindo valores da profundidade de trânsito em txt
+np.savetxt('output_transit_depth.txt', D_lambda, delimiter=',')
+# imprimindo valores de epsilon de Rackham em txt
+np.savetxt('output_epsilon_Rackham.txt', epsilon_Rackham, delimiter=',')
+# imprimindo valores dos comprimentos de onda em txt (útil para construção dos gráficos)
+np.savetxt('output_wavelengths.txt', lambdaEff_nm, delimiter=',')
 
 print(D_lambda)
 
