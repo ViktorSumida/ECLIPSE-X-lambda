@@ -11,7 +11,7 @@ from estrela_nv1 import estrela
 from eclipse_nv1 import Eclipse
 from verify import Validar, ValidarEscolha, calSemiEixo, calculaLat
 import csv
-
+import seaborn as sns
 
 ########### Fonte igual ao LaTeX ###### <https://matplotlib.org/stable/tutorials/text/usetex.html> ######
 #pyplot.rcParams.update({
@@ -493,9 +493,17 @@ lambdaEff_nm = [0.] * num_elements
 D_lambda = [0.] * num_elements
 count4 = 0
 
+# paleta de cores seaborn (como utilizar):
+# https://seaborn.pydata.org/tutorial/color_palettes.html
+# https://holypython.com/python-visualization-tutorial/colors-with-python/
+palette = [0.] * num_elements
+palette = sns.color_palette("Spectral", num_elements + 1)
+print('paleta: ', palette)
+
 while(count4 < num_elements):
     lambdaEff_nm[count4] = lambdaEff[count4] * 1000
-    pyplot.plot(stack_tempoHoras[count4], stack_curvaLuz[count4], label=int(lambdaEff_nm[count4]))
+    pyplot.plot(stack_tempoHoras[count4], stack_curvaLuz[count4], label=int(lambdaEff_nm[count4]),
+                color=palette[count4])
     D_lambda[count4] = min(stack_curvaLuz[count4])
     D_lambda[count4] = (1 - D_lambda[count4]) * 1000000 # profundidade de trânsito está em ppm, CUIDADO!!!
     print("Máxima profundidade de trânsito: ", min(stack_curvaLuz[count4]))
@@ -521,7 +529,7 @@ df1 = pd.DataFrame(data=d)
 df1.to_excel("output_transit_depth.xlsx")
 
 # imprimindo valores da profundidade de trânsito em txt
-np.savetxt('output_transit_depth.txt', D_lambda, delimiter=',')
+np.savetxt('output_transit_depth-trans_lat-' + str(int(-latsugerida)) + 'graus.txt', D_lambda, delimiter=',')
 # imprimindo valores de epsilon de Rackham em txt
 np.savetxt('output_epsilon_Rackham.txt', epsilon_Rackham, delimiter=',')
 # imprimindo valores dos comprimentos de onda em txt (útil para construção dos gráficos)
