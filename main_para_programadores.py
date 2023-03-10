@@ -496,8 +496,7 @@ count4 = 0
 # paleta de cores seaborn (como utilizar):
 # https://seaborn.pydata.org/tutorial/color_palettes.html
 # https://holypython.com/python-visualization-tutorial/colors-with-python/
-palette = [0.] * num_elements
-palette = sns.color_palette("Spectral", num_elements + 1)
+palette = sns.color_palette("Spectral", num_elements)
 print('paleta: ', palette)
 
 while(count4 < num_elements):
@@ -510,8 +509,8 @@ while(count4 < num_elements):
     count4 += 1
 
 pyplot.axis([-tempoTransito / 2, tempoTransito / 2, min(curvaLuz) - (min(curvaLuz)/100), 1.001])
-legend = pyplot.legend()
-legend.set_title("Wavelength [nm]")
+#legend = pyplot.legend()
+#legend.set_title("Wavelength [nm]")
 
 #print("Máxima profundidade de trânsito: ", min(curvaLuz))
 
@@ -529,9 +528,9 @@ df1 = pd.DataFrame(data=d)
 df1.to_excel("output_transit_depth.xlsx")
 
 # imprimindo valores da profundidade de trânsito em txt
-np.savetxt('output_transit_depth-trans_lat-' + str(int(-latsugerida)) + 'graus.txt', D_lambda, delimiter=',')
+np.savetxt('output_transit_depth(trans_lat' + str(int(latsugerida)) + 'graus,f_spot=' + str(f_spot * 100) + '%).txt', D_lambda, delimiter=',')
 # imprimindo valores de epsilon de Rackham em txt
-np.savetxt('output_epsilon_Rackham.txt', epsilon_Rackham, delimiter=',')
+np.savetxt('output_epsilon_Rackham(trans_lat' + str(int(latsugerida)) + 'graus,f_spot=' + str(f_spot * 100) + '%).txt', epsilon_Rackham, delimiter=',')
 # imprimindo valores dos comprimentos de onda em txt (útil para construção dos gráficos)
 np.savetxt('output_wavelengths.txt', lambdaEff_nm, delimiter=',')
 
