@@ -4,7 +4,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.interpolate as interpolate
 import math
+
 import seaborn as sns
+# https://seaborn.pydata.org/tutorial/color_palettes.html
+# https://holypython.com/python-visualization-tutorial/colors-with-python/
 
 ########### Fonte igual ao LaTeX ###### <https://matplotlib.org/stable/tutorials/text/usetex.html> ######
 #plt.rcParams.update({
