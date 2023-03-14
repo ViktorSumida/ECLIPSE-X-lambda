@@ -17,9 +17,6 @@ import seaborn as sns
 #########################################################################################################
 
 
-
-
-
 ########## Ajuste polinomial ###############################
 #deg = 2
 #z1 = np.polyfit(wavelengths, epsilon_Rackham, deg)
@@ -30,7 +27,7 @@ import seaborn as sns
 
 fig = plt.figure()
 
-graph = 1
+graph = 3
 
 if (graph == 1):
 
@@ -50,19 +47,25 @@ if (graph == 1):
     palette = sns.color_palette("mako", 5)
     graph1 = fig.add_subplot(1, 1, 1)
     graph1.set_title('WASP-101$\,$b', fontsize=29, fontweight='bold')
-    graph1.set_ylabel('Contamination Factor ($\epsilon$)', fontsize=22, fontweight="bold", labelpad=10) # labelpad é a distância entre o título e o eixo
+    graph1.set_ylabel('Contamination Factor ($\epsilon$)', fontsize=22, fontweight="bold",
+                      labelpad=10) # labelpad é a distância entre o título e o eixo
     graph1.set_xlabel('Wavelength (nm)', fontsize=22, fontweight="bold", labelpad=10)
     #graph1.plot(wavelengths, epsilon,  'o', linestyle='none', markersize=7, color='red', label='$\epsilon$')
     #graph1.plot(wavelengths, epsilon_Rackham_ff_10,  'o', linestyle='none', markersize=5, color=palette[4])
-    graph1.plot(wavelengths, epsilon_Rackham_ff_10,  '-', linewidth=3, color=palette[4], label='$\epsilon_{R}$ - Trans. Lat. = 46$^{\circ}$; f$_{spot}=10\%$')
+    graph1.plot(wavelengths, epsilon_Rackham_ff_10,  '-', linewidth=3, color=palette[4],
+                label='$\epsilon_{R}$ - Trans. Lat. = 46$^{\circ}$; f$_{spot}=10\%$')
     #graph1.plot(wavelengths, epsilon_Rackham_ff_8,  'o', linestyle='none', markersize=5, color=palette[3])
-    graph1.plot(wavelengths, epsilon_Rackham_ff_8,  '-', linewidth=3, color=palette[3], label='$\epsilon_{R}$ - Trans. Lat. = 46$^{\circ}$; f$_{spot}=8\%$')
+    graph1.plot(wavelengths, epsilon_Rackham_ff_8,  '-', linewidth=3, color=palette[3],
+                label='$\epsilon_{R}$ - Trans. Lat. = 46$^{\circ}$; f$_{spot}=8\%$')
     #graph1.plot(wavelengths, epsilon_Rackham_ff_6,  'o', linestyle='none', markersize=5, color=palette[2])
-    graph1.plot(wavelengths, epsilon_Rackham_ff_6,  '-', linewidth=3, color=palette[2], label='$\epsilon_{R}$ - Trans. Lat. = 46$^{\circ}$; f$_{spot}=6\%$')
+    graph1.plot(wavelengths, epsilon_Rackham_ff_6,  '-', linewidth=3, color=palette[2],
+                label='$\epsilon_{R}$ - Trans. Lat. = 46$^{\circ}$; f$_{spot}=6\%$')
     #graph1.plot(wavelengths, epsilon_Rackham_ff_4,  'o', linestyle='none', markersize=5, color=palette[1])
-    graph1.plot(wavelengths, epsilon_Rackham_ff_4,  '-', linewidth=3, color=palette[1], label='$\epsilon_{R}$ - Trans. Lat. = 46$^{\circ}$; f$_{spot}=4\%$')
+    graph1.plot(wavelengths, epsilon_Rackham_ff_4,  '-', linewidth=3, color=palette[1],
+                label='$\epsilon_{R}$ - Trans. Lat. = 46$^{\circ}$; f$_{spot}=4\%$')
     #graph1.plot(wavelengths, epsilon_Rackham_ff_2,  'o', linestyle='none', markersize=5, color=palette[0])
-    graph1.plot(wavelengths, epsilon_Rackham_ff_2,  '-', linewidth=3, color=palette[0], label='$\epsilon_{R}$ - Trans. Lat. = 46$^{\circ}$; f$_{spot}=2\%$')
+    graph1.plot(wavelengths, epsilon_Rackham_ff_2,  '-', linewidth=3, color=palette[0],
+                label='$\epsilon_{R}$ - Trans. Lat. = 46$^{\circ}$; f$_{spot}=2\%$')
 
     #graph1.plot(wavelengths, table_epsilon_ourWork[0], '.', linestyle='none', markersize=5, color=palette[0])
     graph1.plot(wavelengths, table_epsilon_ourWork[4], '--', linewidth=3, color=palette[4],
@@ -100,21 +103,67 @@ elif (graph == 2):
     graph2.set_ylabel('Transit Depth [ppm]', fontsize=22, fontweight="bold", labelpad=10) # labelpad é a distância entre o título e o eixo
     graph2.set_xlabel('Wavelength (nm)', fontsize=22, fontweight="bold", labelpad=10)
     graph2.plot(wavelengths, transit_depth_tl_46_ff_10,  'o', linestyle='none', markersize=5, color=palette[5])
-    graph2.plot(wavelengths, transit_depth_tl_46_ff_10, '-', color=palette[5], linewidth=3, label='Trans. Lat. = 46$^{\circ}$; f$_{spot}=10\%$')
+    graph2.plot(wavelengths, transit_depth_tl_46_ff_10, '-', color=palette[5], linewidth=3,
+                label='Trans. Lat. = 46$^{\circ}$; f$_{spot}=10\%$')
     graph2.plot(wavelengths, transit_depth_tl_46_ff_8,  'o', linestyle='none', markersize=5, color=palette[4])
-    graph2.plot(wavelengths, transit_depth_tl_46_ff_8, '-', color=palette[4], linewidth=3, label='Trans. Lat. = 46$^{\circ}$; f$_{spot}=8\%$')
+    graph2.plot(wavelengths, transit_depth_tl_46_ff_8, '-', color=palette[4], linewidth=3,
+                label='Trans. Lat. = 46$^{\circ}$; f$_{spot}=8\%$')
     graph2.plot(wavelengths, transit_depth_tl_46_ff_6,  'o', linestyle='none', markersize=5, color=palette[3])
-    graph2.plot(wavelengths, transit_depth_tl_46_ff_6, '-', color=palette[3], linewidth=3, label='Trans. Lat. = 46$^{\circ}$; f$_{spot}=6\%$')
+    graph2.plot(wavelengths, transit_depth_tl_46_ff_6, '-', color=palette[3], linewidth=3,
+                label='Trans. Lat. = 46$^{\circ}$; f$_{spot}=6\%$')
     graph2.plot(wavelengths, transit_depth_tl_46_ff_4,  'o', linestyle='none', markersize=5, color=palette[2])
-    graph2.plot(wavelengths, transit_depth_tl_46_ff_4, '-', color=palette[2], linewidth=3, label='Trans. Lat. = 46$^{\circ}$; f$_{spot}=6\%$')
+    graph2.plot(wavelengths, transit_depth_tl_46_ff_4, '-', color=palette[2], linewidth=3,
+                label='Trans. Lat. = 46$^{\circ}$; f$_{spot}=6\%$')
     graph2.plot(wavelengths, transit_depth_tl_46_ff_2,  'o', linestyle='none', markersize=5, color=palette[1])
-    graph2.plot(wavelengths, transit_depth_tl_46_ff_2, '-', color=palette[1], linewidth=3, label='Trans. Lat. = 46$^{\circ}$; f$_{spot}=2\%$')
+    graph2.plot(wavelengths, transit_depth_tl_46_ff_2, '-', color=palette[1], linewidth=3,
+                label='Trans. Lat. = 46$^{\circ}$; f$_{spot}=2\%$')
     graph2.plot(wavelengths, transit_depth_tl_46_ff_0,  'o', linestyle='none', markersize=5, color=palette[0])
-    graph2.plot(wavelengths, transit_depth_tl_46_ff_0, '-', color=palette[0], linewidth=3, label='Trans. Lat. = 46$^{\circ}$; photosphere')
+    graph2.plot(wavelengths, transit_depth_tl_46_ff_0, '-', color=palette[0], linewidth=3,
+                label='Trans. Lat. = 46$^{\circ}$; photosphere')
 
 
     graph2.tick_params(axis="x", direction="in", labelsize=12)
     graph2.tick_params(axis="y", direction="in", labelsize=12)
+    plt.subplots_adjust(top=0.9)
+    #plt.xlabel('Wavelength (nm)', labelpad=15)
+    #plt.plot(wavelengths, y2(wavelengths), "-", color='red') # ajuste polinomial
+
+elif (graph == 3):
+
+    # Leitura de entrada dos dados
+
+    transit_depth_phot_trans_lat_0 = np.genfromtxt("output_transit_depth(trans_lat=0graus,f_spot=0.0).txt", delimiter=",")
+    transit_depth_phot_trans_lat_20 = np.genfromtxt("output_transit_depth(trans_lat=-20graus,f_spot=0.0).txt", delimiter=",")
+    transit_depth_phot_trans_lat_40 = np.genfromtxt("output_transit_depth(trans_lat=-40graus,f_spot=0.0).txt", delimiter=",")
+    transit_depth_phot_trans_lat_60 = np.genfromtxt("output_transit_depth(trans_lat=-59graus,f_spot=0.0).txt", delimiter=",")
+    transit_depth_phot_trans_lat_80 = np.genfromtxt("output_transit_depth(trans_lat=-80graus,f_spot=0.0).txt", delimiter=",")
+    wavelengths = np.genfromtxt("output_wavelengths.txt", delimiter=",")
+
+    palette = sns.color_palette("mako", 5)
+    graph3 = fig.add_subplot(1, 1, 1)
+    graph3.set_title('WASP-101$\,$b', fontsize=29, fontweight='bold')
+    #graph3.set_ylabel('D$_{\mathrm{unnoc}}$ -- D$_{\mathrm{phot}}$ [ppm]', fontsize=25, fontweight="bold") # labelpad é a distância entre o título e o eixo
+    graph3.set_ylabel('Transit Depth [ppm]', fontsize=22, fontweight="bold", labelpad=10) # labelpad é a distância entre o título e o eixo
+    graph3.set_xlabel('Wavelength (nm)', fontsize=22, fontweight="bold", labelpad=10)
+    #graph3.plot(wavelengths, transit_depth_phot_trans_lat_80,  'o', linestyle='none', markersize=5, color=palette[4])
+    graph3.plot(wavelengths, transit_depth_phot_trans_lat_80, '-', color=palette[4], linewidth=3,
+                label='Trans. Lat. = 80$^{\circ}$')
+    #graph3.plot(wavelengths, transit_depth_phot_trans_lat_60,  'o', linestyle='none', markersize=5, color=palette[3])
+    graph3.plot(wavelengths, transit_depth_phot_trans_lat_60, '-', color=palette[3], linewidth=3,
+                label='Trans. Lat. = 60$^{\circ}$')
+    #graph3.plot(wavelengths, transit_depth_phot_trans_lat_40,  'o', linestyle='none', markersize=5, color=palette[2])
+    graph3.plot(wavelengths, transit_depth_phot_trans_lat_40, '-', color=palette[2], linewidth=3,
+                label='Trans. Lat. = 40$^{\circ}$')
+    #graph3.plot(wavelengths, transit_depth_phot_trans_lat_20,  'o', linestyle='none', markersize=5, color=palette[1])
+    graph3.plot(wavelengths, transit_depth_phot_trans_lat_20, '-', color=palette[1], linewidth=3,
+                label='Trans. Lat. = 20$^{\circ}$')
+    #graph3.plot(wavelengths, transit_depth_phot_trans_lat_0,  'o', linestyle='none', markersize=5, color=palette[0])
+    graph3.plot(wavelengths, transit_depth_phot_trans_lat_0, '-', color=palette[0], linewidth=3,
+                label='Trans. Lat. = 0$^{\circ}$')
+
+    plt.text(900, 16000, '$Photosphere$', fontsize=17, bbox=dict(facecolor='red', alpha=0.5))
+    graph3.tick_params(axis="x", direction="in", labelsize=12)
+    graph3.tick_params(axis="y", direction="in", labelsize=12)
     plt.subplots_adjust(top=0.9)
     #plt.xlabel('Wavelength (nm)', labelpad=15)
     #plt.plot(wavelengths, y2(wavelengths), "-", color='red') # ajuste polinomial
