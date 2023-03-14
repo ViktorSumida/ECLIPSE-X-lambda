@@ -529,9 +529,9 @@ df1.to_excel("output_transit_depth.xlsx")
 
 # imprimindo valores da profundidade de trânsito em txt
 f_spot = "{:.1f}".format(f_spot)
-np.savetxt('output_transit_depth(trans_lat' + str(int(latsugerida)) + 'graus,f_spot=' + f_spot + ').txt', D_lambda, delimiter=',')
+np.savetxt('output_transit_depth(trans_lat=' + str(int(latsugerida)) + 'graus,f_spot=' + f_spot + ').txt', D_lambda, delimiter=',')
 # imprimindo valores de epsilon de Rackham em txt
-np.savetxt('output_epsilon_Rackham(trans_lat' + str(int(latsugerida)) + 'graus,f_spot=' + f_spot + ').txt', epsilon_Rackham, delimiter=',')
+np.savetxt('output_epsilon_Rackham(trans_lat=' + str(int(latsugerida)) + 'graus,f_spot=' + f_spot + ').txt', epsilon_Rackham, delimiter=',')
 # imprimindo valores dos comprimentos de onda em txt (útil para construção dos gráficos)
 np.savetxt('output_wavelengths.txt', lambdaEff_nm, delimiter=',')
 

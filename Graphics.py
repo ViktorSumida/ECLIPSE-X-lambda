@@ -16,24 +16,9 @@ import seaborn as sns
 #    "font.serif": ["Computer Modern Roman"]})
 #########################################################################################################
 
-# Leitura de entrada dos dados
 
-transit_depth_tl_46_ff_0 = np.genfromtxt("output_transit_depth(trans_lat-46graus,f_spot=0.0%).txt", delimiter=",")
-transit_depth_tl_46_ff_2 = np.genfromtxt("output_transit_depth(trans_lat-46graus,f_spot=2%).txt", delimiter=",")
-transit_depth_tl_46_ff_4 = np.genfromtxt("output_transit_depth(trans_lat-46graus,f_spot=4%).txt", delimiter=",")
-transit_depth_tl_46_ff_6 = np.genfromtxt("output_transit_depth(trans_lat-46graus,f_spot=6%).txt", delimiter=",")
-transit_depth_tl_46_ff_8 = np.genfromtxt("output_transit_depth(trans_lat-46graus,f_spot=8%).txt", delimiter=",")
-transit_depth_tl_46_ff_10 = np.genfromtxt("output_transit_depth(trans_lat-46graus,f_spot=10%).txt", delimiter=",")
 
-epsilon_Rackham_ff_2 = np.genfromtxt("output_epsilon_Rackham(trans_lat-46graus,f_spot=2%).txt", delimiter=",")
-epsilon_Rackham_ff_4 = np.genfromtxt("output_epsilon_Rackham(trans_lat-46graus,f_spot=4%).txt", delimiter=",")
-epsilon_Rackham_ff_6 = np.genfromtxt("output_epsilon_Rackham(trans_lat-46graus,f_spot=6%).txt", delimiter=",")
-epsilon_Rackham_ff_8 = np.genfromtxt("output_epsilon_Rackham(trans_lat-46graus,f_spot=8%).txt", delimiter=",")
-epsilon_Rackham_ff_10 = np.genfromtxt("output_epsilon_Rackham(trans_lat-46graus,f_spot=10%).txt", delimiter=",")
-wavelengths = np.genfromtxt("output_wavelengths.txt", delimiter=",")
 
-table_epsilon_ourWork = np.genfromtxt('output_epsilon (our work).txt', delimiter=",", usecols=(6, 7, 8, 9, 10), skip_header=1)
-table_epsilon_ourWork = np.transpose(table_epsilon_ourWork)
 
 ########## Ajuste polinomial ###############################
 #deg = 2
@@ -44,8 +29,23 @@ table_epsilon_ourWork = np.transpose(table_epsilon_ourWork)
 ############################################################
 
 fig = plt.figure()
+
 graph = 1
+
 if (graph == 1):
+
+    # Leitura de entrada dos dados
+
+    epsilon_Rackham_ff_2 = np.genfromtxt("output_epsilon_Rackham(trans_lat-46graus,f_spot=2%).txt", delimiter=",")
+    epsilon_Rackham_ff_4 = np.genfromtxt("output_epsilon_Rackham(trans_lat-46graus,f_spot=4%).txt", delimiter=",")
+    epsilon_Rackham_ff_6 = np.genfromtxt("output_epsilon_Rackham(trans_lat-46graus,f_spot=6%).txt", delimiter=",")
+    epsilon_Rackham_ff_8 = np.genfromtxt("output_epsilon_Rackham(trans_lat-46graus,f_spot=8%).txt", delimiter=",")
+    epsilon_Rackham_ff_10 = np.genfromtxt("output_epsilon_Rackham(trans_lat-46graus,f_spot=10%).txt", delimiter=",")
+    wavelengths = np.genfromtxt("output_wavelengths.txt", delimiter=",")
+
+    table_epsilon_ourWork = np.genfromtxt('output_epsilon (our work).txt', delimiter=",", usecols=(6, 7, 8, 9, 10),
+                                          skip_header=1)
+    table_epsilon_ourWork = np.transpose(table_epsilon_ourWork)
 
     palette = sns.color_palette("mako", 5)
     graph1 = fig.add_subplot(1, 1, 1)
@@ -82,6 +82,17 @@ if (graph == 1):
     #plt.plot(wavelengths, y1(wavelengths), "-", color='red') # ajuste polinomial
 
 elif (graph == 2):
+
+    # Leitura de entrada dos dados
+
+    transit_depth_tl_46_ff_0 = np.genfromtxt("output_transit_depth(trans_lat-46graus,f_spot=0.0%).txt", delimiter=",")
+    transit_depth_tl_46_ff_2 = np.genfromtxt("output_transit_depth(trans_lat-46graus,f_spot=2%).txt", delimiter=",")
+    transit_depth_tl_46_ff_4 = np.genfromtxt("output_transit_depth(trans_lat-46graus,f_spot=4%).txt", delimiter=",")
+    transit_depth_tl_46_ff_6 = np.genfromtxt("output_transit_depth(trans_lat-46graus,f_spot=6%).txt", delimiter=",")
+    transit_depth_tl_46_ff_8 = np.genfromtxt("output_transit_depth(trans_lat-46graus,f_spot=8%).txt", delimiter=",")
+    transit_depth_tl_46_ff_10 = np.genfromtxt("output_transit_depth(trans_lat-46graus,f_spot=10%).txt", delimiter=",")
+    wavelengths = np.genfromtxt("output_wavelengths.txt", delimiter=",")
+
     palette = sns.color_palette("mako", 6)
     graph2 = fig.add_subplot(1, 1, 1)
     graph2.set_title('WASP-101$\,$b', fontsize=29, fontweight='bold')
