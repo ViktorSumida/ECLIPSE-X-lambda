@@ -497,16 +497,18 @@ count4 = 0
 # https://seaborn.pydata.org/tutorial/color_palettes.html
 # https://holypython.com/python-visualization-tutorial/colors-with-python/
 palette = sns.color_palette("Spectral", num_elements)
-print('paleta: ', palette)
+#print('paleta: ', palette)
 
+count_palette = num_elements - 1
 while(count4 < num_elements):
     lambdaEff_nm[count4] = lambdaEff[count4] * 1000
     pyplot.plot(stack_tempoHoras[count4], stack_curvaLuz[count4], label=int(lambdaEff_nm[count4]),
-                color=palette[count4])
+                color=palette[count_palette])
     D_lambda[count4] = min(stack_curvaLuz[count4])
     D_lambda[count4] = (1 - D_lambda[count4]) * 1000000 # profundidade de trânsito está em ppm, CUIDADO!!!
     print("Máxima profundidade de trânsito: ", min(stack_curvaLuz[count4]))
     count4 += 1
+    count_palette -= 1
 
 pyplot.axis([-tempoTransito / 2, tempoTransito / 2, min(curvaLuz) - (min(curvaLuz)/100), 1.001])
 #legend = pyplot.legend()
