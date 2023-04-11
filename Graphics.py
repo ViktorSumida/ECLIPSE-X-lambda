@@ -293,11 +293,11 @@ elif (graph == 5):
 
     wavelengths = np.genfromtxt("output_wavelengths.txt", delimiter=",")
 
-    table_epsilon_ourWork = np.genfromtxt('output_epsilon_fixed_fspot_8% (our work).txt', delimiter=",", usecols=(0, 1, 2),
-                                          skip_header=1)
+    table_epsilon_ourWork = np.genfromtxt('output_epsilon_fixed_fspot_8% (our work).txt', delimiter=",",
+                                          usecols=(0, 1, 2, 3), skip_header=1)
     table_epsilon_ourWork = np.transpose(table_epsilon_ourWork)
 
-    palette = sns.color_palette("Paired", 6)
+    palette = sns.color_palette("mako", 4)
     graph5 = fig.add_subplot(1, 1, 1)
     #graph5.set_title('WASP-101$\,$b', fontsize=29, fontweight='bold')
     graph5.set_ylabel('Contamination Factor ($\epsilon$)', fontsize=22, fontweight="bold",
@@ -306,7 +306,7 @@ elif (graph == 5):
     #graph5.plot(wavelengths, epsilon,  'o', linestyle='none', markersize=7, color='red', label='$\epsilon$')
     #graph5.plot(wavelengths, epsilon_Rackham_ff_10,  'o', linestyle='none', markersize=5, color=palette[4])
     graph5.plot(wavelengths, epsilon_Rackham_trans_lat_20_fspot_8,  '-', linewidth=3, color='red',
-                label='$\epsilon_{R}$ - Trans. Lat. = 20$^{\circ}$')
+                label='$\epsilon_{R}$')
     #graph5.plot(wavelengths, epsilon_Rackham_ff_8,  'o', linestyle='none', markersize=5, color=palette[3])
     #graph5.plot(wavelengths, epsilon_Rackham_trans_lat_46_fspot_8,  '-', linewidth=3, color=palette[3],
     #            label='$\epsilon_{R}$ - Trans. Lat. = 46$^{\circ}$')
@@ -321,12 +321,15 @@ elif (graph == 5):
     #            label='$\epsilon_{R}$ - f$_{spot}=2\%$')
 
     #graph5.plot(wavelengths, table_epsilon_ourWork[0], '.', linestyle='none', markersize=5, color=palette[0])
-    graph5.plot(wavelengths, table_epsilon_ourWork[2], '--', linewidth=3, color=palette[4],
+    graph5.plot(wavelengths, table_epsilon_ourWork[3], '-', linewidth=3, color=palette[0],
+                label='$\epsilon$ - Trans. Lat. = 0$^{\circ}$')
+    graph5.plot(wavelengths, table_epsilon_ourWork[2], '-', linewidth=3, color=palette[1],
                 label='$\epsilon$ - Trans. Lat. = 20$^{\circ}$')
-    graph5.plot(wavelengths, table_epsilon_ourWork[1], '--', linewidth=3, color=palette[2],
+    graph5.plot(wavelengths, table_epsilon_ourWork[1], '-', linewidth=3, color=palette[2],
                 label='$\epsilon$ - Trans. Lat. = 46$^{\circ}$')
-    graph5.plot(wavelengths, table_epsilon_ourWork[0], '--', linewidth=3, color=palette[0],
+    graph5.plot(wavelengths, table_epsilon_ourWork[0], '-', linewidth=3, color=palette[3],
                 label='$\epsilon$ - Trans. Lat. = 60$^{\circ}$')
+
 
 
 
