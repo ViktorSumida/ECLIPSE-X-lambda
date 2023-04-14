@@ -27,7 +27,7 @@ import seaborn as sns
 
 fig = plt.figure()
 
-graph = 5
+graph = 4
 
 if (graph == 1):
 
@@ -289,16 +289,16 @@ elif (graph == 4):
     graph4.plot(wavelengths, transit_depth_trans_lat_40_fspot_0, '-', color=palette[5], linewidth=3,
                 label='Trans. Lat. = 40$^{\circ}$; photosphere')
     # graph4.plot(wavelengths, transit_depth_phot_trans_lat_50,  'o', linestyle='none', markersize=5, color=palette[3])
-    graph4.plot(wavelengths, transit_depth_trans_lat_50_fspot_4, '-', color=palette[7], linewidth=3,
+    graph4.plot(wavelengths, transit_depth_trans_lat_50_fspot_4, '-', color=palette[8], linewidth=3,
                 label='Trans. Lat. = 50$^{\circ}$, f$_{spot}=4\%$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_50,  'o', linestyle='none', markersize=5, color=palette[3])
-    graph4.plot(wavelengths, transit_depth_trans_lat_50_fspot_0, '-', color=palette[6], linewidth=3,
+    graph4.plot(wavelengths, transit_depth_trans_lat_50_fspot_0, '-', color=palette[9], linewidth=3,
                 label='Trans. Lat. = 50$^{\circ}$, photosphere')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_60,  'o', linestyle='none', markersize=5, color=palette[4])
-    graph4.plot(wavelengths, transit_depth_trans_lat_60_fspot_4, '-', color=palette[9], linewidth=3,
+    graph4.plot(wavelengths, transit_depth_trans_lat_60_fspot_4, '-', color=palette[6], linewidth=3,
                 label='Trans. Lat. = 60$^{\circ}$; f$_{spot}=4\%$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_60,  'o', linestyle='none', markersize=5, color=palette[4])
-    graph4.plot(wavelengths, transit_depth_trans_lat_60_fspot_0, '-', color=palette[8], linewidth=3,
+    graph4.plot(wavelengths, transit_depth_trans_lat_60_fspot_0, '-', color=palette[7], linewidth=3,
                 label='Trans. Lat. = 60$^{\circ}$; photosphere')
 
 
