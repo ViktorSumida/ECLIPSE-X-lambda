@@ -120,6 +120,11 @@ elif profile == 'quadratic' or 'square-root' or 'logarithmic' or 'exponential':
 parameters = pd.read_excel('Parâmetros.xlsx', engine='openpyxl',
                            keep_default_na=False) # To read empty cell as empty string, use keep_default_na=False
 
+object = parameters['object'].to_numpy()
+nullAux = np.where(object == '')
+object = np.delete(object, nullAux)   # removendo os valores ''
+object = str(object[0])         # necessário converter vetor para string
+
 raio = parameters['raio'].to_numpy()
 nullAux = np.where(raio == '')
 raio = np.delete(raio, nullAux)   # removendo os valores ''
@@ -496,7 +501,9 @@ count4 = 0
 # paleta de cores seaborn (como utilizar):
 # https://seaborn.pydata.org/tutorial/color_palettes.html
 # https://holypython.com/python-visualization-tutorial/colors-with-python/
-palette = sns.color_palette("Spectral", num_elements)
+
+#palette = sns.color_palette("Spectral", num_elements)
+palette = sns.color_palette("YlOrBr_r", num_elements)
 #print('paleta: ', palette)
 
 count_palette = num_elements - 1
@@ -531,11 +538,13 @@ df1.to_excel("output_transit_depth.xlsx")
 
 # imprimindo valores da profundidade de trânsito em txt
 f_spot = "{:.2f}".format(f_spot)
-np.savetxt('output_transit_depth(trans_lat=' + str(int(latsugerida)) + 'graus,f_spot=' + f_spot + ').txt', D_lambda, delimiter=',')
+np.savetxt(str(object) + '_output_transit_depth(trans_lat=' + str(int(latsugerida)) + 'graus,f_spot=' + f_spot +
+           ',temp_spot=' + str(int(tempSpot)) + 'K).txt', D_lambda, delimiter=',')
 # imprimindo valores de epsilon de Rackham em txt
-np.savetxt('output_epsilon_Rackham(trans_lat=' + str(int(latsugerida)) + 'graus,f_spot=' + f_spot + ').txt', epsilon_Rackham, delimiter=',')
+np.savetxt(str(object) + '_output_epsilon_Rackham(trans_lat=' + str(int(latsugerida)) + 'graus,f_spot=' +
+           f_spot + ',temp_spot=' + str(int(tempSpot)) + 'K).txt', epsilon_Rackham, delimiter=',')
 # imprimindo valores dos comprimentos de onda em txt (útil para construção dos gráficos)
-np.savetxt('output_wavelengths.txt', lambdaEff_nm, delimiter=',')
+np.savetxt(str(object) + '_output_wavelengths.txt', lambdaEff_nm, delimiter=',')
 
 print(D_lambda)
 
