@@ -502,8 +502,8 @@ count4 = 0
 # https://seaborn.pydata.org/tutorial/color_palettes.html
 # https://holypython.com/python-visualization-tutorial/colors-with-python/
 
-#palette = sns.color_palette("Spectral", num_elements)
-palette = sns.color_palette("YlOrBr_r", num_elements)
+palette = sns.color_palette("Spectral", num_elements)
+#palette = sns.color_palette("YlOrBr_r", num_elements)
 #print('paleta: ', palette)
 
 count_palette = num_elements - 1

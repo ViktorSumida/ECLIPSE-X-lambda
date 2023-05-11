@@ -33,14 +33,14 @@ if (graph == 1):
 
     # Leitura de entrada dos dados
 
-    epsilon_Rackham_ff_2 = np.genfromtxt("WASP101b_outputs/output_epsilon_Rackham(trans_lat=-46graus,f_spot=0.02).txt", delimiter=",")
-    epsilon_Rackham_ff_4 = np.genfromtxt("WASP101b_outputs/output_epsilon_Rackham(trans_lat=-46graus,f_spot=0.04).txt", delimiter=",")
-    epsilon_Rackham_ff_6 = np.genfromtxt("WASP101b_outputs/output_epsilon_Rackham(trans_lat=-46graus,f_spot=0.06).txt", delimiter=",")
-    epsilon_Rackham_ff_8 = np.genfromtxt("WASP101b_outputs/output_epsilon_Rackham(trans_lat=-46graus,f_spot=0.08).txt", delimiter=",")
-    epsilon_Rackham_ff_10 = np.genfromtxt("WASP101b_outputs/output_epsilon_Rackham(trans_lat=-46graus,f_spot=0.10).txt", delimiter=",")
-    wavelengths = np.genfromtxt("WASP101b_outputs/output_wavelengths.txt", delimiter=",")
+    epsilon_Rackham_ff_2 = np.genfromtxt("Exoplanets/WASP101b/output_epsilon_Rackham(trans_lat=-46graus,f_spot=0.02).txt", delimiter=",")
+    epsilon_Rackham_ff_4 = np.genfromtxt("Exoplanets/WASP101b/output_epsilon_Rackham(trans_lat=-46graus,f_spot=0.04).txt", delimiter=",")
+    epsilon_Rackham_ff_6 = np.genfromtxt("Exoplanets/WASP101b/output_epsilon_Rackham(trans_lat=-46graus,f_spot=0.06).txt", delimiter=",")
+    epsilon_Rackham_ff_8 = np.genfromtxt("Exoplanets/WASP101b/output_epsilon_Rackham(trans_lat=-46graus,f_spot=0.08).txt", delimiter=",")
+    epsilon_Rackham_ff_10 = np.genfromtxt("Exoplanets/WASP101b/output_epsilon_Rackham(trans_lat=-46graus,f_spot=0.10).txt", delimiter=",")
+    wavelengths = np.genfromtxt("Exoplanets/WASP101b/output_wavelengths.txt", delimiter=",")
 
-    table_epsilon_ourWork = np.genfromtxt('WASP101b_outputs/output_epsilon (our work).txt', delimiter=",", usecols=(6, 7, 8, 9, 10),
+    table_epsilon_ourWork = np.genfromtxt('Exoplanets/WASP101b/output_epsilon (our work).txt', delimiter=",", usecols=(6, 7, 8, 9, 10),
                                           skip_header=1)
     table_epsilon_ourWork = np.transpose(table_epsilon_ourWork)
 
@@ -90,13 +90,13 @@ elif (graph == 2):
 
     # Leitura de entrada dos dados
 
-    transit_depth_tl_46_ff_0 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-46graus,f_spot=0.00).txt", delimiter=",")
-    transit_depth_tl_46_ff_2 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-46graus,f_spot=0.02).txt", delimiter=",")
-    transit_depth_tl_46_ff_4 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-46graus,f_spot=0.04).txt", delimiter=",")
-    transit_depth_tl_46_ff_6 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-46graus,f_spot=0.06).txt", delimiter=",")
-    transit_depth_tl_46_ff_8 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-46graus,f_spot=0.08).txt", delimiter=",")
-    transit_depth_tl_46_ff_10 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-46graus,f_spot=0.10).txt", delimiter=",")
-    wavelengths = np.genfromtxt("WASP101b_outputs/output_wavelengths.txt", delimiter=",")
+    transit_depth_tl_46_ff_0 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-46graus,f_spot=0.00).txt", delimiter=",")
+    transit_depth_tl_46_ff_2 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-46graus,f_spot=0.02).txt", delimiter=",")
+    transit_depth_tl_46_ff_4 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-46graus,f_spot=0.04).txt", delimiter=",")
+    transit_depth_tl_46_ff_6 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-46graus,f_spot=0.06).txt", delimiter=",")
+    transit_depth_tl_46_ff_8 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-46graus,f_spot=0.08).txt", delimiter=",")
+    transit_depth_tl_46_ff_10 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-46graus,f_spot=0.10).txt", delimiter=",")
+    wavelengths = np.genfromtxt("Exoplanets/WASP101b/output_wavelengths.txt", delimiter=",")
 
     palette = sns.color_palette("mako", 6)
     graph2 = fig.add_subplot(1, 1, 1)
@@ -106,13 +106,13 @@ elif (graph == 2):
     graph2.set_xlabel('Wavelength (nm)', fontsize=22, fontweight="bold", labelpad=10)
 
     ######### Dados do Hubble ###############
-    Cond_table3 = np.genfromtxt('WASP101b_outputs/WASP101_STISG430.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
+    Cond_table3 = np.genfromtxt('Exoplanets/WASP101b/WASP101_STISG430.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
     Cond_table3 = np.transpose(Cond_table3)
 
-    Cond_table4 = np.genfromtxt('WASP101b_outputs/WASP101_STISG750.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
+    Cond_table4 = np.genfromtxt('Exoplanets/WASP101b//WASP101_STISG750.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
     Cond_table4 = np.transpose(Cond_table4)
 
-    Cond_table5 = np.genfromtxt('WASP101b_outputs/WASP101_WFC3.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
+    Cond_table5 = np.genfromtxt('Exoplanets/WASP101b/WASP101_WFC3.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
     Cond_table5 = np.transpose(Cond_table5)
 
     plt.errorbar(Cond_table3[0] * 1000, Cond_table3[1] * 1.0e+4, fmt='.', yerr=Cond_table3[2] * 1.0e+4, color='gray', ms=10, alpha=0.7,
@@ -132,7 +132,7 @@ elif (graph == 2):
                 label='f$_{spot}=6\%$')
     #graph2.plot(wavelengths, transit_depth_tl_46_ff_4,  'o', linestyle='none', markersize=5, color=palette[2])
     graph2.plot(wavelengths, transit_depth_tl_46_ff_4, '-', color=palette[2], linewidth=3,
-                label='f$_{spot}=6\%$')
+                label='f$_{spot}=4\%$')
     #graph2.plot(wavelengths, transit_depth_tl_46_ff_2,  'o', linestyle='none', markersize=5, color=palette[1])
     graph2.plot(wavelengths, transit_depth_tl_46_ff_2, '-', color=palette[1], linewidth=3,
                 label='f$_{spot}=2\%$')
@@ -154,16 +154,16 @@ elif (graph == 3):
 
     # Leitura de entrada dos dados
 
-    transit_depth_phot_trans_lat_0 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=0graus,f_spot=0.00).txt", delimiter=",")
-    transit_depth_phot_trans_lat_10 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-9graus,f_spot=0.00).txt", delimiter=",")
-    transit_depth_phot_trans_lat_20 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-19graus,f_spot=0.00).txt", delimiter=",")
-    transit_depth_phot_trans_lat_30 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-30graus,f_spot=0.00).txt", delimiter=",")
-    transit_depth_phot_trans_lat_40 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-40graus,f_spot=0.00).txt", delimiter=",")
-    transit_depth_phot_trans_lat_50 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-50graus,f_spot=0.00).txt", delimiter=",")
-    transit_depth_phot_trans_lat_60 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-59graus,f_spot=0.00).txt", delimiter=",")
-    transit_depth_phot_trans_lat_70 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-69graus,f_spot=0.00).txt", delimiter=",")
-    transit_depth_phot_trans_lat_80 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-79graus,f_spot=0.00).txt", delimiter=",")
-    wavelengths = np.genfromtxt("WASP101b_outputs/output_wavelengths.txt", delimiter=",")
+    transit_depth_phot_trans_lat_0 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=0graus,f_spot=0.00).txt", delimiter=",")
+    transit_depth_phot_trans_lat_10 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-9graus,f_spot=0.00).txt", delimiter=",")
+    transit_depth_phot_trans_lat_20 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-19graus,f_spot=0.00).txt", delimiter=",")
+    transit_depth_phot_trans_lat_30 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-30graus,f_spot=0.00).txt", delimiter=",")
+    transit_depth_phot_trans_lat_40 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-40graus,f_spot=0.00).txt", delimiter=",")
+    transit_depth_phot_trans_lat_50 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-50graus,f_spot=0.00).txt", delimiter=",")
+    transit_depth_phot_trans_lat_60 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-59graus,f_spot=0.00).txt", delimiter=",")
+    transit_depth_phot_trans_lat_70 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-69graus,f_spot=0.00).txt", delimiter=",")
+    transit_depth_phot_trans_lat_80 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-79graus,f_spot=0.00).txt", delimiter=",")
+    wavelengths = np.genfromtxt("Exoplanets/WASP101b/output_wavelengths.txt", delimiter=",")
 
     palette = sns.color_palette("mako", 8)
 
@@ -175,13 +175,13 @@ elif (graph == 3):
     graph3.set_xlabel('Wavelength (nm)', fontsize=22, fontweight="bold", labelpad=10)
 
     ######### Dados do Hubble ###############
-    Cond_table3 = np.genfromtxt('WASP101b_outputs/WASP101_STISG430.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
+    Cond_table3 = np.genfromtxt('Exoplanets/WASP101b/WASP101_STISG430.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
     Cond_table3 = np.transpose(Cond_table3)
 
-    Cond_table4 = np.genfromtxt('WASP101b_outputs/WASP101_STISG750.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
+    Cond_table4 = np.genfromtxt('Exoplanets/WASP101b/WASP101_STISG750.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
     Cond_table4 = np.transpose(Cond_table4)
 
-    Cond_table5 = np.genfromtxt('WASP101b_outputs/WASP101_WFC3.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
+    Cond_table5 = np.genfromtxt('Exoplanets/WASP101b/WASP101_WFC3.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
     Cond_table5 = np.transpose(Cond_table5)
 
     plt.errorbar(Cond_table3[0] * 1000, Cond_table3[1] * 1.0e+4, fmt='.', yerr=Cond_table3[2] * 1.0e+4, color='gray', ms=10, alpha=0.7,
@@ -232,17 +232,17 @@ elif (graph == 4):
 
     # Leitura de entrada dos dados
 
-    transit_depth_trans_lat_20_fspot_0 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-19graus,f_spot=0.00).txt", delimiter=",")
-    transit_depth_trans_lat_20_fspot_4 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-19graus,f_spot=0.04).txt", delimiter=",")
-    transit_depth_trans_lat_30_fspot_0 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-30graus,f_spot=0.00).txt", delimiter=",")
-    transit_depth_trans_lat_30_fspot_4 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-30graus,f_spot=0.04).txt", delimiter=",")
-    transit_depth_trans_lat_40_fspot_0 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-40graus,f_spot=0.00).txt", delimiter=",")
-    transit_depth_trans_lat_40_fspot_4 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-40graus,f_spot=0.04).txt", delimiter=",")
-    transit_depth_trans_lat_50_fspot_0 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-50graus,f_spot=0.00).txt", delimiter=",")
-    transit_depth_trans_lat_50_fspot_4 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-50graus,f_spot=0.04).txt", delimiter=",")
-    transit_depth_trans_lat_60_fspot_0 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-59graus,f_spot=0.00).txt", delimiter=",")
-    transit_depth_trans_lat_60_fspot_4 = np.genfromtxt("WASP101b_outputs/output_transit_depth(trans_lat=-59graus,f_spot=0.04).txt", delimiter=",")
-    wavelengths = np.genfromtxt("WASP101b_outputs/output_wavelengths.txt", delimiter=",")
+    transit_depth_trans_lat_20_fspot_0 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-19graus,f_spot=0.00).txt", delimiter=",")
+    transit_depth_trans_lat_20_fspot_4 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-19graus,f_spot=0.04).txt", delimiter=",")
+    transit_depth_trans_lat_30_fspot_0 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-30graus,f_spot=0.00).txt", delimiter=",")
+    transit_depth_trans_lat_30_fspot_4 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-30graus,f_spot=0.04).txt", delimiter=",")
+    transit_depth_trans_lat_40_fspot_0 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-40graus,f_spot=0.00).txt", delimiter=",")
+    transit_depth_trans_lat_40_fspot_4 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-40graus,f_spot=0.04).txt", delimiter=",")
+    transit_depth_trans_lat_50_fspot_0 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-50graus,f_spot=0.00).txt", delimiter=",")
+    transit_depth_trans_lat_50_fspot_4 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-50graus,f_spot=0.04).txt", delimiter=",")
+    transit_depth_trans_lat_60_fspot_0 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-59graus,f_spot=0.00).txt", delimiter=",")
+    transit_depth_trans_lat_60_fspot_4 = np.genfromtxt("Exoplanets/WASP101b/output_transit_depth(trans_lat=-59graus,f_spot=0.04).txt", delimiter=",")
+    wavelengths = np.genfromtxt("Exoplanets/WASP101b/output_wavelengths.txt", delimiter=",")
 
     palette = sns.color_palette("Paired", 10)
 
@@ -254,13 +254,13 @@ elif (graph == 4):
     graph4.set_xlabel('Wavelength (nm)', fontsize=22, fontweight="bold", labelpad=10)
 
     ######### Dados do Hubble ###############
-    Cond_table3 = np.genfromtxt('WASP101b_outputs/WASP101_STISG430.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
+    Cond_table3 = np.genfromtxt('Exoplanets/WASP101b/WASP101_STISG430.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
     Cond_table3 = np.transpose(Cond_table3)
 
-    Cond_table4 = np.genfromtxt('WASP101b_outputs/WASP101_STISG750.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
+    Cond_table4 = np.genfromtxt('Exoplanets/WASP101b/WASP101_STISG750.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
     Cond_table4 = np.transpose(Cond_table4)
 
-    Cond_table5 = np.genfromtxt('WASP101b_outputs/WASP101_WFC3.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
+    Cond_table5 = np.genfromtxt('Exoplanets/WASP101b/WASP101_WFC3.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
     Cond_table5 = np.transpose(Cond_table5)
 
     plt.errorbar(Cond_table3[0] * 1000, Cond_table3[1] * 1.0e+4, fmt='.', yerr=Cond_table3[2] * 1.0e+4, color='gray', ms=10, alpha=0.7,
@@ -315,11 +315,11 @@ elif (graph == 5):
 
     # Leitura de entrada dos dados
 
-    epsilon_Rackham_trans_lat_20_fspot_8 = np.genfromtxt("WASP101b_outputs/output_epsilon_Rackham(trans_lat=-46graus,f_spot=0.08).txt", delimiter=",")
+    epsilon_Rackham_trans_lat_20_fspot_8 = np.genfromtxt("Exoplanets/WASP101b/output_epsilon_Rackham(trans_lat=-46graus,f_spot=0.08).txt", delimiter=",")
 
-    wavelengths = np.genfromtxt("WASP101b_outputs/output_wavelengths.txt", delimiter=",")
+    wavelengths = np.genfromtxt("Exoplanets/WASP101b/output_wavelengths.txt", delimiter=",")
 
-    table_epsilon_ourWork = np.genfromtxt('WASP101b_outputs/output_epsilon_fixed_fspot_8% (our work).txt', delimiter=",",
+    table_epsilon_ourWork = np.genfromtxt('Exoplanets/WASP101b/output_epsilon_fixed_fspot_8% (our work).txt', delimiter=",",
                                           usecols=(0, 1, 2, 3, 4, 5, 6, 7), skip_header=1)
     table_epsilon_ourWork = np.transpose(table_epsilon_ourWork)
 
