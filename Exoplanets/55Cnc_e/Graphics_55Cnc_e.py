@@ -90,13 +90,13 @@ elif (graph == 2):
 
     # Leitura de entrada dos dados
 
-    transit_depth_tl_46_ff_0 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=-62graus,f_spot=0.00,temp_spot=3434K).txt", delimiter=",")
-    transit_depth_tl_46_ff_2 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=-62graus,f_spot=0.02,temp_spot=3434K).txt", delimiter=",")
-    transit_depth_tl_46_ff_4 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=-62graus,f_spot=0.04,temp_spot=3434K).txt", delimiter=",")
-    transit_depth_tl_46_ff_6 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=-62graus,f_spot=0.06,temp_spot=3434K).txt", delimiter=",")
-    transit_depth_tl_46_ff_8 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=-62graus,f_spot=0.08,temp_spot=3434K).txt", delimiter=",")
-    transit_depth_tl_46_ff_10 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=-62graus,f_spot=0.10,temp_spot=3434K).txt", delimiter=",")
-    wavelengths = np.genfromtxt("GJ9827d_output_wavelengths.txt", delimiter=",")
+    transit_depth_tl_46_ff_0 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.00,temp_spot=3781K).txt", delimiter=",")
+    transit_depth_tl_46_ff_2 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.02,temp_spot=3781K).txt", delimiter=",")
+    transit_depth_tl_46_ff_4 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.04,temp_spot=3781K).txt", delimiter=",")
+    transit_depth_tl_46_ff_6 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.06,temp_spot=3781K).txt", delimiter=",")
+    transit_depth_tl_46_ff_8 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.08,temp_spot=3781K).txt", delimiter=",")
+    transit_depth_tl_46_ff_10 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.10,temp_spot=3781K).txt", delimiter=",")
+    wavelengths = np.genfromtxt("55Cnc_e_output_wavelengths.txt", delimiter=",")
 
     palette = sns.color_palette("mako", 6)
     graph2 = fig.add_subplot(1, 1, 1)
@@ -107,7 +107,7 @@ elif (graph == 2):
 
     ######### Dados do Hubble ###############
 
-    Cond_table5 = np.genfromtxt('GJ9827d_WFC3.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
+    Cond_table5 = np.genfromtxt('55Cnc_e_WFC3.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
     Cond_table5 = np.transpose(Cond_table5)
 
     plt.errorbar(Cond_table5[0] * 1000, Cond_table5[1] * 1.0e+4, fmt='.', yerr=Cond_table5[2] * 1.0e+4, color='gray', ms=10, alpha=0.7)
@@ -133,12 +133,12 @@ elif (graph == 2):
                 label='Photosphere')
 
 
-    plt.text(950, 14000, 'Trans. Lat. = 46.2$^{\circ}$', fontsize=17, bbox=dict(facecolor='white', alpha=0.5))
+    #plt.text(550, 425, '55$\,$Cnc$\,$e', fontsize=17, bbox=dict(facecolor='white', alpha=0.5))
     graph2.tick_params(axis="x", direction="in", labelsize=12)
     graph2.tick_params(axis="y", direction="in", labelsize=12)
     plt.subplots_adjust(top=0.9)
     plt.xlim(470, 1700)
-    legend = plt.legend(prop={'size': 12}, title='GJ$\,$9827$\,$d', title_fontsize=15)
+    legend = plt.legend(prop={'size': 12}, title='55$\,$Cnc$\,$e', title_fontsize=15)
     #plt.xlabel('Wavelength (nm)', labelpad=15)
     #plt.plot(wavelengths, y2(wavelengths), "-", color='red') # ajuste polinomial
 
@@ -216,19 +216,19 @@ elif (graph == 4):
 
     # Leitura de entrada dos dados
 
-    transit_depth_trans_lat_0_fspot_0 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=0graus,f_spot=0.00,temp_spot=3434K).txt", delimiter=",")
-    transit_depth_trans_lat_0_fspot_4 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=0graus,f_spot=0.04,temp_spot=3434K).txt", delimiter=",")
-    transit_depth_trans_lat_20_fspot_0 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=-20graus,f_spot=0.00,temp_spot=3434K).txt", delimiter=",")
-    transit_depth_trans_lat_20_fspot_4 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=-20graus,f_spot=0.04,temp_spot=3434K).txt", delimiter=",")
-    transit_depth_trans_lat_30_fspot_0 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=-30graus,f_spot=0.00,temp_spot=3434K).txt", delimiter=",")
-    transit_depth_trans_lat_30_fspot_4 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=-30graus,f_spot=0.04,temp_spot=3434K).txt", delimiter=",")
-    transit_depth_trans_lat_40_fspot_0 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=-40graus,f_spot=0.00,temp_spot=3434K).txt", delimiter=",")
-    transit_depth_trans_lat_40_fspot_4 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=-40graus,f_spot=0.04,temp_spot=3434K).txt", delimiter=",")
-    transit_depth_trans_lat_50_fspot_0 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=-49graus,f_spot=0.00,temp_spot=3434K).txt", delimiter=",")
-    transit_depth_trans_lat_50_fspot_4 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=-49graus,f_spot=0.04,temp_spot=3434K).txt", delimiter=",")
-    transit_depth_trans_lat_60_fspot_0 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=-60graus,f_spot=0.00,temp_spot=3434K).txt", delimiter=",")
-    transit_depth_trans_lat_60_fspot_4 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=-60graus,f_spot=0.04,temp_spot=3434K).txt", delimiter=",")
-    wavelengths = np.genfromtxt("GJ9827d_output_wavelengths.txt", delimiter=",")
+    transit_depth_trans_lat_0_fspot_0 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=0graus,f_spot=0.00,temp_spot=3781K).txt", delimiter=",")
+    transit_depth_trans_lat_0_fspot_4 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=0graus,f_spot=0.04,temp_spot=3781K).txt", delimiter=",")
+    transit_depth_trans_lat_20_fspot_0 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-19graus,f_spot=0.00,temp_spot=3781K).txt", delimiter=",")
+    transit_depth_trans_lat_20_fspot_4 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-19graus,f_spot=0.04,temp_spot=3781K).txt", delimiter=",")
+    transit_depth_trans_lat_30_fspot_0 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-30graus,f_spot=0.00,temp_spot=3781K).txt", delimiter=",")
+    transit_depth_trans_lat_30_fspot_4 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-30graus,f_spot=0.04,temp_spot=3781K).txt", delimiter=",")
+    transit_depth_trans_lat_40_fspot_0 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-39graus,f_spot=0.00,temp_spot=3781K).txt", delimiter=",")
+    transit_depth_trans_lat_40_fspot_4 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-39graus,f_spot=0.04,temp_spot=3781K).txt", delimiter=",")
+    transit_depth_trans_lat_50_fspot_0 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-49graus,f_spot=0.00,temp_spot=3781K).txt", delimiter=",")
+    transit_depth_trans_lat_50_fspot_4 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-49graus,f_spot=0.04,temp_spot=3781K).txt", delimiter=",")
+    transit_depth_trans_lat_60_fspot_0 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-59graus,f_spot=0.00,temp_spot=3781K).txt", delimiter=",")
+    transit_depth_trans_lat_60_fspot_4 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-59graus,f_spot=0.04,temp_spot=3781K).txt", delimiter=",")
+    wavelengths = np.genfromtxt("55Cnc_e_output_wavelengths.txt", delimiter=",")
 
     palette = sns.color_palette("Paired", 12)
 
@@ -241,7 +241,7 @@ elif (graph == 4):
 
     ######### Dados do Hubble ###############
 
-    Cond_table5 = np.genfromtxt('GJ9827d_WFC3.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
+    Cond_table5 = np.genfromtxt('55Cnc_e_WFC3.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
     Cond_table5 = np.transpose(Cond_table5)
 
     plt.errorbar(Cond_table5[0] * 1000, Cond_table5[1] * 1.0e+4, fmt='.', yerr=Cond_table5[2] * 1.0e+4, color='gray', ms=10, alpha=0.7)
@@ -285,12 +285,12 @@ elif (graph == 4):
                 label='Trans. Lat. = 60$^{\circ}$; photosphere')
 
 
-    #plt.text(950, 16000, '$Photosphere$', fontsize=17, bbox=dict(facecolor='white', alpha=0.5))
+    #plt.text(550, 425, '55 Cnc e', fontsize=17, bbox=dict(facecolor='white', alpha=0.5))
     graph4.tick_params(axis="x", direction="in", labelsize=12)
     graph4.tick_params(axis="y", direction="in", labelsize=12)
     plt.subplots_adjust(top=0.9)
     plt.xlim(470, 1700)
-    plt.legend(bbox_to_anchor=(1.0, 1.0), loc='upper left', prop={'size': 12}, title='GJ$\,$9827$\,$d', title_fontsize=15)
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc='upper left', prop={'size': 12}, title='55$\,$Cnc$\,$e', title_fontsize=15)
     plt.tight_layout()
     #plt.xlabel('Wavelength (nm)', labelpad=15)
     #plt.plot(wavelengths, y2(wavelengths), "-", color='red') # ajuste polinomial
