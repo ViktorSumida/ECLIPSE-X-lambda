@@ -252,13 +252,13 @@ elif (graph == 4):
 
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_20,  'o', linestyle='none', markersize=5, color=palette[1])
     graph4.plot(wavelengths, transit_depth_trans_lat_0_fspot_4/10000, '-', color=palette[0], linewidth=3,
-                label='Trans. Lat. = 0$^{\circ}$; f$_{spot}=4\%$')
+                label='Trans. Lat. = 0$^{\circ}$; $ff=4\%$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_0,  'o', linestyle='none', markersize=5, color=palette[0])
     graph4.plot(wavelengths, transit_depth_trans_lat_0_fspot_0/10000, '-', color=palette[1], linewidth=3,
                 label='Trans. Lat. = 0$^{\circ}$; photosphere')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_20,  'o', linestyle='none', markersize=5, color=palette[1])
     graph4.plot(wavelengths, transit_depth_trans_lat_20_fspot_4/10000, '-', color=palette[2], linewidth=3,
-                label='Trans. Lat. = 20$^{\circ}$; f$_{spot}=4\%$')
+                label='Trans. Lat. = 20$^{\circ}$; $ff=4\%$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_0,  'o', linestyle='none', markersize=5, color=palette[0])
     graph4.plot(wavelengths, transit_depth_trans_lat_20_fspot_0/10000, '-', color=palette[3], linewidth=3,
                 label='Trans. Lat. = 20$^{\circ}$; photosphere')
@@ -270,19 +270,19 @@ elif (graph == 4):
     #            label='Trans. Lat. = 30$^{\circ}$; photosphere')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_40,  'o', linestyle='none', markersize=5, color=palette[2])
     graph4.plot(wavelengths, transit_depth_trans_lat_45_fspot_4/10000, '-', color=palette[6], linewidth=3,
-                label='Trans. Lat. = 45$^{\circ}$; f$_{spot}=4\%$')
+                label='Trans. Lat. = 45$^{\circ}$; $ff=4\%$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_40,  'o', linestyle='none', markersize=5, color=palette[2])
     graph4.plot(wavelengths, transit_depth_trans_lat_45_fspot_0/10000, '-', color=palette[7], linewidth=3,
                 label='Trans. Lat. = 45$^{\circ}$; photosphere')
     # graph4.plot(wavelengths, transit_depth_phot_trans_lat_50,  'o', linestyle='none', markersize=5, color=palette[3])
     graph4.plot(wavelengths, transit_depth_trans_lat_60_fspot_4/10000, '-', color=palette[8], linewidth=3,
-                label='Trans. Lat. = 60$^{\circ}$, f$_{spot}=4\%$')
+                label='Trans. Lat. = 60$^{\circ}$, $ff=4\%$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_50,  'o', linestyle='none', markersize=5, color=palette[3])
     graph4.plot(wavelengths, transit_depth_trans_lat_60_fspot_0/10000, '-', color=palette[9], linewidth=3,
                 label='Trans. Lat. = 60$^{\circ}$, photosphere')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_60,  'o', linestyle='none', markersize=5, color=palette[4])
     graph4.plot(wavelengths, transit_depth_trans_lat_82_fspot_4/10000, '-', color=palette[4], linewidth=3,
-                label='Trans. Lat. = 82$^{\circ}$; f$_{spot}=4\%$')
+                label='Trans. Lat. = 82$^{\circ}$; $ff=4\%$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_60,  'o', linestyle='none', markersize=5, color=palette[4])
     graph4.plot(wavelengths, transit_depth_trans_lat_82_fspot_0/10000, '-', color=palette[5], linewidth=3,
                 label='Trans. Lat. = 82$^{\circ}$; photosphere')
@@ -293,7 +293,7 @@ elif (graph == 4):
     graph4.tick_params(axis="y", direction="in", labelsize=12)
     plt.subplots_adjust(top=1.0)
     plt.xlim(470, 1700)
-    plt.legend(bbox_to_anchor=(1.0, 1.02), loc='upper left', prop={'size': 12}, title='WASP-74$\,$b', title_fontsize=15)
+    plt.legend(bbox_to_anchor=(1.0, 1.02), loc='upper left', prop={'size': 17}, title='$\\bf{WASP-74\,b}$', title_fontsize=19)
     plt.tight_layout()
     #plt.xlabel('Wavelength (nm)', labelpad=15)
     #plt.plot(wavelengths, y2(wavelengths), "-", color='red') # ajuste polinomial
