@@ -518,6 +518,9 @@ while(count4 < num_elements):
     count_palette -= 1
 
 pyplot.axis([-tempoTransito, tempoTransito, min(curvaLuz) - (min(curvaLuz)/100), 1.001])
+#pyplot.axis([-1.1, 1.1, 0.99955, 1.00005])
+#pyplot.yticks([0.9985, 0.9990, 0.9995, 1.0000])
+#pyplot.xticks([-1.0, -0.5, 0, 0.5, 1.0])
 #legend = pyplot.legend()
 #legend.set_title("Wavelength [nm]")
 

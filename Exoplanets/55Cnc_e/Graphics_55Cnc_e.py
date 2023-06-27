@@ -27,7 +27,7 @@ import seaborn as sns
 
 fig = plt.figure()
 
-graph = 2
+graph = 6
 
 if (graph == 1):
 
@@ -344,6 +344,94 @@ elif (graph == 5):
     graph5.tick_params(axis="y", direction="in", labelsize=12)
     plt.subplots_adjust(top=0.9)
     #plt.plot(wavelengths, y1(wavelengths), "-", color='red') # ajuste polinomial
+
+elif (graph == 6):
+
+    graph6 = fig.add_subplot(1, 3, 1)
+
+    graph6.set_ylabel('Transit depth [ppm]', fontsize=22, fontweight="bold",
+                      labelpad=10)  # labelpad é a distância entre o título e o eixo
+    graph6.set_xlabel('Transit latitude [degree]', fontsize=22, fontweight="bold", labelpad=10)
+
+    TL = [0, 20, 30, 40, 50, 60, 70]
+    wave_452nm = [421.702154, 399.0390673, 368.9662141, 329.6637183, 281.9390945, 229.1255732, 172.9223357]
+    wave_563nm = [382.8163897, 368.9050625, 349.3471909, 323.1423468, 289.417508, 249.643848, 202.7466675]
+    wave_790nm = [355.7951136, 346.717192, 333.3344167, 315.4724578, 291.8799056, 263.6638526, 228.8377327]
+    wave_1018nm = [343.1011744, 336.2449924, 325.7423313, 311.8092789, 293.015145, 270.2748884, 241.1392687]
+    wave_1743nm = [321.7567214, 318.8963701, 313.3175355, 306.438898, 295.4859, 281.9035769, 261.6057927]
+
+    palette = sns.color_palette("Spectral", 10)
+    graph6.plot(TL, wave_452nm, 'o', linewidth=3, color='blue', label='452$\,$nm')
+    graph6.plot(TL, wave_452nm, '-', linewidth=3, color='blue')
+    graph6.plot(TL, wave_563nm, 'o', linewidth=3, color='darkturquoise', label='563$\,$nm')
+    graph6.plot(TL, wave_563nm, '-', linewidth=3, color='darkturquoise')
+    graph6.plot(TL, wave_790nm, 'o', linewidth=3, color='mediumseagreen', label='790$\,$nm')
+    graph6.plot(TL, wave_790nm, '-', linewidth=3, color='mediumseagreen')
+    graph6.plot(TL, wave_1018nm, 'o', linewidth=3, color='darkorange', label='1018$\,$nm')
+    graph6.plot(TL, wave_1018nm, '-', linewidth=3, color='darkorange')
+    graph6.plot(TL, wave_1743nm, 'o', linewidth=3, color='red', label='1743$\,$nm')
+    graph6.plot(TL, wave_1743nm, '-', linewidth=3, color='red')
+
+    legend = plt.legend(prop={'size': 12})
+    plt.tick_params(axis="x", direction="in", labelsize=15)
+    plt.tick_params(axis="y", direction="in", labelsize=15)
+
+
+    graph6 = fig.add_subplot(1, 3, 2)
+
+
+    graph6.set_xlabel('Transit latitude [degree]', fontsize=22, fontweight="bold", labelpad=10)
+
+    TL = [0, 20, 30, 40, 50, 60, 70]
+    ff_4_wave_452nm = [429.6705122, 410.5803228, 382.8281552, 346.0353962, 300.1602303, 247.7219145, 189.2501477]
+    ff_4_wave_563nm = [399.1618113, 385.6271847, 365.182773, 337.7900878, 302.5365335, 260.9599707, 211.9369847]
+    ff_4_wave_790nm = [368.1274286, 359.3848375, 345.5131096, 326.9985469, 302.5440181, 273.2970646, 237.198539]
+    ff_4_wave_1018nm = [353.2701816, 346.7116094, 335.8820221, 321.5152623, 302.1361055, 278.6879914, 248.6454396]
+    ff_4_wave_1743nm = [328.649586, 326.0229794, 320.3194705, 313.2871111, 302.0893385, 288.2034814, 267.4520877]
+
+    palette = sns.color_palette("Spectral", 10)
+    graph6.plot(TL, ff_4_wave_452nm, 'o', linewidth=3, color='blue', label='452$\,$nm')
+    graph6.plot(TL, ff_4_wave_452nm, '-', linewidth=3, color='blue')
+    graph6.plot(TL, ff_4_wave_563nm, 'o', linewidth=3, color='darkturquoise', label='563$\,$nm')
+    graph6.plot(TL, ff_4_wave_563nm, '-', linewidth=3, color='darkturquoise')
+    graph6.plot(TL, ff_4_wave_790nm, 'o', linewidth=3, color='mediumseagreen', label='790$\,$nm')
+    graph6.plot(TL, ff_4_wave_790nm, '-', linewidth=3, color='mediumseagreen')
+    graph6.plot(TL, ff_4_wave_1018nm, 'o', linewidth=3, color='darkorange', label='1018$\,$nm')
+    graph6.plot(TL, ff_4_wave_1018nm, '-', linewidth=3, color='darkorange')
+    graph6.plot(TL, ff_4_wave_1743nm, 'o', linewidth=3, color='red', label='1743$\,$nm')
+    graph6.plot(TL, ff_4_wave_1743nm, '-', linewidth=3, color='red')
+
+    legend = plt.legend(prop={'size': 12})
+    plt.tick_params(axis="x", direction="in", labelsize=15)
+    plt.tick_params(axis="y", direction="in", labelsize=15)
+
+
+    graph6 = fig.add_subplot(1, 3, 3)
+
+    graph6.set_xlabel('Transit latitude [degree]', fontsize=22, fontweight="bold", labelpad=10)
+
+    TL = [0, 20, 30, 40, 50, 60, 70]
+    ff_8_wave_452nm = [448.9765803, 432.7477269, 403.4972081, 364.7179926, 316.3660072, 261.0965247, 199.4678427]
+    ff_8_wave_563nm = [415.0518441, 403.68792, 382.2860003, 353.6103868, 316.7057427, 273.1819538, 221.8629907]
+    ff_8_wave_790nm = [380.1246091, 372.8821713, 358.489466, 339.2795562, 313.9065943, 283.5612196, 246.10695]
+    ff_8_wave_1018nm = [363.1474702, 357.7662348, 346.591354, 331.7665221, 311.7694762, 287.5737376, 256.5733028]
+    ff_8_wave_1743nm = [335.3382359, 333.4477031, 327.6143046, 320.4217929, 308.9690065, 294.7669181, 273.5429401]
+
+    palette = sns.color_palette("Spectral", 10)
+    graph6.plot(TL, ff_8_wave_452nm, 'o', linewidth=3, color='blue', label='452$\,$nm')
+    graph6.plot(TL, ff_8_wave_452nm, '-', linewidth=3, color='blue')
+    graph6.plot(TL, ff_8_wave_563nm, 'o', linewidth=3, color='darkturquoise', label='563$\,$nm')
+    graph6.plot(TL, ff_8_wave_563nm, '-', linewidth=3, color='darkturquoise')
+    graph6.plot(TL, ff_8_wave_790nm, 'o', linewidth=3, color='mediumseagreen', label='790$\,$nm')
+    graph6.plot(TL, ff_8_wave_790nm, '-', linewidth=3, color='mediumseagreen')
+    graph6.plot(TL, ff_8_wave_1018nm, 'o', linewidth=3, color='darkorange', label='1018$\,$nm')
+    graph6.plot(TL, ff_8_wave_1018nm, '-', linewidth=3, color='darkorange')
+    graph6.plot(TL, ff_8_wave_1743nm, 'o', linewidth=3, color='red', label='1743$\,$nm')
+    graph6.plot(TL, ff_8_wave_1743nm, '-', linewidth=3, color='red')
+
+    legend = plt.legend(prop={'size': 12})
+    plt.tick_params(axis="x", direction="in", labelsize=15)
+    plt.tick_params(axis="y", direction="in", labelsize=15)
 
 
 

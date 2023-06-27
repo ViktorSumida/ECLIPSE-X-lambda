@@ -305,7 +305,7 @@ class Eclipse:
                         im = ax1.imshow(self.estrelaManchada * plan, cmap="hot", animated=True)
                         ims.append([im])  # armazena na animação os pontos do grafico (em imagem)
                         numAux += 1
-                    plota = not (plota)  # variavel auxiliar que seleciona o intervalo correto para plotagem
+                    plota = not(plota)  # variavel auxiliar que seleciona o intervalo correto para plotagem
             else:
                 for i in range(0, len(rangeloop)):
 

@@ -369,6 +369,7 @@ class estrela:
     def Plotar(self, tamanhoMatriz, estrela):
         Nx = tamanhoMatriz
         Ny = tamanhoMatriz
-        plt.axis([0, Nx, 0, Ny])
+        #plt.axis([0, Nx, 0, Ny])
+        plt.axis('off')
         plt.imshow(estrela, self.color)
         plt.show()
