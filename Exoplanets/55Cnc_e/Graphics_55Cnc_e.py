@@ -27,64 +27,68 @@ import seaborn as sns
 
 fig = plt.figure()
 
-graph = 6
+graph = 1
 
 if (graph == 1):
 
     # Leitura de entrada dos dados
 
-    epsilon_Rackham_ff_2 = np.genfromtxt("GJ9827d_output_epsilon_Rackham(trans_lat=-62graus,f_spot=0.02,temp_spot=3434K).txt", delimiter=",")
-    epsilon_Rackham_ff_4 = np.genfromtxt("GJ9827d_output_epsilon_Rackham(trans_lat=-62graus,f_spot=0.04,temp_spot=3434K).txt", delimiter=",")
-    epsilon_Rackham_ff_6 = np.genfromtxt("GJ9827d_output_epsilon_Rackham(trans_lat=-62graus,f_spot=0.06,temp_spot=3434K).txt", delimiter=",")
-    epsilon_Rackham_ff_8 = np.genfromtxt("GJ9827d_output_epsilon_Rackham(trans_lat=-62graus,f_spot=0.08,temp_spot=3434K).txt", delimiter=",")
-    epsilon_Rackham_ff_10 = np.genfromtxt("GJ9827d_output_epsilon_Rackham(trans_lat=-62graus,f_spot=0.10,temp_spot=3434K).txt", delimiter=",")
-    wavelengths = np.genfromtxt("GJ9827d_output_wavelengths.txt", delimiter=",")
+    epsilon_Rackham_ff_2 = np.genfromtxt("55Cnc_e_output_epsilon_Rackham(trans_lat=-24graus,f_spot=0.02,temp_spot=3781K).txt", delimiter=",")
+    epsilon_Rackham_ff_4 = np.genfromtxt("55Cnc_e_output_epsilon_Rackham(trans_lat=-24graus,f_spot=0.04,temp_spot=3781K).txt", delimiter=",")
+    epsilon_Rackham_ff_6 = np.genfromtxt("55Cnc_e_output_epsilon_Rackham(trans_lat=-24graus,f_spot=0.06,temp_spot=3781K).txt", delimiter=",")
+    epsilon_Rackham_ff_8 = np.genfromtxt("55Cnc_e_output_epsilon_Rackham(trans_lat=-24graus,f_spot=0.08,temp_spot=3781K).txt", delimiter=",")
+    epsilon_Rackham_ff_10 = np.genfromtxt("55Cnc_e_output_epsilon_Rackham(trans_lat=-24graus,f_spot=0.10,temp_spot=3781K).txt", delimiter=",")
+    wavelengths = np.genfromtxt("55Cnc_e_output_wavelengths.txt", delimiter=",")
 
-    table_epsilon_ourWork = np.genfromtxt('Exoplanets/WASP101b/output_epsilon (our work).txt', delimiter=",", usecols=(6, 7, 8, 9, 10),
+    table_epsilon_ourWork = np.genfromtxt('epsilon (our work).txt', delimiter=",", usecols=(0, 1, 2, 3, 4, 5),
                                           skip_header=1)
     table_epsilon_ourWork = np.transpose(table_epsilon_ourWork)
 
     palette = sns.color_palette("Paired", 16)
     graph1 = fig.add_subplot(1, 1, 1)
     #graph1.set_title('WASP-101$\,$b', fontsize=29, fontweight='bold')
-    graph1.set_ylabel('Contamination Factor ($\epsilon$)', fontsize=22, fontweight="bold",
+    graph1.set_ylabel('Contamination Factor ($\epsilon$)', fontsize=23, fontweight="bold",
                       labelpad=10) # labelpad é a distância entre o título e o eixo
-    graph1.set_xlabel('Wavelength (nm)', fontsize=22, fontweight="bold", labelpad=10)
+    graph1.set_xlabel('Wavelength (nm)', fontsize=23, fontweight="bold", labelpad=10)
     #graph1.plot(wavelengths, epsilon,  'o', linestyle='none', markersize=7, color='red', label='$\epsilon$')
 
-    graph1.plot(wavelengths, table_epsilon_ourWork[4], '-', linewidth=3, color=palette[9],
-                label='$\epsilon$ - f$_{spot}=10\%$')
+    graph1.plot(wavelengths, table_epsilon_ourWork[5]/table_epsilon_ourWork[0], '-', linewidth=3, color=palette[9],
+                label='$\epsilon$ - $ff=10\%$')
     #graph1.plot(wavelengths, epsilon_Rackham_ff_10,  'o', linestyle='none', markersize=5, color=palette[4])
     graph1.plot(wavelengths, epsilon_Rackham_ff_10,  '--', linewidth=3, color=palette[8],
-                label='$\epsilon_{R}$ - f$_{spot}=10\%$')
-    graph1.plot(wavelengths, table_epsilon_ourWork[3], '-', linewidth=3, color=palette[7],
-                label='$\epsilon$ - f$_{spot}=8\%$')
+                label='$\epsilon_{R}$ - $ff=10\%$')
+    graph1.plot(wavelengths, table_epsilon_ourWork[4]/table_epsilon_ourWork[0], '-', linewidth=3, color=palette[7],
+                label='$\epsilon$ - $ff=8\%$')
     #graph1.plot(wavelengths, epsilon_Rackham_ff_8,  'o', linestyle='none', markersize=5, color=palette[3])
     graph1.plot(wavelengths, epsilon_Rackham_ff_8,  '--', linewidth=3, color=palette[6],
-                label='$\epsilon_{R}$ - f$_{spot}=8\%$')
-    graph1.plot(wavelengths, table_epsilon_ourWork[2], '-', linewidth=3, color=palette[5],
-                label='$\epsilon$ - f$_{spot}=6\%$')
+                label='$\epsilon_{R}$ - $ff=8\%$')
+    graph1.plot(wavelengths, table_epsilon_ourWork[3]/table_epsilon_ourWork[0], '-', linewidth=3, color=palette[5],
+                label='$\epsilon$ - $ff=6\%$')
     #graph1.plot(wavelengths, epsilon_Rackham_ff_6,  'o', linestyle='none', markersize=5, color=palette[2])
     graph1.plot(wavelengths, epsilon_Rackham_ff_6,  '--', linewidth=3, color=palette[4],
-                label='$\epsilon_{R}$ - f$_{spot}=6\%$')
-    graph1.plot(wavelengths, table_epsilon_ourWork[1], '-', linewidth=3, color=palette[3],
-                label='$\epsilon$ - f$_{spot}=4\%$')
+                label='$\epsilon_{R}$ - $ff=6\%$')
+    graph1.plot(wavelengths, table_epsilon_ourWork[2]/table_epsilon_ourWork[0], '-', linewidth=3, color=palette[3],
+                label='$\epsilon$ - $ff=4\%$')
     #graph1.plot(wavelengths, epsilon_Rackham_ff_4,  'o', linestyle='none', markersize=5, color=palette[1])
     graph1.plot(wavelengths, epsilon_Rackham_ff_4,  '--', linewidth=3, color=palette[2],
-                label='$\epsilon_{R}$ - f$_{spot}=4\%$')
-    graph1.plot(wavelengths, table_epsilon_ourWork[0], '-', linewidth=3, color=palette[1],
-                label='$\epsilon$ - f$_{spot}=2\%$')
+                label='$\epsilon_{R}$ - $ff=4\%$')
+    graph1.plot(wavelengths, table_epsilon_ourWork[1]/table_epsilon_ourWork[0], '-', linewidth=3, color=palette[1],
+                label='$\epsilon$ - $ff=2\%$')
     #graph1.plot(wavelengths, epsilon_Rackham_ff_2,  'o', linestyle='none', markersize=5, color=palette[0])
     graph1.plot(wavelengths, epsilon_Rackham_ff_2,  '--', linewidth=3, color=palette[0],
-                label='$\epsilon_{R}$ - f$_{spot}=2\%$')
+                label='$\epsilon_{R}$ - $ff=2\%$')
 
 
-    plt.text(950, 1.14, 'Trans. Lat. = 46.2$^{\circ}$', fontsize=17, bbox=dict(facecolor='white', alpha=0.5))
-    plt.xlim(430, 1700)
-    graph1.tick_params(axis="x", direction="in", labelsize=12)
-    graph1.tick_params(axis="y", direction="in", labelsize=12)
+    plt.text(870, 1.135, 'Trans. Lat. = 24.0$^{\circ}$', fontsize=21, bbox=dict(facecolor='white', alpha=0.5))
+    #plt.xlim(430, 1700)
+    graph1.tick_params(axis="x", direction="in", labelsize=17)
+    graph1.tick_params(axis="y", direction="in", labelsize=17)
     plt.subplots_adjust(top=0.9)
     #plt.plot(wavelengths, y1(wavelengths), "-", color='red') # ajuste polinomial
+    legend = plt.legend(prop={'size': 19})
+    plt.subplots_adjust(left=0.11, bottom=0.14, right=0.95, top=0.96)
+    plt.tick_params(axis="x", direction="in", labelsize=17)
+    plt.tick_params(axis="y", direction="in", labelsize=17)
 
 elif (graph == 2):
 
@@ -300,18 +304,18 @@ elif (graph == 5):
 
     # Leitura de entrada dos dados
 
-    epsilon_Rackham_trans_lat_20_fspot_8 = np.genfromtxt("Exoplanets/WASP101b/output_epsilon_Rackham(trans_lat=-46graus,f_spot=0.08).txt", delimiter=",")
+    epsilon_Rackham_trans_lat_20_fspot_8 = np.genfromtxt("55Cnc_e_output_epsilon_Rackham(trans_lat=-24graus,f_spot=0.08,temp_spot=3781K).txt", delimiter=",")
 
-    wavelengths = np.genfromtxt("Exoplanets/WASP101b/output_wavelengths.txt", delimiter=",")
+    wavelengths = np.genfromtxt("55Cnc_e_output_wavelengths.txt", delimiter=",")
 
-    table_epsilon_ourWork = np.genfromtxt('Exoplanets/WASP101b/output_epsilon_fixed_fspot_8% (our work).txt', delimiter=",",
+    table_epsilon_ourWork = np.genfromtxt('epsilon_fixed_fspot_8% (our work).txt', delimiter=",",
                                           usecols=(0, 1, 2, 3, 4, 5, 6, 7), skip_header=1)
     table_epsilon_ourWork = np.transpose(table_epsilon_ourWork)
 
     palette = sns.color_palette("tab10", 10)
     graph5 = fig.add_subplot(1, 1, 1)
     #graph5.set_title('WASP-101$\,$b', fontsize=29, fontweight='bold')
-    graph5.set_ylabel('Contamination Factor ($\epsilon$)', fontsize=22, fontweight="bold",
+    graph5.set_ylabel('Contamination Factor ($\epsilon$)', fontsize=23, fontweight="bold",
                       labelpad=10) # labelpad é a distância entre o título e o eixo
     graph5.set_xlabel('Wavelength (nm)', fontsize=22, fontweight="bold", labelpad=10)
 
@@ -337,13 +341,16 @@ elif (graph == 5):
     graph5.plot(wavelengths, epsilon_Rackham_trans_lat_20_fspot_8,  '-', linewidth=3, color='red',
                 label='$\epsilon_{R}$')
 
-    plt.text(950, 1.10, 'f$_{spot}=8\%$', fontsize=17, bbox=dict(facecolor='white', alpha=0.5))
-    plt.xlim(430, 1700)
-    plt.ylim(1.04, 1.11)
-    graph5.tick_params(axis="x", direction="in", labelsize=12)
-    graph5.tick_params(axis="y", direction="in", labelsize=12)
+    plt.text(950, 1.108, '$ff=8\%$', fontsize=21, bbox=dict(facecolor='white', alpha=0.5))
+    #plt.xlim(430, 1700)
+    graph5.tick_params(axis="x", direction="in", labelsize=17)
+    graph5.tick_params(axis="y", direction="in", labelsize=17)
     plt.subplots_adjust(top=0.9)
     #plt.plot(wavelengths, y1(wavelengths), "-", color='red') # ajuste polinomial
+    legend = plt.legend(prop={'size': 19})
+    plt.subplots_adjust(left=0.11, bottom=0.14, right=0.95, top=0.96)
+    plt.tick_params(axis="x", direction="in", labelsize=17)
+    plt.tick_params(axis="y", direction="in", labelsize=17)
 
 elif (graph == 6):
 
