@@ -79,13 +79,14 @@ if (graph == 1):
                 label='$\epsilon_{R}$ - $ff=2\%$')
 
 
-    plt.text(870, 1.135, 'Trans. Lat. = 24.0$^{\circ}$', fontsize=21, bbox=dict(facecolor='white', alpha=0.5))
-    #plt.xlim(430, 1700)
+    plt.text(870, 1.128, 'Trans. Lat. = 24.0$^{\circ}$', fontsize=21, bbox=dict(facecolor='white', alpha=0.5))
+    plt.xlim(500, 1700)
+    plt.ylim(1.000, 1.145)
     graph1.tick_params(axis="x", direction="in", labelsize=17)
     graph1.tick_params(axis="y", direction="in", labelsize=17)
     plt.subplots_adjust(top=0.9)
     #plt.plot(wavelengths, y1(wavelengths), "-", color='red') # ajuste polinomial
-    legend = plt.legend(prop={'size': 19})
+    legend = plt.legend(prop={'size': 19}, title='55$\,$Cnc$\,$e', title_fontsize=19)
     plt.subplots_adjust(left=0.11, bottom=0.14, right=0.95, top=0.96)
     plt.tick_params(axis="x", direction="in", labelsize=17)
     plt.tick_params(axis="y", direction="in", labelsize=17)
@@ -119,19 +120,19 @@ elif (graph == 2):
 
     #graph2.plot(wavelengths, transit_depth_tl_46_ff_10,  'o', linestyle='none', markersize=5, color=palette[5])
     graph2.plot(wavelengths, transit_depth_tl_46_ff_10, '-', color=palette[5], linewidth=3,
-                label='f$_{spot}=10\%$')
+                label='$ff=10\%$')
     #graph2.plot(wavelengths, transit_depth_tl_46_ff_8,  'o', linestyle='none', markersize=5, color=palette[4])
     graph2.plot(wavelengths, transit_depth_tl_46_ff_8, '-', color=palette[4], linewidth=3,
-                label='f$_{spot}=8\%$')
+                label='$ff=8\%$')
     #graph2.plot(wavelengths, transit_depth_tl_46_ff_6,  'o', linestyle='none', markersize=5, color=palette[3])
     graph2.plot(wavelengths, transit_depth_tl_46_ff_6, '-', color=palette[3], linewidth=3,
-                label='f$_{spot}=6\%$')
+                label='$ff=6\%$')
     #graph2.plot(wavelengths, transit_depth_tl_46_ff_4,  'o', linestyle='none', markersize=5, color=palette[2])
     graph2.plot(wavelengths, transit_depth_tl_46_ff_4, '-', color=palette[2], linewidth=3,
-                label='f$_{spot}=4\%$')
+                label='$ff=4\%$')
     #graph2.plot(wavelengths, transit_depth_tl_46_ff_2,  'o', linestyle='none', markersize=5, color=palette[1])
     graph2.plot(wavelengths, transit_depth_tl_46_ff_2, '-', color=palette[1], linewidth=3,
-                label='f$_{spot}=2\%$')
+                label='$ff=2\%$')
     #graph2.plot(wavelengths, transit_depth_tl_46_ff_0,  'o', linestyle='none', markersize=5, color=palette[0])
     graph2.plot(wavelengths, transit_depth_tl_46_ff_0, '-', color=palette[0], linewidth=3,
                 label='Photosphere')
