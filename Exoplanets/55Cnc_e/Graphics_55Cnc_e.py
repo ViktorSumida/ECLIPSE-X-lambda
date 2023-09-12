@@ -6,6 +6,7 @@ import scipy.interpolate as interpolate
 import math
 
 import seaborn as sns
+from matplotlib.offsetbox import AnchoredText
 # https://seaborn.pydata.org/tutorial/color_palettes.html
 # https://holypython.com/python-visualization-tutorial/colors-with-python/
 
@@ -27,7 +28,7 @@ import seaborn as sns
 
 fig = plt.figure()
 
-graph = 1
+graph = 4
 
 if (graph == 1):
 
@@ -101,51 +102,94 @@ elif (graph == 2):
     transit_depth_tl_46_ff_6 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.06,temp_spot=3781K).txt", delimiter=",")
     transit_depth_tl_46_ff_8 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.08,temp_spot=3781K).txt", delimiter=",")
     transit_depth_tl_46_ff_10 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.10,temp_spot=3781K).txt", delimiter=",")
+
+    transit_depth_4281K = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.08,temp_spot=4281K).txt", delimiter=",")
+    transit_depth_3781K = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.08,temp_spot=3781K).txt", delimiter=",")
+    transit_depth_3281K = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.08,temp_spot=3281K).txt", delimiter=",")
+    transit_depth_2781K = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.08,temp_spot=2781K).txt", delimiter=",")
+    transit_depth_2281K = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.08,temp_spot=2281K).txt", delimiter=",")
+
     wavelengths = np.genfromtxt("55Cnc_e_output_wavelengths.txt", delimiter=",")
 
     palette = sns.color_palette("mako", 6)
-    graph2 = fig.add_subplot(1, 1, 1)
-    #graph2.set_title('WASP-101$\,$b', fontsize=29, fontweight='bold')
-    #graph2.set_ylabel('D$_{\mathrm{unnoc}}$ -- D$_{\mathrm{phot}}$ [ppm]', fontsize=25, fontweight="bold") # labelpad é a distância entre o título e o eixo
-    graph2.set_ylabel('Transit Depth [ppm]', fontsize=22, fontweight="bold", labelpad=10) # labelpad é a distância entre o título e o eixo
-    graph2.set_xlabel('Wavelength (nm)', fontsize=22, fontweight="bold", labelpad=10)
 
     ######### Dados do Hubble ###############
 
     Cond_table5 = np.genfromtxt('55Cnc_e_WFC3.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
     Cond_table5 = np.transpose(Cond_table5)
 
-    plt.errorbar(Cond_table5[0] * 1000, Cond_table5[1] * 1.0e+4, fmt='.', yerr=Cond_table5[2] * 1.0e+4, color='gray', ms=10, alpha=0.7)
     ########################
 
+    graph2 = fig.add_subplot(2, 1, 1)
+    plt.errorbar(Cond_table5[0] * 1000, Cond_table5[1], fmt='.', yerr=Cond_table5[2], color='gray', ms=10, alpha=0.7,
+                 label='$\mathrm{\mathbf{Hubble WFC3}}$')
     #graph2.plot(wavelengths, transit_depth_tl_46_ff_10,  'o', linestyle='none', markersize=5, color=palette[5])
     graph2.plot(wavelengths, transit_depth_tl_46_ff_10, '-', color=palette[5], linewidth=3,
-                label='$ff=10\%$')
+                label='$\mathbf{ff=10\%}$')
     #graph2.plot(wavelengths, transit_depth_tl_46_ff_8,  'o', linestyle='none', markersize=5, color=palette[4])
     graph2.plot(wavelengths, transit_depth_tl_46_ff_8, '-', color=palette[4], linewidth=3,
-                label='$ff=8\%$')
+                label='$\mathbf{ff=8\%}$')
     #graph2.plot(wavelengths, transit_depth_tl_46_ff_6,  'o', linestyle='none', markersize=5, color=palette[3])
     graph2.plot(wavelengths, transit_depth_tl_46_ff_6, '-', color=palette[3], linewidth=3,
-                label='$ff=6\%$')
+                label='$\mathbf{ff=6\%}$')
     #graph2.plot(wavelengths, transit_depth_tl_46_ff_4,  'o', linestyle='none', markersize=5, color=palette[2])
     graph2.plot(wavelengths, transit_depth_tl_46_ff_4, '-', color=palette[2], linewidth=3,
-                label='$ff=4\%$')
+                label='$\mathbf{ff=4\%}$')
     #graph2.plot(wavelengths, transit_depth_tl_46_ff_2,  'o', linestyle='none', markersize=5, color=palette[1])
     graph2.plot(wavelengths, transit_depth_tl_46_ff_2, '-', color=palette[1], linewidth=3,
-                label='$ff=2\%$')
+                label='$\mathbf{ff=2\%}$')
     #graph2.plot(wavelengths, transit_depth_tl_46_ff_0,  'o', linestyle='none', markersize=5, color=palette[0])
     graph2.plot(wavelengths, transit_depth_tl_46_ff_0, '-', color=palette[0], linewidth=3,
-                label='Photosphere')
+                label='$\mathrm{\mathbf{Photosphere}}$')
 
-
-    #plt.text(550, 425, '55$\,$Cnc$\,$e', fontsize=17, bbox=dict(facecolor='white', alpha=0.5))
-    graph2.tick_params(axis="x", direction="in", labelsize=12)
-    graph2.tick_params(axis="y", direction="in", labelsize=12)
+    graph2.tick_params(axis="x", direction="in", labelsize=15)
+    graph2.tick_params(axis="y", direction="in", labelsize=15)
     plt.subplots_adjust(top=0.9)
     plt.xlim(470, 1700)
-    legend = plt.legend(prop={'size': 12}, title='55$\,$Cnc$\,$e', title_fontsize=15)
-    #plt.xlabel('Wavelength (nm)', labelpad=15)
-    #plt.plot(wavelengths, y2(wavelengths), "-", color='red') # ajuste polinomial
+    plt.ylim(300, 450)
+    legend = plt.legend(prop={'size': 12}, title_fontsize=15, loc='upper right')
+    #graph2.set_title('WASP-101$\,$b', fontsize=29, fontweight='bold')
+    #graph2.set_ylabel('D$_{\mathrm{unnoc}}$ -- D$_{\mathrm{phot}}$ [ppm]', fontsize=25, fontweight="bold") # labelpad é a distância entre o título e o eixo
+    graph2.set_ylabel('Transit Depth [ppm]', fontsize=15, fontweight="bold", labelpad=10) # labelpad é a distância entre o título e o eixo
+    #graph2.set_xlabel('Wavelength (nm)', fontsize=22, fontweight="bold", labelpad=10)
+    at = AnchoredText("$\mathbf{55\,\mathrm{\mathbf{Cnc}}\,\mathrm{\mathbf{e}}}$", prop=dict(size=15),
+                      frameon=True, loc='lower left')
+    graph2.add_artist(at)
+
+    graph2_1 = fig.add_subplot(2, 1, 2)
+    plt.errorbar(Cond_table5[0] * 1000, Cond_table5[1], fmt='.', yerr=Cond_table5[2], color='gray', ms=10, alpha=0.7,
+                 label='$\mathrm{\mathbf{Hubble WFC3}}$')
+    palette1 = sns.color_palette("flare_r", 5)
+    graph2_1.plot(wavelengths, transit_depth_4281K, '-', color=palette1[0], linewidth=3,
+                label='$\mathbf{T_\mathrm{\mathbf{spot}}=4281\,\mathrm{\mathbf{K}}}$')
+    graph2_1.plot(wavelengths, transit_depth_3781K, '-', color=palette1[1], linewidth=3,
+                label='$\mathbf{T_\mathrm{\mathbf{spot}}=3781\,\mathrm{\mathbf{K}}}$')
+    graph2_1.plot(wavelengths, transit_depth_3281K, '-', color=palette1[2], linewidth=3,
+                label='$\mathbf{T_\mathrm{\mathbf{\mathbf{spot}}}=3281\,\mathrm{\mathbf{K}}}$')
+    graph2_1.plot(wavelengths, transit_depth_2781K, '-', color=palette1[3], linewidth=3,
+                label='$\mathbf{T_\mathrm{\mathbf{spot}}=2781\,\mathrm{\mathbf{K}}}$')
+    graph2_1.plot(wavelengths, transit_depth_2281K, '-', color=palette1[4], linewidth=3,
+                label='$\mathbf{T_\mathrm{\mathbf{spot}}=2281\,\mathrm{\mathbf{K}}}$')
+
+    graph2_1.tick_params(axis="x", direction="in", labelsize=12)
+    graph2_1.tick_params(axis="y", direction="in", labelsize=12)
+    plt.subplots_adjust(top=0.9)
+    plt.xlim(470, 1700)
+    plt.ylim(315, 460)
+    legend = plt.legend(prop={'size': 12}, title_fontsize=15, loc='upper right')
+    #graph3.set_title('WASP-101$\,$b', fontsize=29, fontweight='bold')
+    #graph3.set_ylabel('D$_{\mathrm{unnoc}}$ -- D$_{\mathrm{phot}}$ [ppm]', fontsize=25, fontweight="bold") # labelpad é a distância entre o título e o eixo
+    graph2_1.set_ylabel('Transit Depth [ppm]', fontsize=15, fontweight="bold", labelpad=10) # labelpad é a distância entre o título e o eixo
+    graph2_1.set_xlabel('Wavelength (nm)', fontsize=19, fontweight="bold", labelpad=10)
+    at = AnchoredText("$\mathbf{55\,\mathrm{\mathbf{Cnc}}\,\mathrm{\mathbf{e}}: ff=8\%}$", prop=dict(size=15),
+                      frameon=True, loc='lower left') # frameon é o retângulo em volta do texto
+    graph2_1.add_artist(at)
+
 
 
 elif (graph == 3):
@@ -249,45 +293,46 @@ elif (graph == 4):
     Cond_table5 = np.genfromtxt('55Cnc_e_WFC3.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
     Cond_table5 = np.transpose(Cond_table5)
 
-    plt.errorbar(Cond_table5[0] * 1000, Cond_table5[1] * 1.0e+4, fmt='.', yerr=Cond_table5[2] * 1.0e+4, color='gray', ms=10, alpha=0.7)
+    plt.errorbar(Cond_table5[0] * 1000, Cond_table5[1], fmt='.', yerr=Cond_table5[2], color='gray', ms=10, alpha=0.7,
+                 label='$\mathbf{Hubble WFC3}$')
     ########################
 
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_20,  'o', linestyle='none', markersize=5, color=palette[1])
     graph4.plot(wavelengths, transit_depth_trans_lat_0_fspot_4, '-', color=palette[0], linewidth=3,
-                label='Trans. Lat. = 0$^{\circ}$; f$_{spot}=4\%$')
+                label='$\mathrm{\mathbf{Trans. Lat. = 0^{\circ}; ff=4\%}}$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_0,  'o', linestyle='none', markersize=5, color=palette[0])
     graph4.plot(wavelengths, transit_depth_trans_lat_0_fspot_0, '-', color=palette[1], linewidth=3,
-                label='Trans. Lat. = 0$^{\circ}$; photosphere')
+                label='$\mathrm{\mathbf{Trans. Lat. = 0^{\circ}; photosphere}}$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_20,  'o', linestyle='none', markersize=5, color=palette[1])
     graph4.plot(wavelengths, transit_depth_trans_lat_20_fspot_4, '-', color=palette[2], linewidth=3,
-                label='Trans. Lat. = 20$^{\circ}$; f$_{spot}=4\%$')
+                label='$\mathrm{\mathbf{Trans. Lat. = 20^{\circ}; ff=4\%}}$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_0,  'o', linestyle='none', markersize=5, color=palette[0])
     graph4.plot(wavelengths, transit_depth_trans_lat_20_fspot_0, '-', color=palette[3], linewidth=3,
-                label='Trans. Lat. = 20$^{\circ}$; photosphere')
+                label='$\mathrm{\mathbf{Trans. Lat. = 20^{\circ}; photosphere}}$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_30,  'o', linestyle='none', markersize=5, color=palette[3])
     graph4.plot(wavelengths, transit_depth_trans_lat_30_fspot_4, '-', color=palette[4], linewidth=3,
-                label='Trans. Lat. = 30$^{\circ}$; f$_{spot}=4\%$')
+                label='$\mathrm{\mathbf{Trans. Lat. = 30^{\circ}; ff=4\%}}$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_0,  'o', linestyle='none', markersize=5, color=palette[0])
     graph4.plot(wavelengths, transit_depth_trans_lat_30_fspot_0, '-', color=palette[5], linewidth=3,
-                label='Trans. Lat. = 30$^{\circ}$; photosphere')
+                label='$\mathrm{\mathbf{Trans. Lat. = 30^{\circ}; photosphere}}$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_40,  'o', linestyle='none', markersize=5, color=palette[2])
     graph4.plot(wavelengths, transit_depth_trans_lat_40_fspot_4, '-', color=palette[6], linewidth=3,
-                label='Trans. Lat. = 40$^{\circ}$; f$_{spot}=4\%$')
+                label='$\mathrm{\mathbf{Trans. Lat. = 40^{\circ}; ff=4\%}}$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_40,  'o', linestyle='none', markersize=5, color=palette[2])
     graph4.plot(wavelengths, transit_depth_trans_lat_40_fspot_0, '-', color=palette[7], linewidth=3,
-                label='Trans. Lat. = 40$^{\circ}$; photosphere')
+                label='$\mathrm{\mathbf{Trans. Lat. = 40^{\circ}; photosphere}}$')
     # graph4.plot(wavelengths, transit_depth_phot_trans_lat_50,  'o', linestyle='none', markersize=5, color=palette[3])
     graph4.plot(wavelengths, transit_depth_trans_lat_50_fspot_4, '-', color=palette[8], linewidth=3,
-                label='Trans. Lat. = 50$^{\circ}$, f$_{spot}=4\%$')
+                label='$\mathrm{\mathbf{Trans. Lat. = 50^{\circ}, ff=4\%}}$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_50,  'o', linestyle='none', markersize=5, color=palette[3])
     graph4.plot(wavelengths, transit_depth_trans_lat_50_fspot_0, '-', color=palette[9], linewidth=3,
-                label='Trans. Lat. = 50$^{\circ}$, photosphere')
+                label='$\mathrm{\mathbf{Trans. Lat. = 50^{\circ}, photosphere}}$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_60,  'o', linestyle='none', markersize=5, color=palette[4])
     graph4.plot(wavelengths, transit_depth_trans_lat_60_fspot_4, '-', color='wheat', linewidth=3,
-                label='Trans. Lat. = 60$^{\circ}$; f$_{spot}=4\%$')
+                label='$\mathrm{\mathbf{Trans. Lat. = 60^{\circ}; ff=4\%}}$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_60,  'o', linestyle='none', markersize=5, color=palette[4])
     graph4.plot(wavelengths, transit_depth_trans_lat_60_fspot_0, '-', color=palette[11], linewidth=3,
-                label='Trans. Lat. = 60$^{\circ}$; photosphere')
+                label='$\mathrm{\mathbf{Trans. Lat. = 60^{\circ}; photosphere}}$')
 
 
     #plt.text(550, 425, '55 Cnc e', fontsize=17, bbox=dict(facecolor='white', alpha=0.5))
@@ -295,10 +340,14 @@ elif (graph == 4):
     graph4.tick_params(axis="y", direction="in", labelsize=12)
     plt.subplots_adjust(top=0.9)
     plt.xlim(470, 1700)
-    plt.legend(bbox_to_anchor=(1.0, 1.0), loc='upper left', prop={'size': 12}, title='55$\,$Cnc$\,$e', title_fontsize=15)
+    plt.ylim(220, 450)
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc='upper left', prop={'size': 12})
     plt.tight_layout()
     #plt.xlabel('Wavelength (nm)', labelpad=15)
     #plt.plot(wavelengths, y2(wavelengths), "-", color='red') # ajuste polinomial
+    at = AnchoredText("$\mathbf{55\,\mathrm{\mathbf{Cnc}}\,\mathrm{\mathbf{e}}}$", prop=dict(size=15),
+                      frameon=True, loc='upper center') # frameon é o retângulo em volta do texto
+    graph4.add_artist(at)
 
 
 elif (graph == 5):
@@ -369,20 +418,23 @@ elif (graph == 6):
     wave_1743nm = [321.7567214, 318.8963701, 313.3175355, 306.438898, 295.4859, 281.9035769, 261.6057927]
 
     palette = sns.color_palette("Spectral", 10)
-    graph6.plot(TL, wave_452nm, 'o', linewidth=3, color='blue', label='452$\,$nm')
+    graph6.plot(TL, wave_452nm, 'o', linewidth=3, color='blue', label='$\mathrm{\mathbf{452\,nm}}$')
     graph6.plot(TL, wave_452nm, '-', linewidth=3, color='blue')
-    graph6.plot(TL, wave_563nm, 'o', linewidth=3, color='darkturquoise', label='563$\,$nm')
+    graph6.plot(TL, wave_563nm, 'o', linewidth=3, color='darkturquoise', label='$\mathrm{\mathbf{563\,nm}}$')
     graph6.plot(TL, wave_563nm, '-', linewidth=3, color='darkturquoise')
-    graph6.plot(TL, wave_790nm, 'o', linewidth=3, color='mediumseagreen', label='790$\,$nm')
+    graph6.plot(TL, wave_790nm, 'o', linewidth=3, color='mediumseagreen', label='$\mathrm{\mathbf{790\,nm}}$')
     graph6.plot(TL, wave_790nm, '-', linewidth=3, color='mediumseagreen')
-    graph6.plot(TL, wave_1018nm, 'o', linewidth=3, color='darkorange', label='1018$\,$nm')
+    graph6.plot(TL, wave_1018nm, 'o', linewidth=3, color='darkorange', label='$\mathrm{\mathbf{1018\,nm}}$')
     graph6.plot(TL, wave_1018nm, '-', linewidth=3, color='darkorange')
-    graph6.plot(TL, wave_1743nm, 'o', linewidth=3, color='red', label='1743$\,$nm')
+    graph6.plot(TL, wave_1743nm, 'o', linewidth=3, color='red', label='$\mathrm{\mathbf{1743\,nm}}$')
     graph6.plot(TL, wave_1743nm, '-', linewidth=3, color='red')
 
     legend = plt.legend(prop={'size': 12})
     plt.tick_params(axis="x", direction="in", labelsize=15)
     plt.tick_params(axis="y", direction="in", labelsize=15)
+    at = AnchoredText("$\mathbf{ff = 0\%}$", prop=dict(size=15),
+                      frameon=True, loc='lower left')
+    graph6.add_artist(at)
 
 
     graph6 = fig.add_subplot(1, 3, 2)
@@ -398,20 +450,23 @@ elif (graph == 6):
     ff_4_wave_1743nm = [328.649586, 326.0229794, 320.3194705, 313.2871111, 302.0893385, 288.2034814, 267.4520877]
 
     palette = sns.color_palette("Spectral", 10)
-    graph6.plot(TL, ff_4_wave_452nm, 'o', linewidth=3, color='blue', label='452$\,$nm')
+    graph6.plot(TL, ff_4_wave_452nm, 'o', linewidth=3, color='blue', label='$\mathrm{\mathbf{452\,nm}}$')
     graph6.plot(TL, ff_4_wave_452nm, '-', linewidth=3, color='blue')
-    graph6.plot(TL, ff_4_wave_563nm, 'o', linewidth=3, color='darkturquoise', label='563$\,$nm')
+    graph6.plot(TL, ff_4_wave_563nm, 'o', linewidth=3, color='darkturquoise', label='$\mathrm{\mathbf{563\,nm}}$')
     graph6.plot(TL, ff_4_wave_563nm, '-', linewidth=3, color='darkturquoise')
-    graph6.plot(TL, ff_4_wave_790nm, 'o', linewidth=3, color='mediumseagreen', label='790$\,$nm')
+    graph6.plot(TL, ff_4_wave_790nm, 'o', linewidth=3, color='mediumseagreen', label='$\mathrm{\mathbf{790\,nm}}$')
     graph6.plot(TL, ff_4_wave_790nm, '-', linewidth=3, color='mediumseagreen')
-    graph6.plot(TL, ff_4_wave_1018nm, 'o', linewidth=3, color='darkorange', label='1018$\,$nm')
+    graph6.plot(TL, ff_4_wave_1018nm, 'o', linewidth=3, color='darkorange', label='$\mathrm{\mathbf{1018\,nm}}$')
     graph6.plot(TL, ff_4_wave_1018nm, '-', linewidth=3, color='darkorange')
-    graph6.plot(TL, ff_4_wave_1743nm, 'o', linewidth=3, color='red', label='1743$\,$nm')
+    graph6.plot(TL, ff_4_wave_1743nm, 'o', linewidth=3, color='red', label='$\mathrm{\mathbf{1743\,nm}}$')
     graph6.plot(TL, ff_4_wave_1743nm, '-', linewidth=3, color='red')
 
     legend = plt.legend(prop={'size': 12})
     plt.tick_params(axis="x", direction="in", labelsize=15)
     plt.tick_params(axis="y", direction="in", labelsize=15)
+    at = AnchoredText("$\mathbf{ff = 4\%}$", prop=dict(size=15),
+                      frameon=True, loc='lower left')
+    graph6.add_artist(at)
 
 
     graph6 = fig.add_subplot(1, 3, 3)
@@ -426,20 +481,23 @@ elif (graph == 6):
     ff_8_wave_1743nm = [335.3382359, 333.4477031, 327.6143046, 320.4217929, 308.9690065, 294.7669181, 273.5429401]
 
     palette = sns.color_palette("Spectral", 10)
-    graph6.plot(TL, ff_8_wave_452nm, 'o', linewidth=3, color='blue', label='452$\,$nm')
+    graph6.plot(TL, ff_8_wave_452nm, 'o', linewidth=3, color='blue', label='$\mathrm{\mathbf{452\,nm}}$')
     graph6.plot(TL, ff_8_wave_452nm, '-', linewidth=3, color='blue')
-    graph6.plot(TL, ff_8_wave_563nm, 'o', linewidth=3, color='darkturquoise', label='563$\,$nm')
+    graph6.plot(TL, ff_8_wave_563nm, 'o', linewidth=3, color='darkturquoise', label='$\mathrm{\mathbf{563\,nm}}$')
     graph6.plot(TL, ff_8_wave_563nm, '-', linewidth=3, color='darkturquoise')
-    graph6.plot(TL, ff_8_wave_790nm, 'o', linewidth=3, color='mediumseagreen', label='790$\,$nm')
+    graph6.plot(TL, ff_8_wave_790nm, 'o', linewidth=3, color='mediumseagreen', label='$\mathrm{\mathbf{790\,nm}}$')
     graph6.plot(TL, ff_8_wave_790nm, '-', linewidth=3, color='mediumseagreen')
-    graph6.plot(TL, ff_8_wave_1018nm, 'o', linewidth=3, color='darkorange', label='1018$\,$nm')
+    graph6.plot(TL, ff_8_wave_1018nm, 'o', linewidth=3, color='darkorange', label='$\mathrm{\mathbf{1018\,nm}}$')
     graph6.plot(TL, ff_8_wave_1018nm, '-', linewidth=3, color='darkorange')
-    graph6.plot(TL, ff_8_wave_1743nm, 'o', linewidth=3, color='red', label='1743$\,$nm')
+    graph6.plot(TL, ff_8_wave_1743nm, 'o', linewidth=3, color='red', label='$\mathrm{\mathbf{1743\,nm}}$')
     graph6.plot(TL, ff_8_wave_1743nm, '-', linewidth=3, color='red')
 
     legend = plt.legend(prop={'size': 12})
     plt.tick_params(axis="x", direction="in", labelsize=15)
     plt.tick_params(axis="y", direction="in", labelsize=15)
+    at = AnchoredText("$\mathbf{ff = 8\%}$", prop=dict(size=15),
+                      frameon=True, loc='lower left')
+    graph6.add_artist(at)
 
 
 

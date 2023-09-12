@@ -334,8 +334,8 @@ fi = [0.] * quantidade  # vetor intensidade manchas
 li = [0.] * quantidade  # vetor longitude manchas
 
 
-#tempSpot = 0.418 * tempStar + 1620 # Temp. calculada em Rackham et al. 2018 p/ estrelas do tipo F-G-K
-tempSpot = 1934
+tempSpot = 0.418 * tempStar + 1620 # Temp. calculada em Rackham et al. 2018 p/ estrelas do tipo F-G-K
+#tempSpot = 1934
 
 
 intensidadeMancha = np.zeros(num_elements)

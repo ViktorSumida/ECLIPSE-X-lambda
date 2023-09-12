@@ -27,7 +27,7 @@ import seaborn as sns
 
 fig = plt.figure()
 
-graph = 5
+graph = 2
 
 if (graph == 1):
 
@@ -95,57 +95,107 @@ elif (graph == 2):
 
     # Leitura de entrada dos dados
 
-    transit_depth_tl_46_ff_0 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=-62graus,f_spot=0.00,temp_spot=3434K).txt", delimiter=",")
-    transit_depth_tl_46_ff_2 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=-62graus,f_spot=0.02,temp_spot=3434K).txt", delimiter=",")
-    transit_depth_tl_46_ff_4 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=-62graus,f_spot=0.04,temp_spot=3434K).txt", delimiter=",")
-    transit_depth_tl_46_ff_6 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=-62graus,f_spot=0.06,temp_spot=3434K).txt", delimiter=",")
-    transit_depth_tl_46_ff_8 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=-62graus,f_spot=0.08,temp_spot=3434K).txt", delimiter=",")
-    transit_depth_tl_46_ff_10 = np.genfromtxt("GJ9827d_output_transit_depth(trans_lat=-62graus,f_spot=0.10,temp_spot=3434K).txt", delimiter=",")
-    wavelengths = np.genfromtxt("GJ9827d_output_wavelengths.txt", delimiter=",")
+    transit_depth_tl_63_ff_0 = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.00,temp_spot=3781K).txt", delimiter=",")
+    transit_depth_tl_63_ff_2 = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.02,temp_spot=3781K).txt", delimiter=",")
+    transit_depth_tl_63_ff_4 = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.04,temp_spot=3781K).txt", delimiter=",")
+    transit_depth_tl_63_ff_6 = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.06,temp_spot=3781K).txt", delimiter=",")
+    transit_depth_tl_63_ff_8 = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.08,temp_spot=3781K).txt", delimiter=",")
+    transit_depth_tl_63_ff_10 = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.10,temp_spot=3781K).txt", delimiter=",")
+
+    transit_depth_3934K = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.08,temp_spot=4281K).txt", delimiter=",")
+    transit_depth_3434K = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.08,temp_spot=3781K).txt", delimiter=",")
+    transit_depth_2934K = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.08,temp_spot=3281K).txt", delimiter=",")
+    transit_depth_2434K = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.08,temp_spot=2781K).txt", delimiter=",")
+    transit_depth_1934K = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.08,temp_spot=2281K).txt", delimiter=",")
+
+    wavelengths = np.genfromtxt("55Cnc_e_output_wavelengths.txt", delimiter=",")
 
     palette = sns.color_palette("mako", 6)
-    graph2 = fig.add_subplot(1, 1, 1)
-    #graph2.set_title('WASP-101$\,$b', fontsize=29, fontweight='bold')
-    #graph2.set_ylabel('D$_{\mathrm{unnoc}}$ -- D$_{\mathrm{phot}}$ [ppm]', fontsize=25, fontweight="bold") # labelpad é a distância entre o título e o eixo
-    graph2.set_ylabel('Transit Depth [ppm]', fontsize=22, fontweight="bold", labelpad=10) # labelpad é a distância entre o título e o eixo
-    graph2.set_xlabel('Wavelength (nm)', fontsize=22, fontweight="bold", labelpad=10)
 
     ######### Dados do Hubble ###############
 
-    Cond_table5 = np.genfromtxt('GJ9827d_WFC3.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
+    Cond_table5 = np.genfromtxt('55Cnc_e_WFC3.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
     Cond_table5 = np.transpose(Cond_table5)
 
-    plt.errorbar(Cond_table5[0] * 1000, Cond_table5[1] * 1.0e+4, fmt='.', yerr=Cond_table5[2] * 1.0e+4, color='gray', ms=10, alpha=0.7)
     ########################
 
-    #graph2.plot(wavelengths, transit_depth_tl_46_ff_10,  'o', linestyle='none', markersize=5, color=palette[5])
-    graph2.plot(wavelengths, transit_depth_tl_46_ff_10, '-', color=palette[5], linewidth=3,
-                label='$ff=10\%$')
-    #graph2.plot(wavelengths, transit_depth_tl_46_ff_8,  'o', linestyle='none', markersize=5, color=palette[4])
-    graph2.plot(wavelengths, transit_depth_tl_46_ff_8, '-', color=palette[4], linewidth=3,
-                label='$ff=8\%$')
-    #graph2.plot(wavelengths, transit_depth_tl_46_ff_6,  'o', linestyle='none', markersize=5, color=palette[3])
-    graph2.plot(wavelengths, transit_depth_tl_46_ff_6, '-', color=palette[3], linewidth=3,
-                label='$ff=6\%$')
-    #graph2.plot(wavelengths, transit_depth_tl_46_ff_4,  'o', linestyle='none', markersize=5, color=palette[2])
-    graph2.plot(wavelengths, transit_depth_tl_46_ff_4, '-', color=palette[2], linewidth=3,
-                label='$ff=4\%$')
-    #graph2.plot(wavelengths, transit_depth_tl_46_ff_2,  'o', linestyle='none', markersize=5, color=palette[1])
-    graph2.plot(wavelengths, transit_depth_tl_46_ff_2, '-', color=palette[1], linewidth=3,
-                label='$ff=2\%$')
-    #graph2.plot(wavelengths, transit_depth_tl_46_ff_0,  'o', linestyle='none', markersize=5, color=palette[0])
-    graph2.plot(wavelengths, transit_depth_tl_46_ff_0, '-', color=palette[0], linewidth=3,
-                label='Photosphere')
+    graph2 = fig.add_subplot(2, 1, 1)
+    plt.errorbar(Cond_table5[0] * 1000, Cond_table5[1], fmt='.', yerr=Cond_table5[2], color='gray', ms=10, alpha=0.7,
+                 label='$\mathrm{\mathbf{Hubble WFC3}}$')
+    # graph2.plot(wavelengths, transit_depth_tl_46_ff_10,  'o', linestyle='none', markersize=5, color=palette[5])
+    graph2.plot(wavelengths, transit_depth_tl_63_ff_10, '-', color=palette[5], linewidth=3,
+                label='$\mathbf{ff=10\%}$')
+    # graph2.plot(wavelengths, transit_depth_tl_46_ff_8,  'o', linestyle='none', markersize=5, color=palette[4])
+    graph2.plot(wavelengths, transit_depth_tl_63_ff_8, '-', color=palette[4], linewidth=3,
+                label='$\mathbf{ff=8\%}$')
+    # graph2.plot(wavelengths, transit_depth_tl_46_ff_6,  'o', linestyle='none', markersize=5, color=palette[3])
+    graph2.plot(wavelengths, transit_depth_tl_63_ff_6, '-', color=palette[3], linewidth=3,
+                label='$\mathbf{ff=6\%}$')
+    # graph2.plot(wavelengths, transit_depth_tl_46_ff_4,  'o', linestyle='none', markersize=5, color=palette[2])
+    graph2.plot(wavelengths, transit_depth_tl_63_ff_4, '-', color=palette[2], linewidth=3,
+                label='$\mathbf{ff=4\%}$')
+    # graph2.plot(wavelengths, transit_depth_tl_46_ff_2,  'o', linestyle='none', markersize=5, color=palette[1])
+    graph2.plot(wavelengths, transit_depth_tl_63_ff_2, '-', color=palette[1], linewidth=3,
+                label='$\mathbf{ff=2\%}$')
+    # graph2.plot(wavelengths, transit_depth_tl_46_ff_0,  'o', linestyle='none', markersize=5, color=palette[0])
+    graph2.plot(wavelengths, transit_depth_tl_63_ff_0, '-', color=palette[0], linewidth=3,
+                label='$\mathrm{\mathbf{Photosphere}}$')
 
-
-    plt.text(950, 14000, 'Trans. Lat. = 46.2$^{\circ}$', fontsize=17, bbox=dict(facecolor='white', alpha=0.5))
-    graph2.tick_params(axis="x", direction="in", labelsize=12)
-    graph2.tick_params(axis="y", direction="in", labelsize=12)
+    graph2.tick_params(axis="x", direction="in", labelsize=15)
+    graph2.tick_params(axis="y", direction="in", labelsize=15)
     plt.subplots_adjust(top=0.9)
     plt.xlim(470, 1700)
-    legend = plt.legend(prop={'size': 12}, title='GJ$\,$9827$\,$d', title_fontsize=15)
-    #plt.xlabel('Wavelength (nm)', labelpad=15)
-    #plt.plot(wavelengths, y2(wavelengths), "-", color='red') # ajuste polinomial
+    plt.ylim(300, 450)
+    legend = plt.legend(prop={'size': 12}, title_fontsize=15, loc='upper right')
+    # graph2.set_title('WASP-101$\,$b', fontsize=29, fontweight='bold')
+    # graph2.set_ylabel('D$_{\mathrm{unnoc}}$ -- D$_{\mathrm{phot}}$ [ppm]', fontsize=25, fontweight="bold") # labelpad é a distância entre o título e o eixo
+    graph2.set_ylabel('Transit Depth [ppm]', fontsize=15, fontweight="bold",
+                      labelpad=10)  # labelpad é a distância entre o título e o eixo
+    # graph2.set_xlabel('Wavelength (nm)', fontsize=22, fontweight="bold", labelpad=10)
+    at = AnchoredText("$\mathrm{\mathbf{GJ}}\,9827\,\mathrm{\mathbf{d}}$", prop=dict(size=15),
+                      frameon=True, loc='lower left')
+    graph2.add_artist(at)
+
+    graph2_1 = fig.add_subplot(2, 1, 2)
+    plt.errorbar(Cond_table5[0] * 1000, Cond_table5[1], fmt='.', yerr=Cond_table5[2], color='gray', ms=10, alpha=0.7,
+                 label='$\mathrm{\mathbf{Hubble WFC3}}$')
+    palette1 = sns.color_palette("flare_r", 5)
+    graph2_1.plot(wavelengths, transit_depth_3934K, '-', color=palette1[0], linewidth=3,
+                  label='$\mathbf{T_\mathrm{\mathbf{spot}}=3934\,\mathrm{\mathbf{K}}}$')
+    graph2_1.plot(wavelengths, transit_depth_3434K, '-', color=palette1[1], linewidth=3,
+                  label='$\mathbf{T_\mathrm{\mathbf{spot}}=3434\,\mathrm{\mathbf{K}}}$')
+    graph2_1.plot(wavelengths, transit_depth_2934K, '-', color=palette1[2], linewidth=3,
+                  label='$\mathbf{T_\mathrm{\mathbf{\mathbf{spot}}}=2934\,\mathrm{\mathbf{K}}}$')
+    graph2_1.plot(wavelengths, transit_depth_2434K, '-', color=palette1[3], linewidth=3,
+                  label='$\mathbf{T_\mathrm{\mathbf{spot}}=2434\,\mathrm{\mathbf{K}}}$')
+    graph2_1.plot(wavelengths, transit_depth_1934K, '-', color=palette1[4], linewidth=3,
+                  label='$\mathbf{T_\mathrm{\mathbf{spot}}=1934\,\mathrm{\mathbf{K}}}$')
+
+    graph2_1.tick_params(axis="x", direction="in", labelsize=12)
+    graph2_1.tick_params(axis="y", direction="in", labelsize=12)
+    plt.subplots_adjust(top=0.9)
+    plt.xlim(470, 1700)
+    plt.ylim(315, 460)
+    legend = plt.legend(prop={'size': 12}, title_fontsize=15, loc='upper right')
+    # graph3.set_title('WASP-101$\,$b', fontsize=29, fontweight='bold')
+    # graph3.set_ylabel('D$_{\mathrm{unnoc}}$ -- D$_{\mathrm{phot}}$ [ppm]', fontsize=25, fontweight="bold") # labelpad é a distância entre o título e o eixo
+    graph2_1.set_ylabel('Transit Depth [ppm]', fontsize=15, fontweight="bold",
+                        labelpad=10)  # labelpad é a distância entre o título e o eixo
+    graph2_1.set_xlabel('Wavelength (nm)', fontsize=19, fontweight="bold", labelpad=10)
+    at = AnchoredText("$\mathrm{\mathbf{GJ}}\,9827\,\mathrm{\mathbf{d}}: ff=8\%}$", prop=dict(size=15),
+                      frameon=True, loc='lower left')  # frameon é o retângulo em volta do texto
+    graph2_1.add_artist(at)
 
 
 elif (graph == 3):

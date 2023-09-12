@@ -168,7 +168,7 @@ class Eclipse:
         m = nk * (self.tempoHoras - Tp)  # em radianos
 
         # calculando a anomalia excentrica em radianos
-        eccanom = solve(m, ecc)  # subrotina em anexo
+        eccanom = keplerfunc(m, ecc)  # subrotina em anexo
         xs = semiEixoPixel * (np.cos(eccanom) - ecc)
         ys = semiEixoPixel * (math.sqrt(1 - (ecc ** 2)) * np.sin(eccanom))
 
