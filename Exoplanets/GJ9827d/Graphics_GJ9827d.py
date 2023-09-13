@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.interpolate as interpolate
 import math
+from matplotlib.offsetbox import AnchoredText
 
 import seaborn as sns
 # https://seaborn.pydata.org/tutorial/color_palettes.html
@@ -96,36 +97,36 @@ elif (graph == 2):
     # Leitura de entrada dos dados
 
     transit_depth_tl_63_ff_0 = np.genfromtxt(
-        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.00,temp_spot=3781K).txt", delimiter=",")
+        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_spot=0.00,temp_spot=3434K).txt", delimiter=",")
     transit_depth_tl_63_ff_2 = np.genfromtxt(
-        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.02,temp_spot=3781K).txt", delimiter=",")
+        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_spot=0.02,temp_spot=3434K).txt", delimiter=",")
     transit_depth_tl_63_ff_4 = np.genfromtxt(
-        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.04,temp_spot=3781K).txt", delimiter=",")
+        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_spot=0.04,temp_spot=3434K).txt", delimiter=",")
     transit_depth_tl_63_ff_6 = np.genfromtxt(
-        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.06,temp_spot=3781K).txt", delimiter=",")
+        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_spot=0.06,temp_spot=3434K).txt", delimiter=",")
     transit_depth_tl_63_ff_8 = np.genfromtxt(
-        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.08,temp_spot=3781K).txt", delimiter=",")
+        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_spot=0.08,temp_spot=3434K).txt", delimiter=",")
     transit_depth_tl_63_ff_10 = np.genfromtxt(
-        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.10,temp_spot=3781K).txt", delimiter=",")
+        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_spot=0.10,temp_spot=3434K).txt", delimiter=",")
 
     transit_depth_3934K = np.genfromtxt(
-        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.08,temp_spot=4281K).txt", delimiter=",")
+        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_spot=0.08,temp_spot=3934K).txt", delimiter=",")
     transit_depth_3434K = np.genfromtxt(
-        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.08,temp_spot=3781K).txt", delimiter=",")
+        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_spot=0.08,temp_spot=3434K).txt", delimiter=",")
     transit_depth_2934K = np.genfromtxt(
-        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.08,temp_spot=3281K).txt", delimiter=",")
+        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_spot=0.08,temp_spot=2934K).txt", delimiter=",")
     transit_depth_2434K = np.genfromtxt(
-        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.08,temp_spot=2781K).txt", delimiter=",")
+        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_spot=0.08,temp_spot=2434K).txt", delimiter=",")
     transit_depth_1934K = np.genfromtxt(
-        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.08,temp_spot=2281K).txt", delimiter=",")
+        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_spot=0.08,temp_spot=1934K).txt", delimiter=",")
 
-    wavelengths = np.genfromtxt("55Cnc_e_output_wavelengths.txt", delimiter=",")
+    wavelengths = np.genfromtxt("GJ9827d_output_wavelengths.txt", delimiter=",")
 
     palette = sns.color_palette("mako", 6)
 
     ######### Dados do Hubble ###############
 
-    Cond_table5 = np.genfromtxt('55Cnc_e_WFC3.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
+    Cond_table5 = np.genfromtxt('GJ9827d_WFC3.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
     Cond_table5 = np.transpose(Cond_table5)
 
     ########################
@@ -156,15 +157,15 @@ elif (graph == 2):
     graph2.tick_params(axis="y", direction="in", labelsize=15)
     plt.subplots_adjust(top=0.9)
     plt.xlim(470, 1700)
-    plt.ylim(300, 450)
-    legend = plt.legend(prop={'size': 12}, title_fontsize=15, loc='upper right')
+    plt.ylim(600, 1000)
+    legend = plt.legend(prop={'size': 12}, title_fontsize=15, loc='lower right')
     # graph2.set_title('WASP-101$\,$b', fontsize=29, fontweight='bold')
     # graph2.set_ylabel('D$_{\mathrm{unnoc}}$ -- D$_{\mathrm{phot}}$ [ppm]', fontsize=25, fontweight="bold") # labelpad é a distância entre o título e o eixo
     graph2.set_ylabel('Transit Depth [ppm]', fontsize=15, fontweight="bold",
                       labelpad=10)  # labelpad é a distância entre o título e o eixo
     # graph2.set_xlabel('Wavelength (nm)', fontsize=22, fontweight="bold", labelpad=10)
-    at = AnchoredText("$\mathrm{\mathbf{GJ}}\,9827\,\mathrm{\mathbf{d}}$", prop=dict(size=15),
-                      frameon=True, loc='lower left')
+    at = AnchoredText("$\mathrm{\mathbf{GJ}}\,\mathbf{9827}\,\mathrm{\mathbf{d}}$", prop=dict(size=15),
+                      frameon=True, loc='lower center')
     graph2.add_artist(at)
 
     graph2_1 = fig.add_subplot(2, 1, 2)
@@ -186,15 +187,15 @@ elif (graph == 2):
     graph2_1.tick_params(axis="y", direction="in", labelsize=12)
     plt.subplots_adjust(top=0.9)
     plt.xlim(470, 1700)
-    plt.ylim(315, 460)
-    legend = plt.legend(prop={'size': 12}, title_fontsize=15, loc='upper right')
+    plt.ylim(600, 1050)
+    legend = plt.legend(prop={'size': 12}, title_fontsize=15, loc='lower right')
     # graph3.set_title('WASP-101$\,$b', fontsize=29, fontweight='bold')
     # graph3.set_ylabel('D$_{\mathrm{unnoc}}$ -- D$_{\mathrm{phot}}$ [ppm]', fontsize=25, fontweight="bold") # labelpad é a distância entre o título e o eixo
     graph2_1.set_ylabel('Transit Depth [ppm]', fontsize=15, fontweight="bold",
                         labelpad=10)  # labelpad é a distância entre o título e o eixo
     graph2_1.set_xlabel('Wavelength (nm)', fontsize=19, fontweight="bold", labelpad=10)
-    at = AnchoredText("$\mathrm{\mathbf{GJ}}\,9827\,\mathrm{\mathbf{d}}: ff=8\%}$", prop=dict(size=15),
-                      frameon=True, loc='lower left')  # frameon é o retângulo em volta do texto
+    at = AnchoredText("$\mathrm{\mathbf{GJ}}\,\mathbf{9827}\,\mathrm{\mathbf{d}}\mathbf{: ff=8\%}}$", prop=dict(size=15),
+                      frameon=True, loc='lower center')  # frameon é o retângulo em volta do texto
     graph2_1.add_artist(at)
 
 
@@ -267,7 +268,7 @@ elif (graph == 3):
 
 
 
-elif (graph == 4):
+elif graph == 4:
 
     # Leitura de entrada dos dados
 
@@ -351,7 +352,7 @@ elif (graph == 4):
     #plt.plot(wavelengths, y2(wavelengths), "-", color='red') # ajuste polinomial
 
 
-elif (graph == 5):
+elif graph == 5:
 
     # Leitura de entrada dos dados
 

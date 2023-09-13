@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.interpolate as interpolate
 import math
+from matplotlib.offsetbox import AnchoredText
 
 import seaborn as sns
-from matplotlib.offsetbox import AnchoredText
 # https://seaborn.pydata.org/tutorial/color_palettes.html
 # https://holypython.com/python-visualization-tutorial/colors-with-python/
 

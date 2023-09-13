@@ -28,7 +28,7 @@ from verify import Validar, ValidarEscolha
 from keplerAux import keplerfunc  #biblioteca auxiliar caso a biblioteca kepler nao funcione
 import matplotlib.animation as animation
 import kepler  # para o calculo de orbitas excentricas (pip install kepler)
-from kepler._core import solve
+#from kepler._core import solve
 import os
 import pandas as pd
 import os
