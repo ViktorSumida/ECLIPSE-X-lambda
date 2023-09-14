@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.interpolate as interpolate
 import math
-
+from matplotlib.offsetbox import AnchoredText
 import seaborn as sns
 # https://seaborn.pydata.org/tutorial/color_palettes.html
 # https://holypython.com/python-visualization-tutorial/colors-with-python/
@@ -217,19 +217,19 @@ elif (graph == 4):
     # Leitura de entrada dos dados
 
     transit_depth_trans_lat_0_fspot_0 = np.genfromtxt("WASP74b_output_transit_depth(trans_lat=0graus,f_spot=0.00,temp_spot=4123K).txt", delimiter=",")
-    transit_depth_trans_lat_0_fspot_4 = np.genfromtxt("WASP74b_output_transit_depth(trans_lat=0graus,f_spot=0.04,temp_spot=4123K).txt", delimiter=",")
+    transit_depth_trans_lat_0_fspot_8 = np.genfromtxt("WASP74b_output_transit_depth(trans_lat=0graus,f_spot=0.08,temp_spot=4123K).txt", delimiter=",")
     transit_depth_trans_lat_20_fspot_0 = np.genfromtxt("WASP74b_output_transit_depth(trans_lat=-20graus,f_spot=0.00,temp_spot=4123K).txt", delimiter=",")
-    transit_depth_trans_lat_20_fspot_4 = np.genfromtxt("WASP74b_output_transit_depth(trans_lat=-20graus,f_spot=0.04,temp_spot=4123K).txt", delimiter=",")
+    transit_depth_trans_lat_20_fspot_8 = np.genfromtxt("WASP74b_output_transit_depth(trans_lat=-20graus,f_spot=0.08,temp_spot=4123K).txt", delimiter=",")
     #transit_depth_trans_lat_30_fspot_0 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-30graus,f_spot=0.00,temp_spot=3781K).txt", delimiter=",")
     #ransit_depth_trans_lat_30_fspot_4 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-30graus,f_spot=0.04,temp_spot=3781K).txt", delimiter=",")
     transit_depth_trans_lat_45_fspot_0 = np.genfromtxt("WASP74b_output_transit_depth(trans_lat=-45graus,f_spot=0.00,temp_spot=4123K).txt", delimiter=",")
-    transit_depth_trans_lat_45_fspot_4 = np.genfromtxt("WASP74b_output_transit_depth(trans_lat=-45graus,f_spot=0.04,temp_spot=4123K).txt", delimiter=",")
+    transit_depth_trans_lat_45_fspot_8 = np.genfromtxt("WASP74b_output_transit_depth(trans_lat=-45graus,f_spot=0.08,temp_spot=4123K).txt", delimiter=",")
     #transit_depth_trans_lat_50_fspot_0 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-49graus,f_spot=0.00,temp_spot=3781K).txt", delimiter=",")
     #transit_depth_trans_lat_50_fspot_4 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-49graus,f_spot=0.04,temp_spot=3781K).txt", delimiter=",")
     transit_depth_trans_lat_60_fspot_0 = np.genfromtxt("WASP74b_output_transit_depth(trans_lat=-59graus,f_spot=0.00,temp_spot=4123K).txt", delimiter=",")
-    transit_depth_trans_lat_60_fspot_4 = np.genfromtxt("WASP74b_output_transit_depth(trans_lat=-59graus,f_spot=0.04,temp_spot=4123K).txt", delimiter=",")
+    transit_depth_trans_lat_60_fspot_8 = np.genfromtxt("WASP74b_output_transit_depth(trans_lat=-59graus,f_spot=0.08,temp_spot=4123K).txt", delimiter=",")
     transit_depth_trans_lat_82_fspot_0 = np.genfromtxt("WASP74b_output_transit_depth(trans_lat=-82graus,f_spot=0.00,temp_spot=4123K).txt", delimiter=",")
-    transit_depth_trans_lat_82_fspot_4 = np.genfromtxt("WASP74b_output_transit_depth(trans_lat=-82graus,f_spot=0.04,temp_spot=4123K).txt", delimiter=",")
+    transit_depth_trans_lat_82_fspot_8 = np.genfromtxt("WASP74b_output_transit_depth(trans_lat=-82graus,f_spot=0.08,temp_spot=4123K).txt", delimiter=",")
     wavelengths = np.genfromtxt("WASP74b_output_wavelengths.txt", delimiter=",")
 
     palette = sns.color_palette("Paired", 12)
@@ -246,57 +246,46 @@ elif (graph == 4):
     Cond_table5 = np.genfromtxt('WASP74b_WFC3.txt', delimiter=",", usecols=(0, 1, 2), skip_header=1)
     Cond_table5 = np.transpose(Cond_table5)
 
-    plt.errorbar(Cond_table5[0] * 1000, Cond_table5[1], fmt='.', yerr=Cond_table5[2], color='gray', ms=10, alpha=0.7,
-                label='Hubble WFC3')
+    plt.errorbar(Cond_table5[0] * 1000, Cond_table5[1]/1e4, fmt='.', yerr=Cond_table5[2]/1e4, color='gray', ms=10, alpha=0.7,
+                label='$\mathbf{Hubble\;WFC3}$')
     ########################
 
-    #graph4.plot(wavelengths, transit_depth_phot_trans_lat_20,  'o', linestyle='none', markersize=5, color=palette[1])
-    graph4.plot(wavelengths, transit_depth_trans_lat_0_fspot_4/10000, '-', color=palette[0], linewidth=3,
-                label='Trans. Lat. = 0$^{\circ}$; $ff=4\%$')
-    #graph4.plot(wavelengths, transit_depth_phot_trans_lat_0,  'o', linestyle='none', markersize=5, color=palette[0])
-    graph4.plot(wavelengths, transit_depth_trans_lat_0_fspot_0/10000, '-', color=palette[1], linewidth=3,
-                label='Trans. Lat. = 0$^{\circ}$; photosphere')
-    #graph4.plot(wavelengths, transit_depth_phot_trans_lat_20,  'o', linestyle='none', markersize=5, color=palette[1])
-    graph4.plot(wavelengths, transit_depth_trans_lat_20_fspot_4/10000, '-', color=palette[2], linewidth=3,
-                label='Trans. Lat. = 20$^{\circ}$; $ff=4\%$')
-    #graph4.plot(wavelengths, transit_depth_phot_trans_lat_0,  'o', linestyle='none', markersize=5, color=palette[0])
-    graph4.plot(wavelengths, transit_depth_trans_lat_20_fspot_0/10000, '-', color=palette[3], linewidth=3,
-                label='Trans. Lat. = 20$^{\circ}$; photosphere')
-    #graph4.plot(wavelengths, transit_depth_phot_trans_lat_30,  'o', linestyle='none', markersize=5, color=palette[3])
-    #graph4.plot(wavelengths, transit_depth_trans_lat_30_fspot_4, '-', color=palette[4], linewidth=3,
-    #            label='Trans. Lat. = 30$^{\circ}$; f$_{spot}=4\%$')
-    #graph4.plot(wavelengths, transit_depth_phot_trans_lat_0,  'o', linestyle='none', markersize=5, color=palette[0])
-    #graph4.plot(wavelengths, transit_depth_trans_lat_30_fspot_0, '-', color=palette[5], linewidth=3,
-    #            label='Trans. Lat. = 30$^{\circ}$; photosphere')
-    #graph4.plot(wavelengths, transit_depth_phot_trans_lat_40,  'o', linestyle='none', markersize=5, color=palette[2])
-    graph4.plot(wavelengths, transit_depth_trans_lat_45_fspot_4/10000, '-', color=palette[6], linewidth=3,
-                label='Trans. Lat. = 45$^{\circ}$; $ff=4\%$')
-    #graph4.plot(wavelengths, transit_depth_phot_trans_lat_40,  'o', linestyle='none', markersize=5, color=palette[2])
-    graph4.plot(wavelengths, transit_depth_trans_lat_45_fspot_0/10000, '-', color=palette[7], linewidth=3,
-                label='Trans. Lat. = 45$^{\circ}$; photosphere')
-    # graph4.plot(wavelengths, transit_depth_phot_trans_lat_50,  'o', linestyle='none', markersize=5, color=palette[3])
-    graph4.plot(wavelengths, transit_depth_trans_lat_60_fspot_4/10000, '-', color=palette[8], linewidth=3,
-                label='Trans. Lat. = 60$^{\circ}$, $ff=4\%$')
-    #graph4.plot(wavelengths, transit_depth_phot_trans_lat_50,  'o', linestyle='none', markersize=5, color=palette[3])
-    graph4.plot(wavelengths, transit_depth_trans_lat_60_fspot_0/10000, '-', color=palette[9], linewidth=3,
-                label='Trans. Lat. = 60$^{\circ}$, photosphere')
-    #graph4.plot(wavelengths, transit_depth_phot_trans_lat_60,  'o', linestyle='none', markersize=5, color=palette[4])
-    graph4.plot(wavelengths, transit_depth_trans_lat_82_fspot_4/10000, '-', color=palette[4], linewidth=3,
-                label='Trans. Lat. = 82$^{\circ}$; $ff=4\%$')
-    #graph4.plot(wavelengths, transit_depth_phot_trans_lat_60,  'o', linestyle='none', markersize=5, color=palette[4])
-    graph4.plot(wavelengths, transit_depth_trans_lat_82_fspot_0/10000, '-', color=palette[5], linewidth=3,
-                label='Trans. Lat. = 82$^{\circ}$; photosphere')
+    # graph4.plot(wavelengths, transit_depth_phot_trans_lat_20,  'o', linestyle='none', markersize=5, color=palette[1])
+    graph4.plot(wavelengths, transit_depth_trans_lat_0_fspot_8/1e4, '-', color=palette[0], linewidth=3,
+                label='$\mathrm{\mathbf{Trans. Lat. = 0^{\circ}; ff=8\%}}$')
+    graph4.plot(wavelengths, transit_depth_trans_lat_0_fspot_0/1e4, '-', color=palette[1], linewidth=3,
+                label='$\mathrm{\mathbf{Trans. Lat. = 0^{\circ}; photosphere}}$')
+    graph4.plot(wavelengths, transit_depth_trans_lat_20_fspot_8/1e4, '-', color=palette[2], linewidth=3,
+                label='$\mathrm{\mathbf{Trans. Lat. = 20^{\circ}; ff=8\%}}$')
+    graph4.plot(wavelengths, transit_depth_trans_lat_20_fspot_0/1e4, '-', color=palette[3], linewidth=3,
+                label='$\mathrm{\mathbf{Trans. Lat. = 20^{\circ}; photosphere}}$')
+    graph4.plot(wavelengths, transit_depth_trans_lat_45_fspot_8/1e4, '-', color=palette[6], linewidth=3,
+                label='$\mathrm{\mathbf{Trans. Lat. = 40^{\circ}; ff=8\%}}$')
+    graph4.plot(wavelengths, transit_depth_trans_lat_45_fspot_0/1e4, '-', color=palette[7], linewidth=3,
+                label='$\mathrm{\mathbf{Trans. Lat. = 40^{\circ}; photosphere}}$')
+    graph4.plot(wavelengths, transit_depth_trans_lat_60_fspot_8/1e4, '-', color=palette[8], linewidth=3,
+                label='$\mathrm{\mathbf{Trans. Lat. = 60^{\circ}; ff=8\%}}$')
+    graph4.plot(wavelengths, transit_depth_trans_lat_60_fspot_0/1e4, '-', color=palette[9], linewidth=3,
+                label='$\mathrm{\mathbf{Trans. Lat. = 60^{\circ}; photosphere}}$')
+    graph4.plot(wavelengths, transit_depth_trans_lat_82_fspot_8/1e4, '-', color='lightsalmon', linewidth=3,
+                label='$\mathrm{\mathbf{Trans. Lat. = 82^{\circ}; ff=8\%}}$')
+    graph4.plot(wavelengths, transit_depth_trans_lat_82_fspot_0/1e4, '-', color='red', linewidth=3,
+                label='$\mathrm{\mathbf{Trans. Lat. = 82^{\circ}; photosphere}}$')
 
 
     #plt.text(550, 425, '55 Cnc e', fontsize=17, bbox=dict(facecolor='white', alpha=0.5))
     graph4.tick_params(axis="x", direction="in", labelsize=12)
     graph4.tick_params(axis="y", direction="in", labelsize=12)
-    plt.subplots_adjust(top=1.0)
-    plt.xlim(470, 1700)
-    plt.legend(bbox_to_anchor=(1.0, 1.02), loc='upper left', prop={'size': 17}, title='$\\bf{WASP-74\,b}$', title_fontsize=19)
+    plt.subplots_adjust(top=0.9)
+    plt.xlim(450, 1700)
+    #plt.ylim(0.3, 1.2)
+    plt.legend(bbox_to_anchor=(1.0, 1.0), loc='upper left', prop={'size': 12})
     plt.tight_layout()
     #plt.xlabel('Wavelength (nm)', labelpad=15)
     #plt.plot(wavelengths, y2(wavelengths), "-", color='red') # ajuste polinomial
+    at = AnchoredText("$\mathrm{\mathbf{WASP-74}}\,\mathrm{\mathbf{b}}}$", prop=dict(size=15),
+                      frameon=True, loc='upper center') # frameon é o retângulo em volta do texto
+    graph4.add_artist(at)
 
 
 elif (graph == 5):
