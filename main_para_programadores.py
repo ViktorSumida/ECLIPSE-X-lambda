@@ -519,18 +519,27 @@ while(count4 < num_elements):
 
 pyplot.axis([-tempoTransito, tempoTransito, min(curvaLuz) - (min(curvaLuz)/100), 1.001])
 #pyplot.axis([-1.1, 1.1, 0.99955, 1.00005])
-#pyplot.yticks([0.9985, 0.9990, 0.9995, 1.0000])
+#pyplot.yticks([0.9995, 0.9996, 0.9997, 0.9998, 0.9999, 1.0000])
 #pyplot.xticks([-1.0, -0.5, 0, 0.5, 1.0])
+#pyplot.xlim(-1.05, 1.05)
+#pyplot.ylim(0.9995, 1.000055)
+
+from matplotlib.offsetbox import AnchoredText
+
+text_box = AnchoredText("$\mathbf{WASP-74\,b}$", loc="upper center", prop=dict(size=27), frameon=True)
+pyplot.gca().add_artist(text_box) # frameon é o retângulo em volta do texto
+
 #legend = pyplot.legend()
 #legend.set_title("Wavelength [nm]")
 
 #print("Máxima profundidade de trânsito: ", min(curvaLuz))
 
-pyplot.xlabel("time from transit center (hr)", fontsize=25)
-pyplot.ylabel("relative flux", fontsize=25)
+pyplot.xlabel("$\mathbf{Time\;from\;transit\;center\;(hr)}$", fontsize=29)
+pyplot.ylabel("$\mathbf{Relative\;flux}$", fontsize=31)
 
-pyplot.tick_params(axis="x", direction="in", labelsize=15)
-pyplot.tick_params(axis="y", direction="in", labelsize=15)
+
+pyplot.tick_params(axis="x", direction="in", labelsize=19)
+pyplot.tick_params(axis="y", direction="in", labelsize=19)
 
 # imprimindo valores da profundidade de trânsito no excel
 d = {'Wavelength [nm]': lambdaEff_nm, 'D_lambda [ppm]': D_lambda}
@@ -553,4 +562,5 @@ print(D_lambda)
 
 print(epsilon_Rackham)
 
+pyplot.tight_layout()
 pyplot.show()

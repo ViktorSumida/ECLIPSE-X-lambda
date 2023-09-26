@@ -7,6 +7,8 @@ __maintainer__ = ""
 __email__ = "biaduque7@hotmail.com"
 __status__ = "Production"
 
+import pylab as pl
+
 '''
 Este programa simula a plotagem de uma estrela com manchas, através de parâmetros como raio, intensidade, escurecimento 
 de limbo, etc.
@@ -283,7 +285,6 @@ class estrela:
         self.estrela = self.estrela * spot
         plt.axis([0, self.Nx, 0, self.Ny])
 
-
         # self.estrelaManchada = estrelaManchada
 
         # Plotar(self.tamanhoMatriz,self.estrela)
@@ -370,6 +371,16 @@ class estrela:
         Nx = tamanhoMatriz
         Ny = tamanhoMatriz
         #plt.axis([0, Nx, 0, Ny])
-        plt.axis('off')
+        #plt.axis('off')
+        plt.xlabel("$\mathbf{R/R_s}$", fontsize=37)
+        #plt.ylabel("$\mathbf{R/R_s}$", fontsize=37)
+        plt.yticks([0, Ny/2, Ny-1], [1, 0, -1])
+        plt.xticks([0, Nx/2, Nx-1], [-1, 0, 1])
         plt.imshow(estrela, self.color)
+        plt.tick_params(axis="x", labelsize=25)
+        plt.tick_params(axis="y", labelsize=25)
+        from matplotlib.offsetbox import AnchoredText
+        text_box = AnchoredText("$\mathbf{\lambda = 1450\,nm}$", loc="lower right", prop=dict(size=27), frameon=True)
+        plt.gca().add_artist(text_box)  # frameon é o retângulo em volta do texto
+        plt.tight_layout()
         plt.show()

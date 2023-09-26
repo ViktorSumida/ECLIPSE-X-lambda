@@ -28,7 +28,7 @@ import seaborn as sns
 
 fig = plt.figure()
 
-graph = 1
+graph = 2
 
 if (graph == 1):
 
@@ -147,7 +147,7 @@ elif (graph == 2):
                 label='$\mathbf{ff=2\%}$')
     #graph2.plot(wavelengths, transit_depth_tl_46_ff_0,  'o', linestyle='none', markersize=5, color=palette[0])
     graph2.plot(wavelengths, transit_depth_tl_46_ff_0, '-', color=palette[0], linewidth=3,
-                label='$\mathrm{\mathbf{Photosphere}}$')
+                label='$\mathrm{\mathbf{ff=0\%}}$')
 
     graph2.tick_params(axis="x", direction="in", labelsize=15)
     graph2.tick_params(axis="y", direction="in", labelsize=15)
@@ -157,7 +157,7 @@ elif (graph == 2):
     legend = plt.legend(prop={'size': 12}, title_fontsize=15, loc='upper right')
     #graph2.set_title('WASP-101$\,$b', fontsize=29, fontweight='bold')
     #graph2.set_ylabel('D$_{\mathrm{unnoc}}$ -- D$_{\mathrm{phot}}$ [ppm]', fontsize=25, fontweight="bold") # labelpad é a distância entre o título e o eixo
-    graph2.set_ylabel('Transit Depth [ppm]', fontsize=15, fontweight="bold", labelpad=10) # labelpad é a distância entre o título e o eixo
+    graph2.set_ylabel('Transit Depth [ppm]', fontsize=19, fontweight="bold", labelpad=10) # labelpad é a distância entre o título e o eixo
     #graph2.set_xlabel('Wavelength (nm)', fontsize=22, fontweight="bold", labelpad=10)
     at = AnchoredText("$\mathbf{55\,\mathrm{\mathbf{Cnc}}\,\mathrm{\mathbf{e}}}$", prop=dict(size=15),
                       frameon=True, loc='lower left')
@@ -186,7 +186,7 @@ elif (graph == 2):
     legend = plt.legend(prop={'size': 12}, title_fontsize=15, loc='upper right')
     #graph3.set_title('WASP-101$\,$b', fontsize=29, fontweight='bold')
     #graph3.set_ylabel('D$_{\mathrm{unnoc}}$ -- D$_{\mathrm{phot}}$ [ppm]', fontsize=25, fontweight="bold") # labelpad é a distância entre o título e o eixo
-    graph2_1.set_ylabel('Transit Depth [ppm]', fontsize=15, fontweight="bold", labelpad=10) # labelpad é a distância entre o título e o eixo
+    graph2_1.set_ylabel('Transit Depth [ppm]', fontsize=19, fontweight="bold", labelpad=10) # labelpad é a distância entre o título e o eixo
     graph2_1.set_xlabel('Wavelength (nm)', fontsize=19, fontweight="bold", labelpad=10)
     at = AnchoredText("$\mathbf{55\,\mathrm{\mathbf{Cnc}}\,\mathrm{\mathbf{e}}: ff=8\%}$", prop=dict(size=15),
                       frameon=True, loc='lower left') # frameon é o retângulo em volta do texto
@@ -304,37 +304,37 @@ elif (graph == 4):
                 label='$\mathrm{\mathbf{Trans. Lat. = 0^{\circ}; ff=8\%}}$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_0,  'o', linestyle='none', markersize=5, color=palette[0])
     graph4.plot(wavelengths, transit_depth_trans_lat_0_fspot_0, '-', color=palette[1], linewidth=3,
-                label='$\mathrm{\mathbf{Trans. Lat. = 0^{\circ}; photosphere}}$')
+                label='$\mathrm{\mathbf{Trans. Lat. = 0^{\circ}; ff=0\%}}$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_20,  'o', linestyle='none', markersize=5, color=palette[1])
     graph4.plot(wavelengths, transit_depth_trans_lat_20_fspot_8, '-', color=palette[2], linewidth=3,
                 label='$\mathrm{\mathbf{Trans. Lat. = 20^{\circ}; ff=8\%}}$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_0,  'o', linestyle='none', markersize=5, color=palette[0])
     graph4.plot(wavelengths, transit_depth_trans_lat_20_fspot_0, '-', color=palette[3], linewidth=3,
-                label='$\mathrm{\mathbf{Trans. Lat. = 20^{\circ}; photosphere}}$')
+                label='$\mathrm{\mathbf{Trans. Lat. = 20^{\circ}; ff=0\%}}$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_30,  'o', linestyle='none', markersize=5, color=palette[3])
     graph4.plot(wavelengths, transit_depth_trans_lat_30_fspot_8, '-', color=palette[4], linewidth=3,
                 label='$\mathrm{\mathbf{Trans. Lat. = 30^{\circ}; ff=8\%}}$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_0,  'o', linestyle='none', markersize=5, color=palette[0])
     graph4.plot(wavelengths, transit_depth_trans_lat_30_fspot_0, '-', color=palette[5], linewidth=3,
-                label='$\mathrm{\mathbf{Trans. Lat. = 30^{\circ}; photosphere}}$')
+                label='$\mathrm{\mathbf{Trans. Lat. = 30^{\circ}; ff=0\%}}$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_40,  'o', linestyle='none', markersize=5, color=palette[2])
     graph4.plot(wavelengths, transit_depth_trans_lat_40_fspot_8, '-', color=palette[6], linewidth=3,
                 label='$\mathrm{\mathbf{Trans. Lat. = 40^{\circ}; ff=8\%}}$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_40,  'o', linestyle='none', markersize=5, color=palette[2])
     graph4.plot(wavelengths, transit_depth_trans_lat_40_fspot_0, '-', color=palette[7], linewidth=3,
-                label='$\mathrm{\mathbf{Trans. Lat. = 40^{\circ}; photosphere}}$')
+                label='$\mathrm{\mathbf{Trans. Lat. = 40^{\circ}; ff=0\%}}$')
     # graph4.plot(wavelengths, transit_depth_phot_trans_lat_50,  'o', linestyle='none', markersize=5, color=palette[3])
     graph4.plot(wavelengths, transit_depth_trans_lat_50_fspot_8, '-', color=palette[8], linewidth=3,
                 label='$\mathrm{\mathbf{Trans. Lat. = 50^{\circ}, ff=8\%}}$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_50,  'o', linestyle='none', markersize=5, color=palette[3])
     graph4.plot(wavelengths, transit_depth_trans_lat_50_fspot_0, '-', color=palette[9], linewidth=3,
-                label='$\mathrm{\mathbf{Trans. Lat. = 50^{\circ}, photosphere}}$')
+                label='$\mathrm{\mathbf{Trans. Lat. = 50^{\circ}, ff=0\%}}$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_60,  'o', linestyle='none', markersize=5, color=palette[4])
     graph4.plot(wavelengths, transit_depth_trans_lat_60_fspot_8, '-', color='wheat', linewidth=3,
                 label='$\mathrm{\mathbf{Trans. Lat. = 60^{\circ}; ff=8\%}}$')
     #graph4.plot(wavelengths, transit_depth_phot_trans_lat_60,  'o', linestyle='none', markersize=5, color=palette[4])
     graph4.plot(wavelengths, transit_depth_trans_lat_60_fspot_0, '-', color=palette[11], linewidth=3,
-                label='$\mathrm{\mathbf{Trans. Lat. = 60^{\circ}; photosphere}}$')
+                label='$\mathrm{\mathbf{Trans. Lat. = 60^{\circ}; ff=0\%}}$')
 
 
     #plt.text(550, 425, '55 Cnc e', fontsize=17, bbox=dict(facecolor='white', alpha=0.5))

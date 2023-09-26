@@ -254,23 +254,23 @@ elif (graph == 4):
     graph4.plot(wavelengths, transit_depth_trans_lat_0_fspot_8/1e4, '-', color=palette[0], linewidth=3,
                 label='$\mathrm{\mathbf{Trans. Lat. = 0^{\circ}; ff=8\%}}$')
     graph4.plot(wavelengths, transit_depth_trans_lat_0_fspot_0/1e4, '-', color=palette[1], linewidth=3,
-                label='$\mathrm{\mathbf{Trans. Lat. = 0^{\circ}; photosphere}}$')
+                label='$\mathrm{\mathbf{Trans. Lat. = 0^{\circ}; ff=0\%}}$')
     graph4.plot(wavelengths, transit_depth_trans_lat_20_fspot_8/1e4, '-', color=palette[2], linewidth=3,
                 label='$\mathrm{\mathbf{Trans. Lat. = 20^{\circ}; ff=8\%}}$')
     graph4.plot(wavelengths, transit_depth_trans_lat_20_fspot_0/1e4, '-', color=palette[3], linewidth=3,
-                label='$\mathrm{\mathbf{Trans. Lat. = 20^{\circ}; photosphere}}$')
+                label='$\mathrm{\mathbf{Trans. Lat. = 20^{\circ}; ff=0\%}}$')
     graph4.plot(wavelengths, transit_depth_trans_lat_45_fspot_8/1e4, '-', color=palette[6], linewidth=3,
                 label='$\mathrm{\mathbf{Trans. Lat. = 40^{\circ}; ff=8\%}}$')
     graph4.plot(wavelengths, transit_depth_trans_lat_45_fspot_0/1e4, '-', color=palette[7], linewidth=3,
-                label='$\mathrm{\mathbf{Trans. Lat. = 40^{\circ}; photosphere}}$')
+                label='$\mathrm{\mathbf{Trans. Lat. = 40^{\circ}; ff=0\%}}$')
     graph4.plot(wavelengths, transit_depth_trans_lat_60_fspot_8/1e4, '-', color=palette[8], linewidth=3,
                 label='$\mathrm{\mathbf{Trans. Lat. = 60^{\circ}; ff=8\%}}$')
     graph4.plot(wavelengths, transit_depth_trans_lat_60_fspot_0/1e4, '-', color=palette[9], linewidth=3,
-                label='$\mathrm{\mathbf{Trans. Lat. = 60^{\circ}; photosphere}}$')
+                label='$\mathrm{\mathbf{Trans. Lat. = 60^{\circ}; ff=0\%}}$')
     graph4.plot(wavelengths, transit_depth_trans_lat_82_fspot_8/1e4, '-', color='lightsalmon', linewidth=3,
                 label='$\mathrm{\mathbf{Trans. Lat. = 82^{\circ}; ff=8\%}}$')
     graph4.plot(wavelengths, transit_depth_trans_lat_82_fspot_0/1e4, '-', color='red', linewidth=3,
-                label='$\mathrm{\mathbf{Trans. Lat. = 82^{\circ}; photosphere}}$')
+                label='$\mathrm{\mathbf{Trans. Lat. = 82^{\circ}; ff=0\%}}$')
 
 
     #plt.text(550, 425, '55 Cnc e', fontsize=17, bbox=dict(facecolor='white', alpha=0.5))
