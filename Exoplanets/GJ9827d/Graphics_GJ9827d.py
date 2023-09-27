@@ -28,7 +28,7 @@ import seaborn as sns
 
 fig = plt.figure()
 
-graph = 2
+graph = 4
 
 if graph == 1:
 

@@ -28,7 +28,7 @@ import seaborn as sns
 
 fig = plt.figure()
 
-graph = 2
+graph = 4
 
 if (graph == 1):
 
@@ -342,7 +342,7 @@ elif (graph == 4):
     graph4.tick_params(axis="y", direction="in", labelsize=12)
     plt.subplots_adjust(top=0.9)
     plt.xlim(470, 1700)
-    plt.ylim(220, 450)
+    #plt.ylim(220, 450)
     plt.legend(bbox_to_anchor=(1.0, 1.0), loc='upper left', prop={'size': 12})
     plt.tight_layout()
     #plt.xlabel('Wavelength (nm)', labelpad=15)
