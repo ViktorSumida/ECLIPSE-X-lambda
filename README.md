@@ -1,2 +1,2 @@
-# StarsAndExoplanets
- The draft code of my PhD thesis
+# StarsAndExoplanets ECLIPSE-X\lambda
+Transit modelling tool built upon the foundation of the ECLIPSE
