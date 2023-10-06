@@ -28,7 +28,7 @@ import seaborn as sns
 
 fig = plt.figure()
 
-graph = 4
+graph = 2
 
 if (graph == 1):
 
@@ -98,13 +98,14 @@ elif (graph == 2):
 
     # Leitura de entrada dos dados
 
+    ######### Mancha ##########
     transit_depth_tl_46_ff_0 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.00,temp_spot=3781K).txt", delimiter=",")
     transit_depth_tl_46_ff_2 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.02,temp_spot=3781K).txt", delimiter=",")
     transit_depth_tl_46_ff_4 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.04,temp_spot=3781K).txt", delimiter=",")
     transit_depth_tl_46_ff_6 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.06,temp_spot=3781K).txt", delimiter=",")
     transit_depth_tl_46_ff_8 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.08,temp_spot=3781K).txt", delimiter=",")
     transit_depth_tl_46_ff_10 = np.genfromtxt("55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.10,temp_spot=3781K).txt", delimiter=",")
-
+    ########## Temperatura da Mancha
     transit_depth_4281K = np.genfromtxt(
         "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.08,temp_spot=4281K).txt", delimiter=",")
     transit_depth_3781K = np.genfromtxt(
@@ -116,9 +117,33 @@ elif (graph == 2):
     transit_depth_2281K = np.genfromtxt(
         "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_spot=0.08,temp_spot=2281K).txt", delimiter=",")
 
+    ######### Fácula ###########
+    transit_depth_tl_46_ff_fac_2 = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_facula=0.02,temp_facula=5272K).txt", delimiter=",")
+    transit_depth_tl_46_ff_fac_4 = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_facula=0.04,temp_facula=5272K).txt", delimiter=",")
+    transit_depth_tl_46_ff_fac_6 = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_facula=0.06,temp_facula=5272K).txt", delimiter=",")
+    transit_depth_tl_46_ff_fac_8 = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_facula=0.08,temp_facula=5272K).txt", delimiter=",")
+    transit_depth_tl_46_ff_fac_10 = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_facula=0.10,temp_facula=5272K).txt", delimiter=",")
+    ########## Temperatura da Fácula
+    transit_depth_5247K = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_facula=0.08,temp_facula=5247K).txt", delimiter=",")
+    transit_depth_5272K = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_facula=0.08,temp_facula=5272K).txt", delimiter=",")
+    transit_depth_5297K = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_facula=0.08,temp_facula=5297K).txt", delimiter=",")
+    transit_depth_5322K = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_facula=0.08,temp_facula=5322K).txt", delimiter=",")
+    transit_depth_5347K = np.genfromtxt(
+        "55Cnc_e_output_transit_depth(trans_lat=-24graus,f_facula=0.08,temp_facula=5347K).txt", delimiter=",")
+
     wavelengths = np.genfromtxt("55Cnc_e_output_wavelengths.txt", delimiter=",")
 
     palette = sns.color_palette("mako", 6)
+    palette1 = sns.color_palette("flare_r", 6)
 
     ######### Dados do Hubble ###############
 
@@ -130,6 +155,25 @@ elif (graph == 2):
     graph2 = fig.add_subplot(2, 1, 1)
     plt.errorbar(Cond_table5[0] * 1000, Cond_table5[1], fmt='.', yerr=Cond_table5[2], color='gray', ms=10, alpha=0.7,
                  label='$\mathrm{\mathbf{Hubble\;WFC3}}$')
+    # graph2.plot(wavelengths, transit_depth_tl_46_ff_10,  'o', linestyle='none', markersize=5, color=palette[5])
+    graph2.plot(wavelengths, transit_depth_tl_46_ff_fac_10, '-', color=palette1[1], linewidth=3,
+                label='$\mathbf{ff=10\%}$')
+    # graph2.plot(wavelengths, transit_depth_tl_46_ff_8,  'o', linestyle='none', markersize=5, color=palette[4])
+    graph2.plot(wavelengths, transit_depth_tl_46_ff_fac_8, '-', color=palette1[2], linewidth=3,
+                label='$\mathbf{ff=8\%}$')
+    # graph2.plot(wavelengths, transit_depth_tl_46_ff_6,  'o', linestyle='none', markersize=5, color=palette[3])
+    graph2.plot(wavelengths, transit_depth_tl_46_ff_fac_6, '-', color=palette1[3], linewidth=3,
+                label='$\mathbf{ff=6\%}$')
+    # graph2.plot(wavelengths, transit_depth_tl_46_ff_4,  'o', linestyle='none', markersize=5, color=palette[2])
+    graph2.plot(wavelengths, transit_depth_tl_46_ff_fac_4, '-', color=palette1[4], linewidth=3,
+                label='$\mathbf{ff=4\%}$')
+    # graph2.plot(wavelengths, transit_depth_tl_46_ff_2,  'o', linestyle='none', markersize=5, color=palette[1])
+    graph2.plot(wavelengths, transit_depth_tl_46_ff_fac_2, '-', color=palette1[5], linewidth=3,
+                label='$\mathbf{ff=2\%}$')
+
+    # graph2.plot(wavelengths, transit_depth_tl_46_ff_0,  'o', linestyle='none', markersize=5, color=palette[0])
+    graph2.plot(wavelengths, transit_depth_tl_46_ff_0, '-', color='b', linewidth=3,
+                label='$\mathrm{\mathbf{ff=0\%}}$')
     #graph2.plot(wavelengths, transit_depth_tl_46_ff_10,  'o', linestyle='none', markersize=5, color=palette[5])
     graph2.plot(wavelengths, transit_depth_tl_46_ff_10, '-', color=palette[5], linewidth=3,
                 label='$\mathbf{ff=10\%}$')
@@ -153,7 +197,7 @@ elif (graph == 2):
     graph2.tick_params(axis="y", direction="in", labelsize=15)
     plt.subplots_adjust(top=0.9)
     plt.xlim(470, 1700)
-    plt.ylim(300, 450)
+    plt.ylim(300, 440)
     legend = plt.legend(prop={'size': 12}, title_fontsize=15, loc='upper right')
     #graph2.set_title('WASP-101$\,$b', fontsize=29, fontweight='bold')
     #graph2.set_ylabel('D$_{\mathrm{unnoc}}$ -- D$_{\mathrm{phot}}$ [ppm]', fontsize=25, fontweight="bold") # labelpad é a distância entre o título e o eixo
