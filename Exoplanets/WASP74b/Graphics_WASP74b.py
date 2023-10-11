@@ -288,7 +288,7 @@ elif (graph == 4):
     graph4.add_artist(at)
 
 
-elif (graph == 5):
+elif graph == 5:
 
     # Leitura de entrada dos dados
 
