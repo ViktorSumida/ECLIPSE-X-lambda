@@ -335,7 +335,7 @@ li = [0.] * quantidade  # vetor longitude manchas
 
 
 #tempSpot = 0.418 * tempStar + 1620 # Temp. calculada em Rackham et al. 2018 p/ estrelas do tipo F-G-K
-tempSpot = tempStar + 2000
+tempSpot = tempStar + 300
 print('temperatura efetiva da estrela: ', tempStar)
 
 intensidadeMancha = np.zeros(num_elements)
