@@ -335,8 +335,8 @@ li = [0.] * quantidade  # vetor longitude manchas
 
 
 #tempSpot = 0.418 * tempStar + 1620 # Temp. calculada em Rackham et al. 2018 p/ estrelas do tipo F-G-K
-tempSpot = tempStar + 2000
-
+tempSpot = tempStar + 300
+print('temperatura efetiva da estrela: ', tempStar)
 
 intensidadeMancha = np.zeros(num_elements)
 intensidadeManchaNormalizada = np.zeros(num_elements)
@@ -345,7 +345,7 @@ intensidadeManchaRazao = np.zeros(num_elements)
 epsilon_Rackham = [0 for j in range(num_elements)]
 
 count3 = 0
-while (count3 < num_elements):
+while count3 < num_elements:
 
     # intensidadeMancha = float(input('Digite a intensidade da mancha em função da intensidade máxima da estrela:')) ## esta intensidade
     # deverá ser mudada com o modelo de corpo negro

@@ -189,27 +189,25 @@ elif graph == 2:
         "GJ9827d_output_transit_depth(trans_lat=-63graus,f_spot=0.08,temp_spot=1934K).txt", delimiter=",")
 
     ######### Fácula ###########
-    transit_depth_tl_63_ff_fac_2 = np.genfromtxt(
-        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_facula=0.02,temp_facula=4440K).txt", delimiter=",")
-    transit_depth_tl_63_ff_fac_4 = np.genfromtxt(
-        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_facula=0.04,temp_facula=4440K).txt", delimiter=",")
-    transit_depth_tl_63_ff_fac_6 = np.genfromtxt(
-        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_facula=0.06,temp_facula=4440K).txt", delimiter=",")
-    transit_depth_tl_63_ff_fac_8 = np.genfromtxt(
-        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_facula=0.08,temp_facula=4440K).txt", delimiter=",")
     transit_depth_tl_63_ff_fac_10 = np.genfromtxt(
-        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_facula=0.10,temp_facula=4440K).txt", delimiter=",")
+        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_facula=0.10,temp_facula=4640K).txt", delimiter=",")
+    transit_depth_tl_63_ff_fac_20 = np.genfromtxt(
+        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_facula=0.20,temp_facula=4640K).txt", delimiter=",")
+    transit_depth_tl_63_ff_fac_30 = np.genfromtxt(
+        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_facula=0.30,temp_facula=4640K).txt", delimiter=",")
+    transit_depth_tl_63_ff_fac_40 = np.genfromtxt(
+        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_facula=0.40,temp_facula=4640K).txt", delimiter=",")
     ########## Temperatura da Fácula ###############
-    transit_depth_4415K = np.genfromtxt(
-        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_facula=0.08,temp_facula=4415K).txt", delimiter=",")
     transit_depth_4440K = np.genfromtxt(
         "GJ9827d_output_transit_depth(trans_lat=-63graus,f_facula=0.08,temp_facula=4440K).txt", delimiter=",")
-    transit_depth_4465K = np.genfromtxt(
-        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_facula=0.08,temp_facula=4465K).txt", delimiter=",")
-    transit_depth_4490K = np.genfromtxt(
-        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_facula=0.08,temp_facula=4490K).txt", delimiter=",")
-    transit_depth_4515K = np.genfromtxt(
-        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_facula=0.08,temp_facula=4515K).txt", delimiter=",")
+    transit_depth_4640K = np.genfromtxt(
+        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_facula=0.08,temp_facula=4640K).txt", delimiter=",")
+    transit_depth_4840K = np.genfromtxt(
+        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_facula=0.08,temp_facula=4840K).txt", delimiter=",")
+    transit_depth_5340K = np.genfromtxt(
+        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_facula=0.08,temp_facula=5340K).txt", delimiter=",")
+    transit_depth_6340K = np.genfromtxt(
+        "GJ9827d_output_transit_depth(trans_lat=-63graus,f_facula=0.08,temp_facula=6340K).txt", delimiter=",")
 
     wavelengths = np.genfromtxt("GJ9827d_output_wavelengths.txt", delimiter=",")
 
@@ -226,41 +224,28 @@ elif graph == 2:
     graph2 = fig.add_subplot(2, 1, 1)
     plt.errorbar(Cond_table5[0] * 1000, Cond_table5[1], fmt='.', yerr=Cond_table5[2], color='gray', ms=10, alpha=0.7,
                  label='$\mathrm{\mathbf{Hubble\;WFC3}}$')
-    # graph2.plot(wavelengths, transit_depth_tl_46_ff_10,  'o', linestyle='none', markersize=5, color=palette[5])
+
     graph2.plot(wavelengths, transit_depth_tl_63_ff_10, '-', color=palette[5], linewidth=3,
-                label='$\mathbf{ff=10\%}$')
-    # graph2.plot(wavelengths, transit_depth_tl_46_ff_8,  'o', linestyle='none', markersize=5, color=palette[4])
+                label='$\mathbf{ff_{spot}=10\%}$')
     graph2.plot(wavelengths, transit_depth_tl_63_ff_8, '-', color=palette[4], linewidth=3,
-                label='$\mathbf{ff=8\%}$')
-    # graph2.plot(wavelengths, transit_depth_tl_46_ff_6,  'o', linestyle='none', markersize=5, color=palette[3])
+                label='$\mathbf{ff_{spot}=8\%}$')
     graph2.plot(wavelengths, transit_depth_tl_63_ff_6, '-', color=palette[3], linewidth=3,
-                label='$\mathbf{ff=6\%}$')
-    # graph2.plot(wavelengths, transit_depth_tl_46_ff_4,  'o', linestyle='none', markersize=5, color=palette[2])
+                label='$\mathbf{ff_{spot}=6\%}$')
     graph2.plot(wavelengths, transit_depth_tl_63_ff_4, '-', color=palette[2], linewidth=3,
-                label='$\mathbf{ff=4\%}$')
-    # graph2.plot(wavelengths, transit_depth_tl_46_ff_2,  'o', linestyle='none', markersize=5, color=palette[1])
+                label='$\mathbf{ff_{spot}=4\%}$')
     graph2.plot(wavelengths, transit_depth_tl_63_ff_2, '-', color=palette[1], linewidth=3,
-                label='$\mathbf{ff=2\%}$')
-    # graph2.plot(wavelengths, transit_depth_tl_46_ff_0,  'o', linestyle='none', markersize=5, color=palette[0])
+                label='$\mathbf{ff_{spot}=2\%}$')
     graph2.plot(wavelengths, transit_depth_tl_63_ff_0, '-', color=palette[0], linewidth=3,
                 label='$\mathrm{\mathbf{ff=0\%}}$')
 
-    # graph2.plot(wavelengths, transit_depth_tl_46_ff_10,  'o', linestyle='none', markersize=5, color=palette[5])
-    graph2.plot(wavelengths, transit_depth_tl_63_ff_fac_10, '-', color=palette1[5], linewidth=3,
-                label='$\mathbf{ff=10\%}$')
-    # graph2.plot(wavelengths, transit_depth_tl_46_ff_8,  'o', linestyle='none', markersize=5, color=palette[4])
-    graph2.plot(wavelengths, transit_depth_tl_63_ff_fac_8, '-', color=palette1[4], linewidth=3,
-                label='$\mathbf{ff=8\%}$')
-    # graph2.plot(wavelengths, transit_depth_tl_46_ff_6,  'o', linestyle='none', markersize=5, color=palette[3])
-    graph2.plot(wavelengths, transit_depth_tl_63_ff_fac_6, '-', color=palette1[3], linewidth=3,
-                label='$\mathbf{ff=6\%}$')
-    # graph2.plot(wavelengths, transit_depth_tl_46_ff_4,  'o', linestyle='none', markersize=5, color=palette[2])
-    graph2.plot(wavelengths, transit_depth_tl_63_ff_fac_4, '-', color=palette1[2], linewidth=3,
-                label='$\mathbf{ff=4\%}$')
-    # graph2.plot(wavelengths, transit_depth_tl_46_ff_2,  'o', linestyle='none', markersize=5, color=palette[1])
-    graph2.plot(wavelengths, transit_depth_tl_63_ff_fac_2, '-', color=palette1[1], linewidth=3,
-                label='$\mathbf{ff=2\%}$')
-    # graph2.plot(wavelengths, transit_depth_tl_46_ff_0,  'o', linestyle='none', markersize=5, color=palette[0])
+    graph2.plot(wavelengths, transit_depth_tl_63_ff_fac_10, '-', color=palette1[4], linewidth=3,
+                label='$\mathbf{ff_{fac}=10\%}$')
+    graph2.plot(wavelengths, transit_depth_tl_63_ff_fac_20, '-', color=palette1[3], linewidth=3,
+                label='$\mathbf{ff_{fac}=20\%}$')
+    graph2.plot(wavelengths, transit_depth_tl_63_ff_fac_30, '-', color=palette1[2], linewidth=3,
+                label='$\mathbf{ff_{fac}=30\%}$')
+    graph2.plot(wavelengths, transit_depth_tl_63_ff_fac_40, '-', color=palette1[1], linewidth=3,
+                label='$\mathbf{ff_{fac}=40\%}$')
 
     graph2.tick_params(axis="x", direction="in", labelsize=15)
     graph2.tick_params(axis="y", direction="in", labelsize=15)
@@ -268,55 +253,53 @@ elif graph == 2:
     plt.xlim(470, 1700)
     plt.ylim(600, 1050)
     legend = plt.legend(prop={'size': 12}, title_fontsize=15, loc='lower right')
-    # graph2.set_title('WASP-101$\,$b', fontsize=29, fontweight='bold')
-    # graph2.set_ylabel('D$_{\mathrm{unnoc}}$ -- D$_{\mathrm{phot}}$ [ppm]', fontsize=25, fontweight="bold") # labelpad é a distância entre o título e o eixo
     graph2.set_ylabel('Transit Depth [ppm]', fontsize=19, fontweight="bold",
                       labelpad=10)  # labelpad é a distância entre o título e o eixo
-    # graph2.set_xlabel('Wavelength (nm)', fontsize=22, fontweight="bold", labelpad=10)
-    at = AnchoredText("$\mathrm{\mathbf{GJ}}\,\mathbf{9827}\,\mathrm{\mathbf{d}}$", prop=dict(size=15),
-                      frameon=True, loc='lower left')
-    graph2.add_artist(at)
+    at1 = AnchoredText("$\mathbf{GJ\,\mathrm{\mathbf{9827}}\,\mathrm{\mathbf{d}}}$", prop=dict(size=15),
+                       frameon=True, loc='upper center')
+    at2 = AnchoredText("$\mathbf{T_{star}=5172\,K;\,T_{spot}=3435\,K;\;T_{fac}=4640\,K}$", prop=dict(size=12),
+                       frameon=True, loc='lower left')
+    graph2.add_artist(at1)
+    graph2.add_artist(at2)
 
     graph2_1 = fig.add_subplot(2, 1, 2)
     plt.errorbar(Cond_table5[0] * 1000, Cond_table5[1], fmt='.', yerr=Cond_table5[2], color='gray', ms=10, alpha=0.7,
                  label='$\mathrm{\mathbf{Hubble\;WFC3}}$')
-    palette2 = sns.color_palette("flare_r", 10)
 
-    graph2_1.plot(wavelengths, transit_depth_4515K, '-', color=palette2[0], linewidth=3,
-                  label='$\mathbf{T_\mathrm{\mathbf{spot}}=4515\,\mathrm{\mathbf{K}}}$')
-    graph2_1.plot(wavelengths, transit_depth_4490K, '-', color=palette2[1], linewidth=3,
-                  label='$\mathbf{T_\mathrm{\mathbf{spot}}=4490\,\mathrm{\mathbf{K}}}$')
-    graph2_1.plot(wavelengths, transit_depth_4465K, '-', color=palette2[2], linewidth=3,
-                  label='$\mathbf{T_\mathrm{\mathbf{\mathbf{spot}}}=4465\,\mathrm{\mathbf{K}}}$')
-    graph2_1.plot(wavelengths, transit_depth_4440K, '-', color=palette2[3], linewidth=3,
-                  label='$\mathbf{T_\mathrm{\mathbf{spot}}=4515\,\mathrm{\mathbf{K}}}$')
-    graph2_1.plot(wavelengths, transit_depth_4415K, '-', color=palette2[4], linewidth=3,
-                  label='$\mathbf{T_\mathrm{\mathbf{spot}}=4415\,\mathrm{\mathbf{K}}}$')
-
-    graph2_1.plot(wavelengths, transit_depth_3934K, '-', color=palette2[5], linewidth=3,
-                  label='$\mathbf{T_\mathrm{\mathbf{spot}}=3934\,\mathrm{\mathbf{K}}}$')
-    graph2_1.plot(wavelengths, transit_depth_3434K, '-', color=palette2[6], linewidth=3,
-                  label='$\mathbf{T_\mathrm{\mathbf{spot}}=3434\,\mathrm{\mathbf{K}}}$')
-    graph2_1.plot(wavelengths, transit_depth_2934K, '-', color=palette2[7], linewidth=3,
-                  label='$\mathbf{T_\mathrm{\mathbf{\mathbf{spot}}}=2934\,\mathrm{\mathbf{K}}}$')
-    graph2_1.plot(wavelengths, transit_depth_2434K, '-', color=palette2[8], linewidth=3,
-                  label='$\mathbf{T_\mathrm{\mathbf{spot}}=2434\,\mathrm{\mathbf{K}}}$')
-    graph2_1.plot(wavelengths, transit_depth_1934K, '-', color=palette2[9], linewidth=3,
+    graph2_1.plot(wavelengths, transit_depth_1934K, '-', color=palette[4], linewidth=3,
                   label='$\mathbf{T_\mathrm{\mathbf{spot}}=1934\,\mathrm{\mathbf{K}}}$')
+    graph2_1.plot(wavelengths, transit_depth_2434K, '-', color=palette[3], linewidth=3,
+                  label='$\mathbf{T_\mathrm{\mathbf{spot}}=2434\,\mathrm{\mathbf{K}}}$')
+    graph2_1.plot(wavelengths, transit_depth_2934K, '-', color=palette[2], linewidth=3,
+                  label='$\mathbf{T_\mathrm{\mathbf{spot}}=2934\,\mathrm{\mathbf{K}}}$')
+    graph2_1.plot(wavelengths, transit_depth_3434K, '-', color=palette[1], linewidth=3,
+                  label='$\mathbf{T_\mathrm{\mathbf{spot}}=3434\,\mathrm{\mathbf{K}}}$')
+    graph2_1.plot(wavelengths, transit_depth_3934K, '-', color=palette[0], linewidth=3,
+                  label='$\mathbf{T_\mathrm{\mathbf{spot}}=3934\,\mathrm{\mathbf{K}}}$')
+
+    graph2_1.plot(wavelengths, transit_depth_4440K, '-', color=palette1[1], linewidth=3,
+                  label='$\mathbf{T_\mathrm{\mathbf{fac}}=4440\,\mathrm{\mathbf{K}}}$')
+    graph2_1.plot(wavelengths, transit_depth_4640K, '-', color=palette1[2], linewidth=3,
+                  label='$\mathbf{T_\mathrm{\mathbf{fac}}=4640\,\mathrm{\mathbf{K}}}$')
+    graph2_1.plot(wavelengths, transit_depth_4840K, '-', color=palette1[3], linewidth=3,
+                  label='$\mathbf{T_\mathrm{\mathbf{fac}}=4840\,\mathrm{\mathbf{K}}}$')
+    graph2_1.plot(wavelengths, transit_depth_5340K, '-', color=palette1[4], linewidth=3,
+                  label='$\mathbf{T_\mathrm{\mathbf{fac}}=5340\,\mathrm{\mathbf{K}}}$')
+    graph2_1.plot(wavelengths, transit_depth_6340K, '-', color=palette1[4], linewidth=3,
+                  label='$\mathbf{T_\mathrm{\mathbf{fac}}=6340\,\mathrm{\mathbf{K}}}$')
 
     graph2_1.tick_params(axis="x", direction="in", labelsize=12)
     graph2_1.tick_params(axis="y", direction="in", labelsize=12)
     plt.subplots_adjust(top=0.9)
     plt.xlim(470, 1700)
     plt.ylim(600, 1050)
-    legend = plt.legend(prop={'size': 12}, title_fontsize=15, loc='lower right')
+    graph2_1.legend( prop={'size': 12}, title_fontsize=15, loc='upper right')
     # graph3.set_title('WASP-101$\,$b', fontsize=29, fontweight='bold')
     # graph3.set_ylabel('D$_{\mathrm{unnoc}}$ -- D$_{\mathrm{phot}}$ [ppm]', fontsize=25, fontweight="bold") # labelpad é a distância entre o título e o eixo
-    graph2_1.set_ylabel('Transit Depth [ppm]', fontsize=19, fontweight="bold",
-                        labelpad=10)  # labelpad é a distância entre o título e o eixo
+    graph2_1.set_ylabel('Transit Depth [ppm]', fontsize=19, fontweight="bold", labelpad=10) # labelpad é a distância entre o título e o eixo
     graph2_1.set_xlabel('Wavelength (nm)', fontsize=19, fontweight="bold", labelpad=10)
-    at = AnchoredText("$\mathrm{\mathbf{GJ}}\,\mathbf{9827}\,\mathrm{\mathbf{d}}\mathbf{: ff=8\%}}$", prop=dict(size=15),
-                      frameon=True, loc='lower left')  # frameon é o retângulo em volta do texto
+    at = AnchoredText("$\mathbf{T_{star}=4340\,K;\,ff=8\%}$", prop=dict(size=12),
+                      frameon=True, loc='lower left') # frameon é o retângulo em volta do texto
     graph2_1.add_artist(at)
 
 
