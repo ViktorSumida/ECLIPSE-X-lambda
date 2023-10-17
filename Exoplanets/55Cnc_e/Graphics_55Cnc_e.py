@@ -623,7 +623,7 @@ elif graph == 7:
                       labelpad=10)  # labelpad é a distância entre o título e o eixo
     graph7.set_xlabel('$\mathbf{Faculae\;Temperature\;[\%\,T_{star}]}$', fontsize=22, fontweight="bold", labelpad=10)
 
-    temp_porcentagem = [1.933488012, 5.800464037, 9.667440062, 19.33488012, 38.66976025]
+    temp_porcentagem = [101.933488, 105.800464, 109.6674401, 119.3348801, 138.6697602]
     wave_452nm = [375.6901754, 368.9072451, 361.395753, 339.855514, 289.6882987]
     wave_522nm = [363.3513206, 357.8450057, 351.8707572, 335.191029, 297.2376388]
     wave_563nm = [357.7526576, 352.7971998, 347.4737768, 332.8084986, 299.9013473]
