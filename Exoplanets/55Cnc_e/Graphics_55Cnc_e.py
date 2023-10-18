@@ -29,7 +29,7 @@ import seaborn as sns
 
 fig = plt.figure()
 
-graph = 7
+graph = 1
 
 if graph == 1:
 
@@ -145,7 +145,7 @@ if graph == 1:
 
 
     graph1_2.set_xlim(500, 1700)
-    graph1_2.set_ylim(0.984, 1.)
+    #graph1_2.set_ylim(0.960, 1.)
     graph1_2.tick_params(axis="x", direction="in", labelsize=17)
     graph1_2.tick_params(axis="y", direction="in", labelsize=17)
     plt.subplots_adjust(top=0.9)
@@ -158,6 +158,7 @@ if graph == 1:
     at3 = AnchoredText('$\mathbf{Faculae}$', prop=dict(size=21),
                       frameon=True, loc='upper left') # frameon é o retângulo em volta do texto
     graph1_2.add_artist(at3)
+    graph1_2.yaxis.set_major_locator(MultipleLocator(0.005))
 
 elif graph == 2:
 
