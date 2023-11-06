@@ -208,7 +208,7 @@ stack_curvaLuz = [0 for i in range(2000)]  # array used later, inside the while(
 stack_tempoHoras = [0 for i in range(2000)]  # array used later, inside the while(count3)
 ########################################################################################
 
-########### Matriz 3-D para armazenar valores das intensidades das estrelas sem machas ################
+########### Matriz 3-D para armazenar valores das intensidades das estrelas sem manchas ################
 ########### com diferentes compr. de ondaspara a normalização em Eclipse ##############################
 
 estrelaSemManchas = []  # this creates a 3D empty matrix
@@ -334,8 +334,8 @@ fi = [0.] * quantidade  # vetor intensidade manchas
 li = [0.] * quantidade  # vetor longitude manchas
 
 
-#tempSpot = 0.418 * tempStar + 1620 # Temp. calculada em Rackham et al. 2018 p/ estrelas do tipo F-G-K
-tempSpot = tempStar + 300
+tempSpot = 0.418 * tempStar + 1620 # Temp. calculada em Rackham et al. 2018 p/ estrelas do tipo F-G-K
+#tempSpot = tempStar + 300
 print('temperatura efetiva da estrela: ', tempStar)
 
 intensidadeMancha = np.zeros(num_elements)
@@ -550,29 +550,36 @@ df1.to_excel("output_transit_depth.xlsx")
 
 # imprimindo valores da profundidade de trânsito em txt
 
-if tempSpot <= (0.418 * tempStar + 1620):
+if tempSpot <= (0.418 * tempStar + 1620) and int(manchas[0]) != 0:
     f_spot = "{:.2f}".format(f_spot)
     np.savetxt(str(object) + '_output_transit_depth(trans_lat=' + str(int(latsugerida)) + 'graus,f_spot=' + f_spot +
-               ',temp_spot=' + str(int(tempSpot)) + 'K).txt', D_lambda, delimiter=',')
+               ',T_spot=' + str(int(tempSpot)) + 'K).txt', D_lambda, delimiter=',')
     # imprimindo valores de epsilon de Rackham em txt
     np.savetxt(str(object) + '_output_epsilon_Rackham(trans_lat=' + str(int(latsugerida)) + 'graus,f_spot=' +
-               f_spot + ',temp_spot=' + str(int(tempSpot)) + 'K).txt', epsilon_Rackham, delimiter=',')
+               f_spot + ',T_spot=' + str(int(tempSpot)) + 'K).txt', epsilon_Rackham, delimiter=',')
     # imprimindo valores dos comprimentos de onda em txt (útil para construção dos gráficos)
+    np.savetxt(str(object) + '_output_wavelengths.txt', lambdaEff_nm, delimiter=',')
+    print(epsilon_Rackham)
+
+elif tempSpot > tempStar and int(manchas[0]) != 0:
+    f_spot = "{:.2f}".format(f_spot)
+    np.savetxt(str(object) + '_output_transit_depth(trans_lat=' + str(int(latsugerida)) + 'graus,f_fac=' + f_spot +
+               ',T_facula=' + str(int(tempSpot)) + 'K).txt', D_lambda, delimiter=',')
+    # imprimindo valores de epsilon de Rackham em txt
+    np.savetxt(str(object) + '_output_epsilon_Rackham(trans_lat=' + str(int(latsugerida)) + 'graus,f_fac=' +
+               f_spot + ',T_fac=' + str(int(tempSpot)) + 'K).txt', epsilon_Rackham, delimiter=',')
+    # imprimindo valores dos comprimentos de onda em txt (útil para construção dos gráficos)
+    np.savetxt(str(object) + '_output_wavelengths.txt', lambdaEff_nm, delimiter=',')
+    print(epsilon_Rackham)
+
+elif int(manchas[0]) == 0:
+    np.savetxt(str(object) + '_output_transit_depth(trans_lat=' + str(int(latsugerida)) + '_ff=0%).txt', D_lambda, delimiter=',')
+    # imprimindo valores de epsilon de Rackham em txt
     np.savetxt(str(object) + '_output_wavelengths.txt', lambdaEff_nm, delimiter=',')
 
-else:
-    f_spot = "{:.2f}".format(f_spot)
-    np.savetxt(str(object) + '_output_transit_depth(trans_lat=' + str(int(latsugerida)) + 'graus,f_facula=' + f_spot +
-               ',temp_facula=' + str(int(tempSpot)) + 'K).txt', D_lambda, delimiter=',')
-    # imprimindo valores de epsilon de Rackham em txt
-    np.savetxt(str(object) + '_output_epsilon_Rackham(trans_lat=' + str(int(latsugerida)) + 'graus,f_facula=' +
-               f_spot + ',temp_facula=' + str(int(tempSpot)) + 'K).txt', epsilon_Rackham, delimiter=',')
-    # imprimindo valores dos comprimentos de onda em txt (útil para construção dos gráficos)
-    np.savetxt(str(object) + '_output_wavelengths.txt', lambdaEff_nm, delimiter=',')
 
 print(D_lambda)
 
-print(epsilon_Rackham)
-
 pyplot.tight_layout()
+
 pyplot.show()

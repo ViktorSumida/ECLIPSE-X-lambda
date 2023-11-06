@@ -6,7 +6,6 @@ import scipy.interpolate as interpolate
 import math
 from matplotlib.offsetbox import AnchoredText
 from matplotlib.ticker import (MultipleLocator, AutoMinorLocator)
-
 import seaborn as sns
 # https://seaborn.pydata.org/tutorial/color_palettes.html
 # https://holypython.com/python-visualization-tutorial/colors-with-python/
