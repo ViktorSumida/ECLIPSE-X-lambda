@@ -7,7 +7,7 @@
 import numpy as np
 import pandas as pd
 from matplotlib import pyplot
-from estrela_nv1 import estrela
+from estrela import Estrela
 from eclipse_nv1 import Eclipse
 from verify import Validar, ValidarEscolha, calSemiEixo, calculaLat
 import csv
@@ -96,7 +96,6 @@ temp = table_ExoCTK['Teff'].to_numpy()
 temp = np.delete(temp, 0)    # removing the column reader "-----"
 tempStar = temp[0]
 
-
 if profile == 'linear': # Linear has one limb darkening coefficient
     c2 = [0 for j in range(num_elements)]
     c3 = [0 for i in range(num_elements)]
@@ -116,7 +115,6 @@ elif profile == 'quadratic' or 'square-root' or 'logarithmic' or 'exponential':
 
 ########################################################################################
 ######################### Parâmetros ###################################################
-
 parameters = pd.read_excel('Parâmetros.xlsx', engine='openpyxl',
                            keep_default_na=False) # To read empty cell as empty string, use keep_default_na=False
 
@@ -178,8 +176,9 @@ anom = float(anom[0]) # necessário converter vetor para variável
 #intensidadeMaxima = 5000  # default 240
 #tamanhoMatriz = 4050  # default 856
 #raioStar = 0.89  # parâmetro_mudar raio da estrela em relacao ao raio do sol
+raioSun = raioStar
 raioStar = raioStar * 696340  # multiplicando pelo raio solar em Km
-
+semiEixoUA = 0
 #ecc = 0
 #anom = 0
 
@@ -241,7 +240,7 @@ count7 = 0
 while (count7 < num_elements):
     intensidadeEstrelaLambda[count7] = planck(lambdaEff[count7] * 1.0e-6, tempStar)
     intensidadeEstrelaLambdaNormalizada[count7] = intensidadeMaxima * intensidadeEstrelaLambda[count7] / intensidadeEstrelaLambdaMaximo
-
+    #print('intensidadeEstrelaLambdaNormalizada: ', intensidadeEstrelaLambdaNormalizada)
     count7 += 1
 ################################################################################
 #print('Intensidade máxima (default):', intensidadeMaxima)
@@ -250,26 +249,26 @@ while (count7 < num_elements):
 
 count1 = 0
 while (count1 < num_elements):
+
+
     coeficienteHum = c1[count1]
     coeficienteDois = c2[count1]
     coeficienteTres = c3[count1]
     coeficienteQuatro = c4[count1]
 
-
-    estrela_ = estrela(raio, intensidadeEstrelaLambdaNormalizada[count1], coeficienteHum, coeficienteDois,
+    estrela_ = Estrela(raio, raioSun, intensidadeEstrelaLambdaNormalizada[count1], coeficienteHum, coeficienteDois,
                        coeficienteTres, coeficienteQuatro, tamanhoMatriz, profile)
 
-
+    #print('intensidadeEstrelaLambdaNormalizada: ', intensidadeEstrelaLambdaNormalizada)
     Nx = estrela_.getNx()  # Nx e Ny necessarios para a plotagem do eclipse
     Ny = estrela_.getNy()
 
     dtor = np.pi / 180.0
-    #periodo = 8.667  # [em dias] parâmetro_mudar
+    #periodo = 8.667 # [em dias] parâmetro_mudar
     periodo = parameters['periodo'].to_numpy()
     nullAux = np.where(periodo == '')
     periodo = np.delete(periodo, nullAux)  # removendo os valores ''
     periodo = float(periodo[0])  # necessário converter vetor para variável
-    #anguloInclinacao = 89.86  # [em graus] parâmetro_mudar
     anguloInclinacao = parameters['anguloInclinacao'].to_numpy()
     nullAux = np.where(anguloInclinacao == '')
     anguloInclinacao = np.delete(anguloInclinacao, nullAux)  # removendo os valores ''
@@ -281,7 +280,6 @@ while (count1 < num_elements):
     decisao = np.delete(kepler, nullAux)  # removendo os valores ''
     decisao = int(decisao[0])  # necessário converter vetor para variável
     if decisao == 1:
-        #massStar = 0.86  # parâmetro_mudar [colocar massa da estrela em relação à massa do sol]
         massStar = parameters['massStar'].to_numpy()
         nullAux = np.where(massStar == '')
         massStar = np.delete(massStar, nullAux)  # removendo os valores ''
@@ -291,21 +289,20 @@ while (count1 < num_elements):
         # transforma em km para fazer em relação ao raio da estrela, que também está em km
 
     else:
-        #semiEixoRaioStar = Validar('Semi eixo (em UA:)')
         # em unidades de Rstar
         semiEixoRaioStar = parameters['semiEixoRaioStar'].to_numpy()
         nullAux = np.where(semiEixoRaioStar == '')
         semiEixoRaioStar = np.delete(semiEixoRaioStar, nullAux)  # removendo os valores ''
         semiEixoRaioStar = float(semiEixoRaioStar[0])  # necessário converter vetor para variável
+        semiEixoUA = semiEixoRaioStar
         semiEixoRaioStar = ((1.496 * (10**8)) * semiEixoRaioStar) / raioStar
         # multiplicando pelas UA (transformando em Km) e convertendo em relacao ao raio da estrela
 
-    #raioPlanetaRstar = 0.283  # parâmetro_mudar em relação ao raio de jupiter
     raioPlanetaRstar = parameters['raioPlaneta'].to_numpy()
     nullAux = np.where(raioPlanetaRstar == '')
     raioPlanetaRstar = np.delete(raioPlanetaRstar, nullAux)  # removendo os valores ''
     raioPlanetaRstar = float(raioPlanetaRstar[0])  # necessário converter vetor para variável
-
+    raioPlanJup = raioPlanetaRstar
     raioPlanetaRstar = (raioPlanetaRstar * 69911) / raioStar  # multiplicando pelo raio de jupiter em km
 
     latsugerida = calculaLat(semiEixoRaioStar, anguloInclinacao)
@@ -315,6 +312,9 @@ while (count1 < num_elements):
 
     stack_estrela_[count1] = estrela_
 
+    #estrela = stack_estrela_[count1].getEstrela()
+    #estrela_.Plotar(tamanhoMatriz, estrela)
+
     count1 += 1
 
 ####################################################################################
@@ -322,10 +322,9 @@ while (count1 < num_elements):
 ####################################################################################
 
 #quantidade = 1 # parâmetro_mudar quantidade de manchas desejadas, se quiser acrescentar, mude essa variavel
-#lat = [-2.654914842784862] # parâmetro_mudar informação dada quando rodar o programa
-#longt = [0] # parâmetro_mudar
-#r = [0.05] # parâmetro_mudar Digite o raio da mancha em função do raio da estrela em pixels
-
+#lat = [0.0, 0.0, 0.0] # parâmetro_mudar informação dada quando rodar o programa
+#longt = [40, -40, 0.1] # parâmetro_mudar
+#r = [0.31, 0.31, 0.31] # parâmetro_mudar Digite o raio da mancha em função do raio da estrela em pixels
 #####################################################################################
 
 # cria vetores do tamanho de quantidade para colocar os parametros das manchas
@@ -333,9 +332,8 @@ fa = [0.] * quantidade  # vetor area manchas
 fi = [0.] * quantidade  # vetor intensidade manchas
 li = [0.] * quantidade  # vetor longitude manchas
 
-
-tempSpot = 0.418 * tempStar + 1620 # Temp. calculada em Rackham et al. 2018 p/ estrelas do tipo F-G-K
-#tempSpot = tempStar + 300
+#tempSpot = 0.418 * tempStar + 1620 # Temp. calculada em Rackham et al. 2018 p/ estrelas do tipo F-G-K
+tempSpot = tempStar + 300
 print('temperatura efetiva da estrela: ', tempStar)
 
 intensidadeMancha = np.zeros(num_elements)
@@ -347,45 +345,43 @@ epsilon_Rackham = [0 for j in range(num_elements)]
 count3 = 0
 while count3 < num_elements:
 
-    # intensidadeMancha = float(input('Digite a intensidade da mancha em função da intensidade máxima da estrela:')) ## esta intensidade
-    # deverá ser mudada com o modelo de corpo negro
+    print('Começando a simulação ' + str(count3) + ' de ' + str(num_elements))
 
-    intensidadeMancha[count3] = planck(lambdaEff[count3] * 1.0e-6, tempSpot)  # em [W m^-2 nm^-1]
+    if quantidade != 0:
 
-    intensidadeManchaNormalizada[count3] = intensidadeMancha[count3] * intensidadeEstrelaLambdaNormalizada[count3] / intensidadeEstrelaLambda[count3]
-    intensidadeManchaRazao[count3] = intensidadeManchaNormalizada[count3] / intensidadeEstrelaLambdaNormalizada[count3]
-    print('valores da razão entre intensidade da mancha e intensidade da estrela em determinado '
-          'comprimento de onda: ', intensidadeManchaRazao[count3])
+        intensidadeMancha[count3] = planck(lambdaEff[count3] * 1.0e-6, tempSpot)  # em [W m^-2 nm^-1]
+        intensidadeManchaNormalizada[count3] = (intensidadeMancha[count3] * intensidadeEstrelaLambdaNormalizada[count3]/intensidadeEstrelaLambda[count3])
+        intensidadeManchaRazao[count3] = intensidadeManchaNormalizada[count3] / intensidadeEstrelaLambdaNormalizada[count3]
+        print('valores da razão entre intensidade da mancha e intensidade da estrela em determinado '
+              'comprimento de onda: ', intensidadeManchaRazao[count3])
 
 
-    #print('Intensidade da Estrela normalizada = ', intensidadeEstrelaLambdaNormalizada)
-    #print('Intensidade da Mancha normalizada = ', intensidadeManchaNormalizada)
-    #print('Intensidade da Estrela =', intensidadeEstrelaLambda)
-    #print('Intensidade da Mancha =', intensidadeMancha)
-    #print('Razão entre a intensidade da mancha e a intensidade da estrela =', intensidadeManchaRazao[count3])
+        #print('Intensidade da Estrela normalizada = ', intensidadeEstrelaLambdaNormalizada)
+        #print('Intensidade da Mancha normalizada = ', intensidadeManchaNormalizada)
+        #print('Intensidade da Estrela =', intensidadeEstrelaLambda)
+        #print('Intensidade da Mancha =', intensidadeMancha)
+        #print('Razão entre a intensidade da mancha e a intensidade da estrela =', intensidadeManchaRazao[count3])
 
-    count = 0
-    while count != quantidade:  # o laço ira rodar a quantidade de manchas selecionadas pelo usuario
+        count = 0
+        while count != quantidade:  # o laço ira rodar a quantidade de manchas selecionadas pelo usuario
 
-        #print('\033[1;35m\n\n══════════════════ Parâmetros da mancha ', count + 1, '═══════════════════\n\n\033[m')
-        #r = Validar('Digite o raio da mancha em função do raio da estrela em pixels:')
+            #print('\033[1;35m\n\n══════════════════ Parâmetros da mancha ', count + 1, '═══════════════════\n\n\033[m')
+            #r = Validar('Digite o raio da mancha em função do raio da estrela em pixels:')
 
-        fi[count] = intensidadeManchaRazao[count3]
-        #lat = float(input('Latitude da mancha:'))
-        #longt = float(input('Longitude da mancha:'))
-        li[count] = longt[count]
+            fi[count] = intensidadeManchaRazao[count3]
+            #lat = float(input('Latitude da mancha:'))
+            #longt = float(input('Longitude da mancha:'))
+            li[count] = longt[count]
+            raioMancha = r[count] * raioStar
+            area = np.pi * (raioMancha ** 2) # área da mancha sem projeção
+            fa[count] = area
 
-        raioMancha = r[count] * raioStar
-        area = np.pi * (raioMancha ** 2) # área da mancha sem projeção
-        fa[count] = area
+            estrela = stack_estrela_[count3].manchas(r[count], intensidadeManchaRazao[count3], lat[count],
+                                                     longt[count])  # recebe a escolha se irá receber manchas ou não
 
-        estrela = stack_estrela_[count3].manchas(r[count], intensidadeManchaRazao[count3], lat[count],
-                                                 longt[count])  # recebe a escolha se irá receber manchas ou não
+            count += 1
 
         print("Razão entre intensidades: ", intensidadeManchaRazao[count3])
-
-        count += 1
-
 
     area_spot = np.sum(fa)
     area_star = np.pi * (raioStar ** 2)
@@ -427,24 +423,6 @@ while count3 < num_elements:
 
     #########################
 
-    eclipse.geraTempoHoras()
-    tempoHoras = eclipse.getTempoHoras()
-    # instanciando LUA
-    #rmoon = 0.5  # parâmetro_mudar em relacao ao raio da Terra
-    rmoon = parameters['rMoon'].to_numpy()
-    nullAux = np.where(rmoon == '')
-    rmoon = np.delete(rmoon, nullAux)  # removendo os valores ''
-    rmoon = float(rmoon[0])  # necessário converter vetor para variável
-    rmoon = rmoon * 6371  # parâmetro_mudar multiplicando pelo R da terra em Km
-
-    #massMoon = 0.001  # parâmetro_mudar em relacao a massa da Terra
-    massMoon = parameters['massMoon'].to_numpy()
-    nullAux = np.where(massMoon == '')
-    massMoon = np.delete(massMoon, nullAux)  # removendo os valores ''
-    massMoon = float(massMoon[0])  # necessário converter vetor para variável
-    massMoon = massMoon * (5.972 * (10 ** 24))
-
-    #massPlaneta = 0.0321  # parâmetro_mudar em relacao ao R de jupiter
     massPlaneta = parameters['massPlaneta'].to_numpy()
     nullAux = np.where(massPlaneta == '')
     massPlaneta = np.delete(massPlaneta, nullAux)  # removendo os valores ''
@@ -452,21 +430,13 @@ while count3 < num_elements:
     massPlaneta = massPlaneta * (1.898 * (10 ** 27))  # passar para gramas por conta da constante G
     G = (6.674184 * (10 ** (-11)))
 
-    #perLua = 0.1  # parâmetro_mudar [em dias]
-    perLua = parameters['perMoon'].to_numpy()
-    nullAux = np.where(perLua == '')
-    perLua = np.delete(perLua, nullAux)  # removendo os valores ''
-    perLua = float(perLua[0])  # necessário converter vetor para variável
+    eclipse.geraTempoHoras()
+    tempoHoras = eclipse.getTempoHoras()
 
-    distancia = ((((perLua * 24. * 3600. / 2. / np.pi) ** 2) * G * (massPlaneta + massMoon)) ** (1. / 3)) / raioStar
-    distancia = distancia / 100
-    moon = eclipse.criarLua(rmoon, massMoon, raio, raioStar, tempoHoras, anguloInclinacao, periodo, distancia)
-
-
-    estrela = stack_estrela_[count3].getEstrela()
+    #estrela = stack_estrela_[count3].getEstrela()
 
     # eclipse
-    eclipse.criarEclipse(semiEixoRaioStar, raioPlanetaRstar, periodo, anguloInclinacao, lua, ecc, anom)
+    eclipse.criarEclipse(semiEixoRaioStar, semiEixoUA, raioPlanetaRstar, raioPlanJup, periodo, anguloInclinacao, lua, ecc, anom)
 
     print("Tempo Total (Trânsito):", eclipse.getTempoTransito())
     tempoTransito = eclipse.getTempoTransito()
@@ -478,11 +448,17 @@ while count3 < num_elements:
     #pyplot.axis([-tempoTransito / 2, tempoTransito / 2, min(curvaLuz) - 0.001, 1.001])
     #pyplot.show()
 
+    #np.savetxt('curvaLuz_output_transit_depth.txt', curvaLuz, delimiter=',')
+
     tempoHoras = np.asarray(tempoHoras)   # turning list into vector
     curvaLuz = np.asarray(curvaLuz)       # turning list into vector
 
-    sizeCurvaLuz = np.size(curvaLuz)
+    sizeCurvaLuz = len(curvaLuz)
     sizeTempoHoras = np.size(tempoHoras)
+    index_midTrans = int(np.floor(sizeCurvaLuz / 2))
+
+    print('D_lambda_mid: ', (1.0 - curvaLuz[index_midTrans]) * 1000000)
+    print('D_lambda_min: ', (1.0 - min(curvaLuz)) * 1000000)
 
 
     stack_curvaLuz[count3] = curvaLuz     # previously declared
@@ -511,13 +487,15 @@ while(count4 < num_elements):
     lambdaEff_nm[count4] = lambdaEff[count4] * 1000
     pyplot.plot(stack_tempoHoras[count4], stack_curvaLuz[count4], label=int(lambdaEff_nm[count4]),
                 color=palette[count_palette])
-    D_lambda[count4] = min(stack_curvaLuz[count4])
-    D_lambda[count4] = (1 - D_lambda[count4]) * 1000000 # profundidade de trânsito está em ppm, CUIDADO!!!
-    print("Máxima profundidade de trânsito: ", min(stack_curvaLuz[count4]))
+
+    index_midTrans = int(np.floor(len(stack_curvaLuz[count4])/2))
+    D_lambda_mid = stack_curvaLuz[count4]
+    D_lambda[count4] = (1.0 - D_lambda_mid[index_midTrans]) * 1.e6 # profundidade de trânsito está em ppm, CUIDADO!!!
+    #print("Máxima profundidade de trânsito: ", D_lambda[count4])
     count4 += 1
     count_palette -= 1
 
-pyplot.axis([-tempoTransito, tempoTransito, min(curvaLuz) - (min(curvaLuz)/100), 1.001])
+pyplot.axis([-tempoTransito/2, tempoTransito/2, min(curvaLuz) - 0.001, 1.001])
 #pyplot.axis([-1.1, 1.1, 0.99955, 1.00005])
 #pyplot.yticks([0.9995, 0.9996, 0.9997, 0.9998, 0.9999, 1.0000])
 #pyplot.xticks([-1.0, -0.5, 0, 0.5, 1.0])
@@ -553,29 +531,29 @@ df1.to_excel("output_transit_depth.xlsx")
 if tempSpot <= (0.418 * tempStar + 1620) and int(manchas[0]) != 0:
     f_spot = "{:.2f}".format(f_spot)
     np.savetxt(str(object) + '_output_transit_depth(trans_lat=' + str(int(latsugerida)) + 'graus,f_spot=' + f_spot +
-               ',T_spot=' + str(int(tempSpot)) + 'K).txt', D_lambda, delimiter=',')
+               ',T_spot=' + str(int(tempSpot)) + 'K).txt', D_lambda, header="D_lambda, wavelength", delimiter=',')
     # imprimindo valores de epsilon de Rackham em txt
     np.savetxt(str(object) + '_output_epsilon_Rackham(trans_lat=' + str(int(latsugerida)) + 'graus,f_spot=' +
-               f_spot + ',T_spot=' + str(int(tempSpot)) + 'K).txt', epsilon_Rackham, delimiter=',')
+               f_spot + ',T_spot=' + str(int(tempSpot)) + 'K).txt', np.transpose([epsilon_Rackham, lambdaEff_nm]), header="epsilon_R, wavelength", delimiter=',')
     # imprimindo valores dos comprimentos de onda em txt (útil para construção dos gráficos)
-    np.savetxt(str(object) + '_output_wavelengths.txt', lambdaEff_nm, delimiter=',')
+    np.savetxt(str(object) + '_output_wavelengths.txt', lambdaEff_nm, header="wavelength", delimiter=',')
     print(epsilon_Rackham)
 
 elif tempSpot > tempStar and int(manchas[0]) != 0:
     f_spot = "{:.2f}".format(f_spot)
     np.savetxt(str(object) + '_output_transit_depth(trans_lat=' + str(int(latsugerida)) + 'graus,f_fac=' + f_spot +
-               ',T_facula=' + str(int(tempSpot)) + 'K).txt', D_lambda, delimiter=',')
+               ',T_facula=' + str(int(tempSpot)) + 'K).txt', np.transpose([D_lambda, lambdaEff_nm]), header="D_lambda, wavelength", delimiter=',')
     # imprimindo valores de epsilon de Rackham em txt
     np.savetxt(str(object) + '_output_epsilon_Rackham(trans_lat=' + str(int(latsugerida)) + 'graus,f_fac=' +
-               f_spot + ',T_fac=' + str(int(tempSpot)) + 'K).txt', epsilon_Rackham, delimiter=',')
+               f_spot + ',T_fac=' + str(int(tempSpot)) + 'K).txt', np.transpose([epsilon_Rackham, lambdaEff_nm]), header="epsilon_R, wavelength", delimiter=',')
     # imprimindo valores dos comprimentos de onda em txt (útil para construção dos gráficos)
-    np.savetxt(str(object) + '_output_wavelengths.txt', lambdaEff_nm, delimiter=',')
+    np.savetxt(str(object) + '_output_wavelengths.txt', lambdaEff_nm, header="wavelength", delimiter=',')
     print(epsilon_Rackham)
 
 elif int(manchas[0]) == 0:
-    np.savetxt(str(object) + '_output_transit_depth(trans_lat=' + str(int(latsugerida)) + '_ff=0%).txt', D_lambda, delimiter=',')
+    np.savetxt(str(object) + '_output_transit_depth(trans_lat=' + str(int(latsugerida)) + '_ff=0%).txt', np.transpose([D_lambda, lambdaEff_nm]), header="D_lambda, wavelength", delimiter=',')
     # imprimindo valores de epsilon de Rackham em txt
-    np.savetxt(str(object) + '_output_wavelengths.txt', lambdaEff_nm, delimiter=',')
+    np.savetxt(str(object) + '_output_wavelengths.txt', lambdaEff_nm, header="wavelength", delimiter=',')
 
 
 print(D_lambda)

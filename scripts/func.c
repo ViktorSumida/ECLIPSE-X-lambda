@@ -3,7 +3,7 @@
 #include <omp.h>
 #include <math.h>
 
-int* criaEstrela(int lin, int col, int tamanhoMatriz, float raio, float intensidadeMaxima, float coeficienteHum, float coeficienteDois){
+int* criaEstrela(int lin, int col, int tamanhoMatriz, float raio, float intensidadeMaxima, float c1, float c2, float c3, float c4){
 	int i, j;
 	int *estrela = (int*) malloc (lin * col * sizeof(int*));
 	int index;
@@ -27,12 +27,11 @@ int* criaEstrela(int lin, int col, int tamanhoMatriz, float raio, float intensid
 			if(distanciaCentro <= raio){
 				cosTheta = sqrt(1-pow(distanciaCentro/raio,2));
 				index = i*(lin) + j;
-				estrela[index] = (int) (intensidadeMaxima * (1 - coeficienteHum * (1 - cosTheta) - coeficienteDois * (pow(1 - cosTheta,2))));
+				estrela[index] = (int)(intensidadeMaxima * (1 - c1 * (1 - pow(cosTheta, 0.5)) - c2 * (1 - cosTheta) - c3 * (1 - pow(cosTheta, 1.5)) - c4 * (1 - pow(cosTheta, 2.0))));
 			}
 		}
 	}
 }
-
 	return estrela;
 }
 
@@ -42,7 +41,7 @@ double curvaLuz(double x0, double y0, int tamanhoMatriz, double raioPlanetaPixel
 
 #pragma omp parallel for reduction(+:valor)
 	for(i=0;i<tamanhoMatriz*tamanhoMatriz;i++){
-		if(pow((kk[i]/tamanhoMatriz-y0),2) + pow((kk[i]-tamanhoMatriz*floor(kk[i]/tamanhoMatriz)-x0),2) > pow(raioPlanetaPixel,2)){
+		if(pow((kk[i]/tamanhoMatriz-y0),2) + pow((kk[i]-tamanhoMatriz * floor(kk[i]/tamanhoMatriz)-x0),2) > pow(raioPlanetaPixel,2)){
 			valor += estrelaManchada[i];
 		}
 	}
