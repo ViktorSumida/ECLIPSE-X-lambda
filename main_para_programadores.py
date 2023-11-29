@@ -290,12 +290,11 @@ while (count1 < num_elements):
 
     else:
         # em unidades de Rstar
-        semiEixoRaioStar = parameters['semiEixoRaioStar'].to_numpy()
-        nullAux = np.where(semiEixoRaioStar == '')
-        semiEixoRaioStar = np.delete(semiEixoRaioStar, nullAux)  # removendo os valores ''
-        semiEixoRaioStar = float(semiEixoRaioStar[0])  # necessário converter vetor para variável
-        semiEixoUA = semiEixoRaioStar
-        semiEixoRaioStar = ((1.496 * (10**8)) * semiEixoRaioStar) / raioStar
+        semiEixoUA_ = parameters['semiEixoUA'].to_numpy()
+        nullAux = np.where(semiEixoUA == '')
+        semiEixoUA_ = np.delete(semiEixoUA_, nullAux)  # removendo os valores ''
+        semiEixoUA = float(semiEixoUA_[0])  # necessário converter vetor para variável
+        semiEixoRaioStar = ((1.496 * (10**8)) * semiEixoUA) / raioStar
         # multiplicando pelas UA (transformando em Km) e convertendo em relacao ao raio da estrela
 
     raioPlanetaRstar = parameters['raioPlaneta'].to_numpy()
@@ -335,6 +334,7 @@ li = [0.] * quantidade  # vetor longitude manchas
 #tempSpot = 0.418 * tempStar + 1620 # Temp. calculada em Rackham et al. 2018 p/ estrelas do tipo F-G-K
 tempSpot = tempStar + 300
 print('temperatura efetiva da estrela: ', tempStar)
+print('temperatura efetiva da região ativa: ', tempSpot)
 
 intensidadeMancha = np.zeros(num_elements)
 intensidadeManchaNormalizada = np.zeros(num_elements)
@@ -345,9 +345,9 @@ epsilon_Rackham = [0 for j in range(num_elements)]
 count3 = 0
 while count3 < num_elements:
 
-    print('Começando a simulação ' + str(count3) + ' de ' + str(num_elements))
+    print('Começando a simulação ' + str(count3 + 1) + ' de ' + str(num_elements))
 
-    if quantidade != 0:
+    if quantidade > 0:
 
         intensidadeMancha[count3] = planck(lambdaEff[count3] * 1.0e-6, tempSpot)  # em [W m^-2 nm^-1]
         intensidadeManchaNormalizada[count3] = (intensidadeMancha[count3] * intensidadeEstrelaLambdaNormalizada[count3]/intensidadeEstrelaLambda[count3])
@@ -363,14 +363,9 @@ while count3 < num_elements:
         #print('Razão entre a intensidade da mancha e a intensidade da estrela =', intensidadeManchaRazao[count3])
 
         count = 0
-        while count != quantidade:  # o laço ira rodar a quantidade de manchas selecionadas pelo usuario
-
-            #print('\033[1;35m\n\n══════════════════ Parâmetros da mancha ', count + 1, '═══════════════════\n\n\033[m')
-            #r = Validar('Digite o raio da mancha em função do raio da estrela em pixels:')
+        while count < quantidade:  # o laço ira rodar a quantidade de manchas selecionadas pelo usuario
 
             fi[count] = intensidadeManchaRazao[count3]
-            #lat = float(input('Latitude da mancha:'))
-            #longt = float(input('Longitude da mancha:'))
             li[count] = longt[count]
             raioMancha = r[count] * raioStar
             area = np.pi * (raioMancha ** 2) # área da mancha sem projeção
@@ -383,6 +378,10 @@ while count3 < num_elements:
 
         print("Razão entre intensidades: ", intensidadeManchaRazao[count3])
 
+    elif quantidade == 0:
+        estrela = stack_estrela_[count3].getEstrela()  # getEstrela(self)  Retorna a estrela, plotada sem as manchas,
+        # necessário caso o usuário escolha a plotagem sem manchas.
+
     area_spot = np.sum(fa)
     area_star = np.pi * (raioStar ** 2)
     f_spot = area_spot / area_star
@@ -390,11 +389,6 @@ while count3 < num_elements:
     fatorEpsilon = 1 / (1 - (f_spot * (1 - intensidadeManchaRazao[count3])))
     epsilon_Rackham[count3] = fatorEpsilon
     print('epsilon de Rackham = ', fatorEpsilon)
-
-
-    estrela = stack_estrela_[count3].getEstrela()  #getEstrela(self)  Retorna a estrela, plotada sem as manchas,
-                                                    # necessário caso o usuário escolha a plotagem sem manchas.
-
 
     # para plotar a estrela
     # caso nao queira plotar a estrela, comentar linhas abaixo
@@ -430,6 +424,7 @@ while count3 < num_elements:
     massPlaneta = massPlaneta * (1.898 * (10 ** 27))  # passar para gramas por conta da constante G
     G = (6.674184 * (10 ** (-11)))
 
+    tempoHoras = []
     eclipse.geraTempoHoras()
     tempoHoras = eclipse.getTempoHoras()
 
@@ -437,6 +432,10 @@ while count3 < num_elements:
 
     # eclipse
     eclipse.criarEclipse(semiEixoRaioStar, semiEixoUA, raioPlanetaRstar, raioPlanJup, periodo, anguloInclinacao, lua, ecc, anom)
+
+    curvaLuz = []
+    tempoTransito = []
+    tempoTransito = []
 
     print("Tempo Total (Trânsito):", eclipse.getTempoTransito())
     tempoTransito = eclipse.getTempoTransito()
@@ -448,7 +447,7 @@ while count3 < num_elements:
     #pyplot.axis([-tempoTransito / 2, tempoTransito / 2, min(curvaLuz) - 0.001, 1.001])
     #pyplot.show()
 
-    #np.savetxt('curvaLuz_output_transit_depth.txt', curvaLuz, delimiter=',')
+    #np.savetxt('curvaLuz_output_transit_depth.txt', np.transpose([tempoHoras, curvaLuz]), delimiter=',')
 
     tempoHoras = np.asarray(tempoHoras)   # turning list into vector
     curvaLuz = np.asarray(curvaLuz)       # turning list into vector
@@ -491,7 +490,6 @@ while(count4 < num_elements):
     index_midTrans = int(np.floor(len(stack_curvaLuz[count4])/2))
     D_lambda_mid = stack_curvaLuz[count4]
     D_lambda[count4] = (1.0 - D_lambda_mid[index_midTrans]) * 1.e6 # profundidade de trânsito está em ppm, CUIDADO!!!
-    #print("Máxima profundidade de trânsito: ", D_lambda[count4])
     count4 += 1
     count_palette -= 1
 
@@ -509,8 +507,6 @@ pyplot.gca().add_artist(text_box) # frameon é o retângulo em volta do texto
 
 #legend = pyplot.legend()
 #legend.set_title("Wavelength [nm]")
-
-#print("Máxima profundidade de trânsito: ", min(curvaLuz))
 
 pyplot.xlabel("$\mathbf{Time\;from\;transit\;center\;(hr)}$", fontsize=29)
 pyplot.ylabel("$\mathbf{Relative\;flux}$", fontsize=31)
@@ -531,10 +527,10 @@ df1.to_excel("output_transit_depth.xlsx")
 if tempSpot <= (0.418 * tempStar + 1620) and int(manchas[0]) != 0:
     f_spot = "{:.2f}".format(f_spot)
     np.savetxt(str(object) + '_output_transit_depth(trans_lat=' + str(int(latsugerida)) + 'graus,f_spot=' + f_spot +
-               ',T_spot=' + str(int(tempSpot)) + 'K).txt', D_lambda, header="D_lambda, wavelength", delimiter=',')
+               ',T_spot=' + str(int(tempSpot)) + 'K).txt', np.transpose([lambdaEff_nm, D_lambda]), header="wavelength, D_lambda", delimiter=',')
     # imprimindo valores de epsilon de Rackham em txt
     np.savetxt(str(object) + '_output_epsilon_Rackham(trans_lat=' + str(int(latsugerida)) + 'graus,f_spot=' +
-               f_spot + ',T_spot=' + str(int(tempSpot)) + 'K).txt', np.transpose([epsilon_Rackham, lambdaEff_nm]), header="epsilon_R, wavelength", delimiter=',')
+               f_spot + ',T_spot=' + str(int(tempSpot)) + 'K).txt', np.transpose([lambdaEff_nm, epsilon_Rackham]), header="wavelength, epsilon_R", delimiter=',')
     # imprimindo valores dos comprimentos de onda em txt (útil para construção dos gráficos)
     np.savetxt(str(object) + '_output_wavelengths.txt', lambdaEff_nm, header="wavelength", delimiter=',')
     print(epsilon_Rackham)
@@ -542,16 +538,16 @@ if tempSpot <= (0.418 * tempStar + 1620) and int(manchas[0]) != 0:
 elif tempSpot > tempStar and int(manchas[0]) != 0:
     f_spot = "{:.2f}".format(f_spot)
     np.savetxt(str(object) + '_output_transit_depth(trans_lat=' + str(int(latsugerida)) + 'graus,f_fac=' + f_spot +
-               ',T_facula=' + str(int(tempSpot)) + 'K).txt', np.transpose([D_lambda, lambdaEff_nm]), header="D_lambda, wavelength", delimiter=',')
+               ',T_facula=' + str(int(tempSpot)) + 'K).txt', np.transpose([lambdaEff_nm, D_lambda]), header="wavelength, D_lambda", delimiter=',')
     # imprimindo valores de epsilon de Rackham em txt
     np.savetxt(str(object) + '_output_epsilon_Rackham(trans_lat=' + str(int(latsugerida)) + 'graus,f_fac=' +
-               f_spot + ',T_fac=' + str(int(tempSpot)) + 'K).txt', np.transpose([epsilon_Rackham, lambdaEff_nm]), header="epsilon_R, wavelength", delimiter=',')
+               f_spot + ',T_fac=' + str(int(tempSpot)) + 'K).txt', np.transpose([lambdaEff_nm, epsilon_Rackham]), header="wavelength, epsilon_R", delimiter=',')
     # imprimindo valores dos comprimentos de onda em txt (útil para construção dos gráficos)
     np.savetxt(str(object) + '_output_wavelengths.txt', lambdaEff_nm, header="wavelength", delimiter=',')
     print(epsilon_Rackham)
 
 elif int(manchas[0]) == 0:
-    np.savetxt(str(object) + '_output_transit_depth(trans_lat=' + str(int(latsugerida)) + '_ff=0%).txt', np.transpose([D_lambda, lambdaEff_nm]), header="D_lambda, wavelength", delimiter=',')
+    np.savetxt(str(object) + '_output_transit_depth(trans_lat=' + str(int(latsugerida)) + '_ff=0%).txt', np.transpose([lambdaEff_nm, D_lambda]), header="wavelength, D_lambda", delimiter=',')
     # imprimindo valores de epsilon de Rackham em txt
     np.savetxt(str(object) + '_output_wavelengths.txt', lambdaEff_nm, header="wavelength", delimiter=',')
 
